@@ -15,35 +15,28 @@ namespace Oblig1WebApp.Controllers
             return View();
         }
 
-        /* 
-         [HttpPost]
-         public ActionResult Bestilling (Bestilling innBestilling)
-         {
-             var db = new DBContext();
-             bool OK = db.lagreBestilling(innBestilling);
-             if(OK)
-             {
-                 return RedirectToAction("Bestilling");
-             }
-             return View();
-         } */
-
-        public ActionResult Avganger()
+        public ActionResult regAvgang()
         {
             return View();
         }
 
-        /* 
-         [HttpPost]
-         public ActionResult Bestilling (Bestilling innBestilling)
+        [HttpPost]
+         public ActionResult regAvgang (Avgang innAvgang)
          {
              var db = new DBContext();
-             bool OK = db.lagreBestilling(innBestilling);
+             bool OK = db.lagreAvgang(innAvgang);
              if(OK)
              {
-                 return RedirectToAction("Bestilling");
+                 return RedirectToAction("listAvganger");
              }
              return View();
-         } */
+         }
+
+        public ActionResult listAvganger()
+        {
+            var db = new DBContext();
+            List<Avgang> alleAvganger = db.alleAvganger();
+            return View(alleAvganger);
+        }
     }
 }

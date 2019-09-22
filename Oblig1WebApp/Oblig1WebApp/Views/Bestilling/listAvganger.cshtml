@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Oblig1WebApp.Models.Avgang>
+
+@{
+    ViewBag.Title = "listAvganger";
+}
+
+<h2>listAvganger</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.forsteAvgang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sisteAvgang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reiseTid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.spor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.togNummer)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.forsteAvgang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sisteAvgang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.reiseTid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.spor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.togNummer)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

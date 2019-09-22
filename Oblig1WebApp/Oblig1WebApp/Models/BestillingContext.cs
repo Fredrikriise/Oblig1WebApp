@@ -41,7 +41,7 @@ namespace Oblig1WebApp.Models
 
     public class BestillingContext : DbContext
     {
-        public BestillingContext() : base("name=Bestilling")
+        public BestillingContext() : base("name=Bestillinger")
         {
             Database.CreateIfNotExists();
         }
@@ -54,5 +54,6 @@ namespace Oblig1WebApp.Models
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
     }
 }
