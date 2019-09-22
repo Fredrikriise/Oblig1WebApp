@@ -9,7 +9,6 @@ namespace Oblig1WebApp.Controllers
 {
     public class BestillingController : Controller
     {
-        // GET: Bestilling
         public ActionResult Bestilling()
         {
             return View();
@@ -37,6 +36,36 @@ namespace Oblig1WebApp.Controllers
             var db = new DBContext();
             List<Avgang> alleAvganger = db.alleAvganger();
             return View(alleAvganger);
+        }
+
+        public ActionResult endreAvgang(int id)
+        {
+            var db = new DBContext();
+            Avgang enAvgang = db.hentAvgang(id);
+            return View(enAvgang);
+        }
+
+        [HttpPost]
+        public ActionResult endreAvgang(Avgang innAvgang)
+        {
+            var db = new DBContext();
+            bool OK = db.endreAvgang(innAvgang);
+            if (OK)
+            {
+                RedirectToAction("listAvganger");
+            }
+            return View();
+        }
+
+        public ActionResult slettAvgang(int id)
+        {
+            var db = new DBContext();
+            bool OK = db.slettAvgang(id);
+            if (OK)
+            {
+                RedirectToAction("listAvganger");
+            }
+            return View();
         }
     }
 }

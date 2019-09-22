@@ -26,7 +26,6 @@ namespace Oblig1WebApp.Models
             Database.CreateIfNotExists();
         }
 
-        
         public DbSet<Avganger> Avganger { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -12,16 +12,16 @@ namespace Oblig1WebApp
         {
             using (var db = new BestillingContext())
             {
-                List<Bestilling> alleBestillinger = db.Bestillinger.Select(k => new Bestilling
+                List<Bestilling> alleBestillinger = db.Bestillinger.Select(b => new Bestilling
                 {
-                    id = k.Id,
-                    fraLokasjon = k.FraLokasjon,
-                    tilLokasjon = k.TilLokasjon,
-                    bilettType = k.BilettType,
-                    reisende = k.Reisende,
-                    reisendeAntall = k.AntallReisende,
-                    spesialBehov = k.SpesialBehov,
-                    kundeId = k.Kunder.Id
+                    id = b.Id,
+                    fraLokasjon = b.FraLokasjon,
+                    tilLokasjon = b.TilLokasjon,
+                    bilettType = b.BilettType,
+                    reisende = b.Reisende,
+                    reisendeAntall = b.AntallReisende,
+                    spesialBehov = b.SpesialBehov,
+                    kundeId = b.Kunder.Id
                 }).ToList();
 
                 return alleBestillinger;
@@ -32,14 +32,14 @@ namespace Oblig1WebApp
         {
             using (var db = new AvgangContext())
             {
-                List<Avgang> alleAvganger = db.Avganger.Select(k => new Avgang
+                List<Avgang> alleAvganger = db.Avganger.Select(a => new Avgang
                 {
-                    id = k.Id,
-                    forsteAvgang = k.ForsteAvgang,
-                    sisteAvgang = k.SisteAvgang,
-                    reiseTid = k.ReiseTid,
-                    spor = k.Spor,
-                    togNummer = k.TogNummer,
+                    id = a.Id,
+                    forsteAvgang = a.ForsteAvgang,
+                    sisteAvgang = a.SisteAvgang,
+                    reiseTid = a.ReiseTid,
+                    spor = a.Spor,
+                    togNummer = a.TogNummer,
                 }).ToList();
 
                 return alleAvganger;
@@ -65,6 +65,7 @@ namespace Oblig1WebApp
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    return false;
                     throw new Exception(
                         "Feil ved insetting av data i databasen", innsettingsFeil);
                 }
@@ -86,6 +87,71 @@ namespace Oblig1WebApp
                 };
                 return hentetAvgang;
             }
+        }
+
+        public bool endreAvgang(Avgang innAvgang)
+        {
+            using (var db = new AvgangContext())
+            {
+                try
+                {
+                    var endreObjekt = db.Avganger.Find(innAvgang.id);
+
+                    endreObjekt.Id = innAvgang.id;
+                    endreObjekt.ForsteAvgang = innAvgang.forsteAvgang;
+                    endreObjekt.SisteAvgang = innAvgang.sisteAvgang;
+                    endreObjekt.ReiseTid = innAvgang.reiseTid;
+                    endreObjekt.Spor = innAvgang.spor;
+                    endreObjekt.TogNummer = innAvgang.togNummer;
+                    db.SaveChanges();
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                }
+                return true;
+            }
+        }
+
+        public Avgang hentAvgang(int id)
+        {
+            using (var db = new AvgangContext())
+            {
+                Avganger enAvgang = db.Avganger.Find(id);
+                var hentetAvgang = new Avgang()
+                {
+                    id = enAvgang.Id,
+                    forsteAvgang = enAvgang.ForsteAvgang,
+                    sisteAvgang = enAvgang.SisteAvgang,
+                    reiseTid = enAvgang.ReiseTid,
+                    spor = enAvgang.Spor,
+                    togNummer = enAvgang.TogNummer
+                };
+                return hentetAvgang;
+            }
+        }
+
+        public bool slettAvgang(int id)
+        {
+            using (var db = new AvgangContext())
+            {
+                try
+                {
+                    var slettObjekt = db.Avganger.Find(id);
+                    db.Avganger.Remove(slettObjekt);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                }
+            }
+
         }
     }
 }

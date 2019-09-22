@@ -21,6 +21,7 @@ namespace Oblig1WebApp.Models
         public virtual Kunder Kunder { get; set; }
         public object reiseFra { get; internal set; }
     }
+
     public class Kunder
     {
         public int Id { get; set; }

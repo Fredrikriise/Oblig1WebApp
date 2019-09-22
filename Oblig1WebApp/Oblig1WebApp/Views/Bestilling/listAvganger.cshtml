@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Oblig1WebApp.Models.Avgang>
 
 @{
-    ViewBag.Title = "listAvganger";
+    ViewBag.Title = "Avganger - System";
 }
 
-<h2>listAvganger</h2>
+<h2>Alle registrerte avganger</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Registrer ny avgang", "regAvgang")
 </p>
 <table class="table">
     <tr>
@@ -47,9 +47,8 @@
             @Html.DisplayFor(modelItem => item.togNummer)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Endre avganger", "endreAvgang", new { id=item.id }) |
+            @Html.ActionLink("Slett avganger", "slettAvgang", new { id=item.id })
         </td>
     </tr>
 }

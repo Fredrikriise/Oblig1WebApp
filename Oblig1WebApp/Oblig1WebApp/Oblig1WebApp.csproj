@@ -191,6 +191,7 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Bestilling\regAvgang.cshtml" />
     <Content Include="Views\Bestilling\listAvganger.cshtml" />
+    <Content Include="Views\Bestilling\endreAvgang.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
