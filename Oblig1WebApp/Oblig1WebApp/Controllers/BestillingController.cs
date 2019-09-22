@@ -14,6 +14,25 @@ namespace Oblig1WebApp.Controllers
         {
             return View();
         }
+
+        /* 
+         [HttpPost]
+         public ActionResult Bestilling (Bestilling innBestilling)
+         {
+             var db = new DBContext();
+             bool OK = db.lagreBestilling(innBestilling);
+             if(OK)
+             {
+                 return RedirectToAction("Bestilling");
+             }
+             return View();
+         } */
+
+        public ActionResult Avganger()
+        {
+            return View();
+        }
+
         /* 
          [HttpPost]
          public ActionResult Bestilling (Bestilling innBestilling)
