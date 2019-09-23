@@ -34,8 +34,11 @@ namespace Oblig1WebApp.Models
         [Required(ErrorMessage = "Antall reisende må oppgis")]
         public int reisendeAntall { get; set; }
 
-        [Display(Name = "Spesielle behov")]
-        public string spesialBehov { get; set; }
+        public bool barnevogn { get; set; }
+        public bool sykkel { get; set; }
+        public bool hundover_40cm { get; set; }
+        public bool kjaeledyrunder_40cm { get; set; }
+
 
         [Display(Name = "Kundenummer")]
         public int kundeId { get; set; }
