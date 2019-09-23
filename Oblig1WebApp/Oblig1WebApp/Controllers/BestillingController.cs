@@ -14,6 +14,19 @@ namespace Oblig1WebApp.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult regBestilling(Avgang innAvgang)
+        {
+
+            var db = new DBContext();
+            bool OK = db.lagreAvgang(innAvgang);
+            if (OK)
+            {
+                return RedirectToAction("DynamikkView");
+            }
+            return View();
+        }
+
         public ActionResult regAvgang()
         {
             return View();

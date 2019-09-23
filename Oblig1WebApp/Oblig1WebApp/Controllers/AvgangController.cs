@@ -10,8 +10,7 @@ namespace Oblig1WebApp.Controllers
 {
     public class AvgangController : Controller
     {
-        // GET: Kunde
-        public ActionResult Index()
+        public ActionResult DynamikkView()
         {
             return View();
         }

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Vy Bestilling</title>
+    <link href="~/Content/Images/vylogo.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
@@ -18,8 +19,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Bestilling", "Bestilling", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Registrer avgang", "regAvgang", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("List alle avganger", "listAvganger", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Registrer avgang", "regAvgang", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("List alle avganger", "listAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Avganger", "DynamikkView", "Avgang", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

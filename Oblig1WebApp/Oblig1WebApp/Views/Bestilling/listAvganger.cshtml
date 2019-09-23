@@ -4,6 +4,9 @@
     ViewBag.Title = "Avganger - System";
 }
 
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="icon" href="favicon.ico" type="image/ico" />
+
 <h2>Alle registrerte avganger</h2>
 
 <p>
@@ -29,28 +32,29 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.forsteAvgang)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sisteAvgang)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.reiseTid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.spor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.togNummer)
-        </td>
-        <td>
-            @Html.ActionLink("Endre avganger", "endreAvgang", new { id=item.id }) |
-            @Html.ActionLink("Slett avganger", "slettAvgang", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.forsteAvgang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sisteAvgang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reiseTid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.spor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.togNummer)
+            </td>
+            <td>
+                @Html.ActionLink("Endre avganger", "endreAvgang", new { id = item.id }) |
+                @Html.ActionLink("Slett avganger", "slettAvgang", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>

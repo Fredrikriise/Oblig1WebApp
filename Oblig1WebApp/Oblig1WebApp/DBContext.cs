@@ -35,6 +35,42 @@ namespace Oblig1WebApp
             }
         }
 
+        public bool lagreBestilling(Bestilling innBestilling)
+        {
+            using (var db = new BestillingContext())
+            {
+                try
+                {
+                    var nyBestilling = new Bestillinger();
+                    nyBestilling.Id = innBestilling.id;
+                    nyBestilling.FraLokasjon = innBestilling.fraLokasjon;
+                    nyBestilling.TilLokasjon = innBestilling.tilLokasjon;
+                    nyBestilling.BilettType = innBestilling.bilettType;
+                    nyBestilling.Voksen = innBestilling.voksen;
+                    nyBestilling.Barn0_5 = innBestilling.barn0_5;
+                    nyBestilling.Student = innBestilling.student;
+                    nyBestilling.Honnør = innBestilling.honnør;
+                    nyBestilling.Vernepliktig = innBestilling.vernepliktig;
+                    nyBestilling.Barn6_17 = innBestilling.barn6_17;
+                    nyBestilling.Barnevogn = innBestilling.barnevogn;
+                    nyBestilling.Sykkel = innBestilling.sykkel;
+                    nyBestilling.Hundover_40cm = innBestilling.hundover_40cm;
+                    nyBestilling.Kjaeledyrunder_40cm = innBestilling.kjaeledyrunder_40cm;
+                    nyBestilling.KundeId = innBestilling.kundeId;
+
+                    db.Bestillinger.Add(nyBestilling);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                }
+            }
+        }
+
         public List<Avgang> alleAvganger()
         {
             using (var db = new AvgangContext())
