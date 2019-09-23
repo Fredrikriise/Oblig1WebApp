@@ -96,8 +96,7 @@ namespace Oblig1WebApp
                 try
                 {
                     var endreObjekt = db.Avganger.Find(innAvgang.id);
-
-                    endreObjekt.Id = innAvgang.id;
+                                        endreObjekt.Id = innAvgang.id;
                     endreObjekt.ForsteAvgang = innAvgang.forsteAvgang;
                     endreObjekt.SisteAvgang = innAvgang.sisteAvgang;
                     endreObjekt.ReiseTid = innAvgang.reiseTid;

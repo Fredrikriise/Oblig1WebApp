@@ -16,7 +16,6 @@ namespace Oblig1WebApp.Models
         public string ReiseTid { get; set; }
         public string Spor { get; set; }
         public string TogNummer { get; set; }
-
     }
 
     public class AvgangContext : DbContext
