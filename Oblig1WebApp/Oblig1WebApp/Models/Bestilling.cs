@@ -28,17 +28,17 @@ namespace Oblig1WebApp.Models
         public string bilettType { get; set; }
 
         [Display(Name = "Reisende")]
-        [Required(ErrorMessage = "Fornavn må oppgis")]
-        public string reisende { get; set; }
-
-        [Required(ErrorMessage = "Antall reisende må oppgis")]
-        public int reisendeAntall { get; set; }
+        public int voksen { get; set; }
+        public int barn0_5 { get; set; }
+        public int student { get; set; }
+        public int honnør { get; set; }
+        public int vernepliktig { get; set; }
+        public int barn6_17 { get; set; }
 
         public bool barnevogn { get; set; }
         public bool sykkel { get; set; }
         public bool hundover_40cm { get; set; }
         public bool kjaeledyrunder_40cm { get; set; }
-
 
         [Display(Name = "Kundenummer")]
         public int kundeId { get; set; }

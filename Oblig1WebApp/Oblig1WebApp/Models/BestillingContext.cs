@@ -14,9 +14,16 @@ namespace Oblig1WebApp.Models
         public string FraLokasjon { get; set; }
         public string TilLokasjon { get; set; }
         public string BilettType { get; set; }
-        public string Reisende { get; set; }
-        public int AntallReisende { get; set; }
-        public string SpesialBehov { get; set; }
+        public int Voksen { get; set; }
+        public int Barn0_5 { get; set; }
+        public int Student { get; set; }
+        public int Honnør { get; set; }
+        public int Vernepliktig { get; set; }
+        public int Barn6_17 { get; set; }
+        public bool Barnevogn { get; set; }
+        public bool Sykkel { get; set; }
+        public bool Hundover_40cm { get; set; }
+        public bool Kjaeledyrunder_40cm { get; set; }
         public int KundeId { get; set; }
         public virtual Kunder Kunder { get; set; }
         public object reiseFra { get; internal set; }

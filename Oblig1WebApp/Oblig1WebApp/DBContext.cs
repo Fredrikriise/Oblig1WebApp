@@ -18,9 +18,16 @@ namespace Oblig1WebApp
                     fraLokasjon = b.FraLokasjon,
                     tilLokasjon = b.TilLokasjon,
                     bilettType = b.BilettType,
-                    reisende = b.Reisende,
-                    reisendeAntall = b.AntallReisende,
-                    spesialBehov = b.SpesialBehov,
+                    voksen = b.Voksen,
+                    barn0_5 = b.Barn0_5,
+                    student = b.Student,
+                    honnør = b.Honnør,
+                    vernepliktig = b.Vernepliktig,
+                    barn6_17 = b.Barn6_17,
+                    barnevogn = b.Barnevogn,
+                    sykkel = b.Sykkel,
+                    hundover_40cm = b.Hundover_40cm,
+                    kjaeledyrunder_40cm = b.Kjaeledyrunder_40cm,
                     kundeId = b.Kunder.Id
                 }).ToList();
 
