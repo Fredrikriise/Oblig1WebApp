@@ -20,4 +20,10 @@ namespace Oblig1WebApp.Models
         [Display(Name = "Tognummer")]
         public string togNummer { get; set; }
      }
+
+    public class jsAvgang
+    {
+        public int id { get; set; }
+        public string avgang { get; set; }
+    }
 }
