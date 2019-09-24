@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Oblig1WebApp.Models;
-
-namespace Oblig1WebApp.Models
+﻿namespace Oblig1WebApp.Models
 {
     public class Priser : Bestilling
     {
@@ -16,7 +10,7 @@ namespace Oblig1WebApp.Models
         public int vernepliktigBillett = 18;
 
 
-        public int totalBillettPris(int voksenBillett, int barneBillett0_5, int studentBillett, int honnørBillett, int barneBillett6_17, int vernepliktigBillett)  
+        public int totalBillettPris(int voksenBillett, int barneBillett0_5, int studentBillett, int honnørBillett, int barneBillett6_17, int vernepliktigBillett)
         {
             var totalBillettPris = (voksenBillett * voksen) + (barneBillett0_5 * barn0_5) + (studentBillett * student) + (honnørBillett * honnør) + (barneBillett6_17 * barn6_17) + (vernepliktigBillett * vernepliktig);
             return totalBillettPris;

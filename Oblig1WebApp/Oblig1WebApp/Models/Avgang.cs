@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Oblig1WebApp.Models
 {
@@ -19,7 +15,7 @@ namespace Oblig1WebApp.Models
         public string spor { get; set; }
         [Display(Name = "Tognummer")]
         public string togNummer { get; set; }
-     }
+    }
 
     public class jsAvgang
     {

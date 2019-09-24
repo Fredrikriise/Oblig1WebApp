@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Oblig1WebApp.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Oblig1WebApp.Models;
 
 namespace Oblig1WebApp.Controllers
 {
@@ -53,16 +50,16 @@ namespace Oblig1WebApp.Controllers
         }
 
         [HttpPost]
-         public ActionResult regAvgang (Avgang innAvgang)
-         {
-             var db = new DBContext();
-             bool OK = db.lagreAvgang(innAvgang);
-             if(OK)
-             {
-                 return RedirectToAction("listAvganger");
-             }
-             return View();
-         }
+        public ActionResult regAvgang(Avgang innAvgang)
+        {
+            var db = new DBContext();
+            bool OK = db.lagreAvgang(innAvgang);
+            if (OK)
+            {
+                return RedirectToAction("listAvganger");
+            }
+            return View();
+        }
 
         public ActionResult listAvganger()
         {

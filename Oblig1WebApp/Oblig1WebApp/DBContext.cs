@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Oblig1WebApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Oblig1WebApp.Models;
 
 namespace Oblig1WebApp
 {
@@ -77,6 +76,32 @@ namespace Oblig1WebApp
             }
         }
 
+        public Bestilling hentBestilling(int id)
+        {
+            using (var db = new BestillingContext())
+            {
+                Bestillinger enBestilling = db.Bestillinger.Find(id);
+                var hentetBestilling = new Bestilling()
+                {
+                    id = enBestilling.Id,
+                    fraLokasjon = enBestilling.FraLokasjon,
+                    tilLokasjon = enBestilling.TilLokasjon,
+                    billettType = enBestilling.BillettType,
+                    utreiseDato = enBestilling.UtreiseDato,
+                    utreiseTid = enBestilling.UtreiseTid,
+                    returDato = enBestilling.ReturDato,
+                    returTid = enBestilling.ReturTid,
+                    voksen = enBestilling.Voksen,
+                    barn0_5 = enBestilling.Barn0_5,
+                    student = enBestilling.Student,
+                    honnør = enBestilling.Honnør,
+                    vernepliktig = enBestilling.Vernepliktig,
+                    barn6_17 = enBestilling.Barn6_17
+                };
+                return hentetBestilling;
+            }
+        }
+
         public List<Avgang> alleAvganger()
         {
             using (var db = new AvgangContext())
@@ -88,7 +113,7 @@ namespace Oblig1WebApp
                     sisteAvgang = a.SisteAvgang,
                     reiseTid = a.ReiseTid,
                     spor = a.Spor,
-                    togNummer = a.TogNummer,
+                    togNummer = a.TogNummer
                 }).ToList();
 
                 return alleAvganger;
@@ -121,23 +146,6 @@ namespace Oblig1WebApp
             }
         }
 
-        public Avgang hentAvgang(string forsteAvgang, string sisteAvgang)
-        {
-            using (var db = new AvgangContext())
-            {
-                Avganger enAvgang = db.Avganger.Find(forsteAvgang, sisteAvgang);
-                var hentetAvgang = new Avgang()
-                {
-                    forsteAvgang = enAvgang.ForsteAvgang,
-                    sisteAvgang = enAvgang.SisteAvgang,
-                    reiseTid = enAvgang.ReiseTid,
-                    spor = enAvgang.Spor,
-                    togNummer = enAvgang.TogNummer,
-                };
-                return hentetAvgang;
-            }
-        }
-
         public bool endreAvgang(Avgang innAvgang)
         {
             using (var db = new AvgangContext())
@@ -145,7 +153,7 @@ namespace Oblig1WebApp
                 try
                 {
                     var endreObjekt = db.Avganger.Find(innAvgang.id);
-                                        endreObjekt.Id = innAvgang.id;
+                    endreObjekt.Id = innAvgang.id;
                     endreObjekt.ForsteAvgang = innAvgang.forsteAvgang;
                     endreObjekt.SisteAvgang = innAvgang.sisteAvgang;
                     endreObjekt.ReiseTid = innAvgang.reiseTid;
