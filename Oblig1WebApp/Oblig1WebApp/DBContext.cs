@@ -17,7 +17,7 @@ namespace Oblig1WebApp
                     id = b.Id,
                     fraLokasjon = b.FraLokasjon,
                     tilLokasjon = b.TilLokasjon,
-                    bilettType = b.BilettType,
+                    billettType = b.BillettType,
                     utreiseDato = b.UtreiseDato,
                     utreiseTid = b.UtreiseTid,
                     returDato = b.ReturDato,
@@ -31,8 +31,7 @@ namespace Oblig1WebApp
                     barnevogn = b.Barnevogn,
                     sykkel = b.Sykkel,
                     hundover_40cm = b.Hundover_40cm,
-                    kjaeledyrunder_40cm = b.Kjaeledyrunder_40cm,
-                    kundeId = b.Kunder.Id
+                    kjaeledyrunder_40cm = b.Kjaeledyrunder_40cm
                 }).ToList();
 
                 return alleBestillinger;
@@ -49,7 +48,7 @@ namespace Oblig1WebApp
                     nyBestilling.Id = innBestilling.id;
                     nyBestilling.FraLokasjon = innBestilling.fraLokasjon;
                     nyBestilling.TilLokasjon = innBestilling.tilLokasjon;
-                    nyBestilling.BilettType = innBestilling.bilettType;
+                    nyBestilling.BillettType = innBestilling.billettType;
                     nyBestilling.UtreiseDato = innBestilling.utreiseDato;
                     nyBestilling.UtreiseTid = innBestilling.utreiseTid;
                     nyBestilling.ReturDato = innBestilling.returDato;
@@ -64,7 +63,6 @@ namespace Oblig1WebApp
                     nyBestilling.Sykkel = innBestilling.sykkel;
                     nyBestilling.Hundover_40cm = innBestilling.hundover_40cm;
                     nyBestilling.Kjaeledyrunder_40cm = innBestilling.kjaeledyrunder_40cm;
-                    nyBestilling.KundeId = innBestilling.kundeId;
 
                     db.Bestillinger.Add(nyBestilling);
                     db.SaveChanges();

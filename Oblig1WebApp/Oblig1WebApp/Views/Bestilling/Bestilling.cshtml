@@ -21,12 +21,12 @@
     <h1>Hei, hvor har du lyst til å reise?</h1>
     <br />
 
-    <form action="/Bestilling/Bestilling" method="post">
+    <form action="/Bestilling/listBestillinger" method="post">
         <table class="borderless">
             <tr>
                 <td width="20%">
                     <b>Reise fra</b>
-                    <select name="reiseFra" class="form-control">
+                    <select name="fraLokasjon" class="form-control">
                         <option value="Ski">Ski</option>
                         <option value="Langhus">Langhus</option>
                         <option value="Vevelstad">Vevelstad</option>
@@ -49,7 +49,7 @@
                 </td>
                 <td width="20%">
                     <b>Reise til</b>
-                    <select name="reiseTil" class="form-control">
+                    <select name="tilLokasjon" class="form-control">
                         <option value="Stabekk">Stabekk</option>
                         <option value="Lysaker">Lysaker</option>
                         <option value="Skoeyen">Skøyen</option>
@@ -75,8 +75,8 @@
                 <td width="20%">
                     <br />
                     <b>Type billett</b><br />
-                    <input type="radio" name="typeBillett" id="enVei" value="EnVei"> En vei<br>
-                    <input type="radio" name="typeBillett" id="turRetur" value="TurRetur"> Tur/Retur
+                    <input type="radio" name="billettType" id="enVei" value="EnVei"> En vei<br>
+                    <input type="radio" name="billettType" id="turRetur" value="TurRetur"> Tur/Retur
                 </td>
             </tr>
             <tr>
@@ -84,12 +84,12 @@
                     <br />
                     <b>Utreise</b>
                     <br />
-                    <input type="date" name="dato">
+                    <input type="date" name="utreiseDato">
                 </td>
                 <td width="20%">
                     <b>Tid</b>
                     <br />
-                    <select name="tid" class="form-control">
+                    <select name="utreiseTid" class="form-control">
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
                         <option value="02:00">02:00</option>
@@ -122,12 +122,12 @@
                     <br />
                     <b>Retur</b>
                     <br />
-                    <input type="date" name="dato">
+                    <input type="date" name="returDato">
                 </td>
                 <td width="20%">
                     <b>Tid</b>
                     <br />
-                    <select name="tid" class="form-control">
+                    <select name="returTid" class="form-control">
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
                         <option value="02:00">02:00</option>
@@ -188,7 +188,7 @@
             
         </p>
 
-        <input type="submit" value="Se avganger" name="avganger og priser" class="btn btn-success" />
+        <input type="submit" value="Bestill billett" class="btn btn-success" />
     </form>
 
     <script>

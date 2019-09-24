@@ -19,7 +19,7 @@ namespace Oblig1WebApp.Models
         public string tilLokasjon { get; set; }
 
         [Required(ErrorMessage = "Bilettype må oppgis")]
-        public string bilettType { get; set; }
+        public string billettType { get; set; }
 
         [Required(ErrorMessage = "Dato må oppgis")]
         public DateTime utreiseDato { get; set; }
@@ -43,10 +43,5 @@ namespace Oblig1WebApp.Models
         public bool sykkel { get; set; }
         public bool hundover_40cm { get; set; }
         public bool kjaeledyrunder_40cm { get; set; }
-
-        [Display(Name = "Kundenummer")]
-        public int kundeId { get; set; }
-
-
     }
 }

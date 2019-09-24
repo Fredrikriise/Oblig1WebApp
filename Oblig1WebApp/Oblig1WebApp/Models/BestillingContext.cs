@@ -13,7 +13,7 @@ namespace Oblig1WebApp.Models
         public int Id { get; set; }
         public string FraLokasjon { get; set; }
         public string TilLokasjon { get; set; }
-        public string BilettType { get; set; }
+        public string BillettType { get; set; }
 
         public DateTime UtreiseDato { get; set; }
         public DateTime UtreiseTid { get; set; }
@@ -30,11 +30,8 @@ namespace Oblig1WebApp.Models
         public bool Sykkel { get; set; }
         public bool Hundover_40cm { get; set; }
         public bool Kjaeledyrunder_40cm { get; set; }
-        public int KundeId { get; set; }
-        public virtual Kunder Kunder { get; set; }
-        public object reiseFra { get; internal set; }
     }
-
+/*
     public class Kunder
     {
         public int Id { get; set; }
@@ -45,6 +42,8 @@ namespace Oblig1WebApp.Models
         public virtual Bestillinger Bestillinger { get; set; }
     }
 
+    
+
     public class Poststeder
     {
         [Key]
@@ -53,6 +52,7 @@ namespace Oblig1WebApp.Models
         public virtual List<Kunder> Kunder { get; set; }
     }
 
+        */
     public class BestillingContext : DbContext
     {
         public BestillingContext() : base("name=Bestillinger")
@@ -61,8 +61,10 @@ namespace Oblig1WebApp.Models
         }
 
         public DbSet<Bestillinger> Bestillinger { get; set; }
+        /*
         public DbSet<Kunder> Kunder { get; set; }
         public DbSet<Poststeder> Poststeder { get; set; }
+        */
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

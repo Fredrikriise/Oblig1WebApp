@@ -196,6 +196,7 @@
     <Content Include="Views\Bestilling\listAvganger.cshtml" />
     <Content Include="Views\Bestilling\endreAvgang.cshtml" />
     <Content Include="Views\Avgang\DynamikkView.cshtml" />
+    <Content Include="Views\Bestilling\listBestillinger.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
