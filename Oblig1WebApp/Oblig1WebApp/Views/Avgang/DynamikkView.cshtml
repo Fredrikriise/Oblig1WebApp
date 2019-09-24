@@ -11,17 +11,43 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <!-- For utreise og retur datoer (vise/skjule) -->
+    <script>
+        $(document).ready(function () {
+            $("#retur").hide();
+            $("#turRetur").click(function () {
+                $("#retur").show();
+            });
+
+            $("#enVei").click(function () {
+                $("#retur").hide();
+            });
+        });
+
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover({ html: true });
+        });
+    </script>
+
+    <!-- For å vise utreiseinformasjon nederst på siden -->
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+
+    <!-- Ajax for første avgang -->
     <script type="text/javascript">
         $(function () {
 
             // Kaller på hentAlleAvganger og bygger opp dropdown-liste når siden lastes
-
             $.ajax({
                 url: '/Avgang/hentAlleAvganger',
                 type: 'GET',
                 dataType: 'json',
                 success: function (jsAvgang) {
-                    VisDropDown(jsAvgang);
+                    VisDropDownForste(jsAvgang);
                 },
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
@@ -29,15 +55,14 @@
             });
 
             // Oppretter en hendelse på dropdown-listen når siden lastes
-
-            $("#drop").change(function () {
+            $("#dropForste").change(function () {
                 var id = $(this).val();
                 $.ajax({
                     url: '/Avgang/hentAvgangInfo/' + id,
                     type: 'GET',
                     dataType: 'json',
                     success: function (Avgang) {
-                        VisInfo(Avgang);
+                        VisInfoForste(Avgang);
                     },
                     error: function (x, y, z) {
                         alert(x + '\n' + y + '\n' + z);
@@ -46,19 +71,17 @@
             });
 
             // Oppretter en hendelse som kjøres når registreringsknappen trykkes
-
             $("#registrer").click(function () {
 
                 // Bygger et js objekt fra dropdown feltene "Reise fra" og "Reise til"
-                var jsInn = {
-                    fraLokasjon: $('#fraLokasjon :selected').text(),
-                    tilLokasjon: $('#tilLokasjon :selected').text()
+                var jsInnForste = {
+                    forsteAvgang: $('#fraLokasjon :selected').text()
                 }
 
                 $.ajax({
                     url: '/Avgang/registrerAvgang',
                     type: 'POST',
-                    data: JSON.stringify(jsInn),
+                    data: JSON.stringify(jsInnForste),
                     contentType: "application/json;charset=utf-8",
                     success: function (ok) {
                         // Legg inn feilhåndtering dersom feil i registrering
@@ -72,31 +95,99 @@
             })
         })
 
-        function VisDropDown(jsAvgang) {
+        // Setter forsteAvgang inn i select
+        function VisDropDownForste(jsAvgang) {
             var utStreng = "";
             for (var i in jsAvgang) {
-                utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i].forsteAvgang + " " + jsAvgang[i].sisteAvgang + "</option>";
+                utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i].forsteAvgang + "</option>";
             }
-            $("#drop").append(utStreng);
+            $("#dropForste").append(utStreng);
         }
 
-        function VisInfo(Avgang) {
-            var utStreng = Avgang.forsteAvgang + " " + Avgang.sisteAvgang;
-            $("#visInfo").html(utStreng);
+        // Viser forste avgang
+        function VisInfoForste(Avgang) {
+            var utStreng = Avgang.forsteAvgang;
+            $("#visInfoForste").html(utStreng);
+        }
+
+    </script>
+
+    <!-- Ajax for siste avgang -->
+    <script type="text/javascript">
+        $(function () {
+
+            // Kaller på hentAlleAvganger og bygger opp dropdown-liste når siden lastes
+            $.ajax({
+                url: '/Avgang/hentAlleAvganger',
+                type: 'GET',
+                dataType: 'json',
+                success: function (jsAvgang) {
+                    VisDropDownSiste(jsAvgang);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+
+            // Oppretter en hendelse på dropdown-listen når siden lastes
+            $("#dropSiste").change(function () {
+                var id = $(this).val();
+                $.ajax({
+                    url: '/Avgang/hentAvgangInfo/' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (Avgang) {
+                        VisInfoSiste(Avgang);
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+            });
+
+            // Oppretter en hendelse som kjøres når registreringsknappen trykkes
+            $("#registrer").click(function () {
+
+                // Bygger et js objekt fra dropdown feltene "Reise fra" og "Reise til"
+                var jsInnSiste = {
+                    sisteAvgang: $('#tilLokasjon :selected').text()
+                }
+
+                $.ajax({
+                    url: '/Avgang/registrerAvgang',
+                    type: 'POST',
+                    data: JSON.stringify(jsInnSiste),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (ok) {
+                        // Legg inn feilhåndtering dersom feil i registrering
+                        window.location.reload();
+                        // Reloader vinduet etter at kallet har returnert
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+            })
+        })
+
+        // Setter sisteAvgang inn i select
+        function VisDropDownSiste(jsAvgang) {
+            var utStreng = "";
+            for (var i in jsAvgang) {
+                utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i].sisteAvgang + "</option>";
+            }
+            $("#dropSiste").append(utStreng);
+        }
+
+        // Viser siste avgang
+        function VisInfoSiste(Avgang) {
+            var utStreng = Avgang.sisteAvgang;
+            $("#visInfoSiste").html(utStreng);
         }
 
     </script>
 </head>
 <body>
-    Velg en avgang for å få all informasjon om denne: <br />
-    <div id="dropDown">
-        <select id="drop">
-        </select>
-    </div>
-    <div id="visInfo">
-    </div>
-
-
     <h1>Hei, hvor har du lyst til å reise?</h1>
     <br />
 
@@ -105,48 +196,14 @@
             <tr>
                 <td width="20%">
                     <b>Reise fra</b>
-                    <select name="reiseFra" id="forsteAvgang" class="form-control">
-                        <option value="Ski">Ski</option>
-                        <option value="Langhus">Langhus</option>
-                        <option value="Vevelstad">Vevelstad</option>
-                        <option value="Oppegård">Oppegård</option>
-                        <option value="Greverud">Greverud</option>
-                        <option value="Myrvoll">Myrvoll</option>
-                        <option value="Solbraatan">Solbråtan</option>
-                        <option value="Kolbotn">Kolbotn</option>
-                        <option value="Rosenholm">Rosenholm</option>
-                        <option value="Holmlia">Holmlia</option>
-                        <option value="Hauketo">Hauketo</option>
-                        <option value="Ljan">Ljan</option>
-                        <option value="Nordstrand">Nordstrand</option>
-                        <option value="Oslo S">Oslo S</option>
-                        <option value="Nationaltheateret">Nationaltheateret</option>
-                        <option value="Skoeyen">Skøyen</option>
-                        <option value="Lysaker">Lysaker</option>
-                        <option value="Stabekk">Stabekk</option>
+                    <select name="fraLokasjon" id="dropForste" class="form-control">
+                        <option selected="selected" hidden>-- Velg Utreise --</option>
                     </select>
                 </td>
                 <td width="20%">
                     <b>Reise til</b>
-                    <select name="reiseTil" id="sisteAvgang" class="form-control">
-                        <option value="Stabekk">Stabekk</option>
-                        <option value="Lysaker">Lysaker</option>
-                        <option value="Skoeyen">Skøyen</option>
-                        <option value="Nationaltheateret">Nationaltheateret</option>
-                        <option value="Oslo S">Oslo S</option>
-                        <option value="Nordstrand">Nordstrand</option>
-                        <option value="Ljan">Ljan</option>
-                        <option value="Hauketo">Hauketo</option>
-                        <option value="Holmlia">Holmlia</option>
-                        <option value="Rosenholm">Rosenholm</option>
-                        <option value="Kolbotn">Kolbotn</option>
-                        <option value="Solbraatan">Solbråtan</option>
-                        <option value="Myrvoll">Myrvoll</option>
-                        <option value="Greverud">Greverud</option>
-                        <option value="Oppegård">Oppegård</option>
-                        <option value="Vevelstad">Vevelstad</option>
-                        <option value="Langhus">Langhus</option>
-                        <option value="Ski">Ski</option>
+                    <select name="tilLokasjon" id="dropSiste" class="form-control">
+                        <option selected="selected" hidden>-- Velg Retur --</option>
                     </select>
                 </td>
             </tr>
@@ -154,7 +211,7 @@
                 <td width="20%">
                     <br />
                     <b>Type billett</b><br />
-                    <input type="radio" name="typeBillett" id="enVei" value="EnVei"> En vei<br>
+                    <input type="radio" name="typeBillett" id="enVei" value="EnVei" checked> En vei<br>
                     <input type="radio" name="typeBillett" id="turRetur" value="TurRetur"> Tur/Retur
                 </td>
             </tr>
@@ -163,9 +220,10 @@
                     <br />
                     <b>Utreise</b>
                     <br />
-                    <input type="date" id="dato" name="dato">
+                    <input type="date" id="dato" name="dato" class="form-control">
                 </td>
                 <td width="20%">
+                    <br />
                     <b>Tid</b>
                     <br />
                     <select name="tid" id="tid" class="form-control">
@@ -201,9 +259,10 @@
                     <br />
                     <b>Retur</b>
                     <br />
-                    <input type="date" id="dato" name="dato">
+                    <input type="date" id="dato" name="dato" class="form-control">
                 </td>
                 <td width="20%">
+                    <br />
                     <b>Tid</b>
                     <br />
                     <select name="tid" id="tid" class="form-control">
@@ -259,34 +318,17 @@
         <br>
         <p><b>Rullestol på tog - </b>Alle nyere tog er tilrettelagt for rullestolbrukere. Vennligst kjøp billett via kundesenteret.</p>
         <p><b>Rullestol på buss - </b>Reisende med nedsatt funksjonsevne har rett til å reise med Nettbuss så langt det er praktisk mulig. Vennligst kjøp billett på bussen.</p>
-
         <br />
-        <p>
-            <b>Du har valgt: </b> <br />
-            Utreise:
 
-
-        </p>
+        <div id="valgtReise">
+            <h4> <u> <b>Reisen du har valgt:</b> </u> </h4>
+            Fra lokasjon:<b> <p id="visInfoForste"></p> </b>
+            Til lokasjon:<b> <p id="visInfoSiste"></p> </b>
+            Reisende:<b> <p id="reisende"></p> </b>
+            Tidspunkt:<b> <p id="tidspunkt"></p> </b>
+        </div>
 
         <input type="submit" value="Se avganger" name="avganger og priser" class="btn btn-success" />
     </form>
-
-    <script>
-        $(document).ready(function () {
-            $("#retur").hide();
-            $("#turRetur").click(function () {
-                $("#retur").fadeToggle();
-            });
-            $("#enVei").click(function () {
-                $("#retur").hide();
-            });
-        });
-
-        $(document).ready(function () {
-            $('[data-toggle="popover"]').popover({ html: true });
-        });
-
-
-    </script>
 </body>
 </html>
