@@ -2,37 +2,33 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Dynamikk test</title>
-
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="icon" href="favicon.ico" type="image/ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js%22%3E"></script>
+    <title>Dynamikk test</title>
     <script src="~/Scripts/jquery-1.8.0.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    
     <script type="text/javascript">
         $(function () {
 
-            // Kaller på hentALleAvganger og bygg opp dropdown-liste når siden lastes
+            // Kaller på hentAlleAvganger og bygger opp dropdown-liste når siden lastes
 
             $.ajax({
                 url: '/Avgang/hentAlleAvganger',
                 type: 'GET',
                 dataType: 'json',
-                success: function (jsBestilling) {
-                    VisDropDown(jsBestilling);
+                success: function (jsAvgang) {
+                    VisDropDown(jsAvgang);
                 },
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
                 }
             });
 
-            // Opprett en hendelse på dropdown-listen når siden lastes
+            // Oppretter en hendelse på dropdown-listen når siden lastes
 
             $("#drop").change(function () {
                 var id = $(this).val();
@@ -40,8 +36,8 @@
                     url: '/Avgang/hentAvgangInfo/' + id,
                     type: 'GET',
                     dataType: 'json',
-                    success: function (bestilling) {
-                        VisInfo(bestilling);
+                    success: function (Avgang) {
+                        VisInfo(Avgang);
                     },
                     error: function (x, y, z) {
                         alert(x + '\n' + y + '\n' + z);
@@ -49,16 +45,14 @@
                 });
             });
 
-            // Opprett en hendelse som kjøres når registreringsknappen trykkes
+            // Oppretter en hendelse som kjøres når registreringsknappen trykkes
 
             $("#registrer").click(function () {
 
                 // Bygger et js objekt fra dropdown feltene "Reise fra" og "Reise til"
                 var jsInn = {
                     fraLokasjon: $('#fraLokasjon :selected').text(),
-                    tilLokasjon: $('#tilLokasjon :selected').text(),
-                    dato: $("#dato").val(),
-                    antallReisende: $("#antallReisende").val()
+                    tilLokasjon: $('#tilLokasjon :selected').text()
                 }
 
                 $.ajax({
@@ -67,9 +61,9 @@
                     data: JSON.stringify(jsInn),
                     contentType: "application/json;charset=utf-8",
                     success: function (ok) {
-                        // Legg inn feilhåndtering dersom feil i registreringen
+                        // Legg inn feilhåndtering dersom feil i registrering
                         window.location.reload();
-                        //Reloader vinduet etter at kallet har returnert
+                        // Reloader vinduet etter at kallet har returnert
                     },
                     error: function (x, y, z) {
                         alert(x + '\n' + y + '\n' + z);
@@ -78,19 +72,19 @@
             })
         })
 
-        function VisDropDown(js) {
+        function VisDropDown(jsAvgang) {
             var utStreng = "";
-            for (var i in jsBestillinger) {
-                utStreng += "<option value='" + jsBestillinger[i].fraLokasjon + "'>" + jsBestillinger[i].fraLokasjon + " " + jsBestillinger[i].tilLokasjon + "</option>";
+            for (var i in jsAvgang) {
+                utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i].forsteAvgang + " " + jsAvgang[i].sisteAvgang + "</option>";
             }
             $("#drop").append(utStreng);
         }
 
-        function VisInfo(avgang) {
-            var utStreng = bestilling.fraLokasjon + " " + bestilling.tilLokasjon + " "
-                + bestilling.dato;
+        function VisInfo(Avgang) {
+            var utStreng = Avgang.forsteAvgang + " " + Avgang.sisteAvgang;
             $("#visInfo").html(utStreng);
         }
+
     </script>
 </head>
 <body>
