@@ -18,14 +18,18 @@ namespace Oblig1WebApp.Models
         [Required(ErrorMessage = "Sluttsted må oppgis")]
         public string tilLokasjon { get; set; }
 
-        [Required(ErrorMessage = "Dato må oppgis")]
-        public DateTime dato { get; set; }
-
-        [Required(ErrorMessage = "Tid må oppgis")]
-        public DateTime tid { get; set; }
-
         [Required(ErrorMessage = "Bilettype må oppgis")]
         public string bilettType { get; set; }
+
+        [Required(ErrorMessage = "Dato må oppgis")]
+        public DateTime utreiseDato { get; set; }
+
+        [Required(ErrorMessage = "Tid må oppgis")]
+        public DateTime utreiseTid { get; set; }
+
+        public DateTime returDato { get; set; }
+
+        public DateTime returTid { get; set; }
 
         [Display(Name = "Reisende")]
         public int voksen { get; set; }

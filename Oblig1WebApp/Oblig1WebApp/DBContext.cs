@@ -18,6 +18,10 @@ namespace Oblig1WebApp
                     fraLokasjon = b.FraLokasjon,
                     tilLokasjon = b.TilLokasjon,
                     bilettType = b.BilettType,
+                    utreiseDato = b.UtreiseDato,
+                    utreiseTid = b.UtreiseTid,
+                    returDato = b.ReturDato,
+                    returTid = b.ReturTid,
                     voksen = b.Voksen,
                     barn0_5 = b.Barn0_5,
                     student = b.Student,
@@ -46,6 +50,10 @@ namespace Oblig1WebApp
                     nyBestilling.FraLokasjon = innBestilling.fraLokasjon;
                     nyBestilling.TilLokasjon = innBestilling.tilLokasjon;
                     nyBestilling.BilettType = innBestilling.bilettType;
+                    nyBestilling.UtreiseDato = innBestilling.utreiseDato;
+                    nyBestilling.UtreiseTid = innBestilling.utreiseTid;
+                    nyBestilling.ReturDato = innBestilling.returDato;
+                    nyBestilling.ReturTid = innBestilling.returTid;
                     nyBestilling.Voksen = innBestilling.voksen;
                     nyBestilling.Barn0_5 = innBestilling.barn0_5;
                     nyBestilling.Student = innBestilling.student;

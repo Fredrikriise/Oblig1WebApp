@@ -14,6 +14,12 @@ namespace Oblig1WebApp.Models
         public string FraLokasjon { get; set; }
         public string TilLokasjon { get; set; }
         public string BilettType { get; set; }
+
+        public DateTime UtreiseDato { get; set; }
+        public DateTime UtreiseTid { get; set; }
+        public DateTime ReturDato { get; set; }
+        public DateTime ReturTid { get; set; }
+
         public int Voksen { get; set; }
         public int Barn0_5 { get; set; }
         public int Student { get; set; }
