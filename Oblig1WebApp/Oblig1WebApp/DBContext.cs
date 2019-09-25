@@ -44,7 +44,6 @@ namespace Oblig1WebApp
                 try
                 {
                     var nyBestilling = new Bestillinger();
-                    nyBestilling.Id = innBestilling.id;
                     nyBestilling.FraLokasjon = innBestilling.fraLokasjon;
                     nyBestilling.TilLokasjon = innBestilling.tilLokasjon;
                     nyBestilling.BillettType = innBestilling.billettType;

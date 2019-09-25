@@ -12,29 +12,15 @@ namespace Oblig1WebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Bestilling(Bestilling innBestilling)
+        public ActionResult regBestilling(Bestilling innBestilling)
         {
-
             var db = new DBContext();
             bool OK = db.lagreBestilling(innBestilling);
             if (OK)
             {
                 return RedirectToAction("listBestillinger");
             }
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult regBestilling(Avgang innAvgang)
-        {
-
-            var db = new DBContext();
-            bool OK = db.lagreAvgang(innAvgang);
-            if (OK)
-            {
-                return RedirectToAction("DynamikkView");
-            }
-            return View();
+            return RedirectToAction("Bestilling");
         }
 
         public ActionResult listBestillinger()

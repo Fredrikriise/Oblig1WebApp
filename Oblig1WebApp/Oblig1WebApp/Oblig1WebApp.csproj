@@ -195,8 +195,8 @@
     <Content Include="Views\Bestilling\regAvgang.cshtml" />
     <Content Include="Views\Bestilling\listAvganger.cshtml" />
     <Content Include="Views\Bestilling\endreAvgang.cshtml" />
-    <Content Include="Views\Avgang\DynamikkView.cshtml" />
     <Content Include="Views\Bestilling\listBestillinger.cshtml" />
+    <Content Include="Views\Bestilling\TestView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -206,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Avgang\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

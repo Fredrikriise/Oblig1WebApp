@@ -38,8 +38,6 @@ namespace Oblig1WebApp.Models
             public virtual Bestillinger Bestillinger { get; set; }
         }
 
-
-
         public class Poststeder
         {
             [Key]
@@ -47,8 +45,8 @@ namespace Oblig1WebApp.Models
             public string Poststed { get; set; }
             public virtual List<Kunder> Kunder { get; set; }
         }
-
             */
+
     public class BestillingContext : DbContext
     {
         public BestillingContext() : base("name=Bestillinger")
