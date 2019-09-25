@@ -12,14 +12,14 @@ namespace Oblig1WebApp.Models
         public string BillettType { get; set; }
 
         public DateTime UtreiseDato { get; set; }
-        public DateTime UtreiseTid { get; set; }
+        public string UtreiseTid { get; set; }
         public DateTime ReturDato { get; set; }
-        public DateTime ReturTid { get; set; }
+        public string ReturTid { get; set; }
 
         public int Voksen { get; set; }
         public int Barn0_5 { get; set; }
         public int Student { get; set; }
-        public int Honnør { get; set; }
+        public int Honnoer { get; set; }
         public int Vernepliktig { get; set; }
         public int Barn6_17 { get; set; }
         public bool Barnevogn { get; set; }

@@ -24,7 +24,7 @@ namespace Oblig1WebApp
                     voksen = b.Voksen,
                     barn0_5 = b.Barn0_5,
                     student = b.Student,
-                    honnør = b.Honnør,
+                    honnoer = b.Honnoer,
                     vernepliktig = b.Vernepliktig,
                     barn6_17 = b.Barn6_17,
                     barnevogn = b.Barnevogn,
@@ -54,7 +54,7 @@ namespace Oblig1WebApp
                     nyBestilling.Voksen = innBestilling.voksen;
                     nyBestilling.Barn0_5 = innBestilling.barn0_5;
                     nyBestilling.Student = innBestilling.student;
-                    nyBestilling.Honnør = innBestilling.honnør;
+                    nyBestilling.Honnoer = innBestilling.honnoer;
                     nyBestilling.Vernepliktig = innBestilling.vernepliktig;
                     nyBestilling.Barn6_17 = innBestilling.barn6_17;
                     nyBestilling.Barnevogn = innBestilling.barnevogn;
@@ -93,7 +93,7 @@ namespace Oblig1WebApp
                     voksen = enBestilling.Voksen,
                     barn0_5 = enBestilling.Barn0_5,
                     student = enBestilling.Student,
-                    honnør = enBestilling.Honnør,
+                    honnoer = enBestilling.Honnoer,
                     vernepliktig = enBestilling.Vernepliktig,
                     barn6_17 = enBestilling.Barn6_17
                 };

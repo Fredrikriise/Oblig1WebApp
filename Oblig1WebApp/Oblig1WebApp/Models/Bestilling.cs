@@ -25,13 +25,13 @@ namespace Oblig1WebApp.Models
 
         [Display(Name = "Klokkeslett utreise")]
         [Required(ErrorMessage = "Tid må oppgis")]
-        public DateTime utreiseTid { get; set; }
+        public string utreiseTid { get; set; }
 
         [Display(Name = "Dato retur")]
         public DateTime returDato { get; set; }
 
         [Display(Name = "Klokkeslett retur")]
-        public DateTime returTid { get; set; }
+        public string returTid { get; set; }
 
         [Display(Name = "Antall voksenbilletter")]
         public int voksen { get; set; }
@@ -40,7 +40,7 @@ namespace Oblig1WebApp.Models
         [Display(Name = "Antall studentbilletter")]
         public int student { get; set; }
         [Display(Name = "Antall honnørbilletter")]
-        public int honnør { get; set; }
+        public int honnoer { get; set; }
         [Display(Name = "Antall vernepliktbilletter")]
         public int vernepliktig { get; set; }
         [Display(Name = "Antall barn 6-17 billetter")]

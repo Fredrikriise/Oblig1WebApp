@@ -19,8 +19,11 @@ namespace Oblig1WebApp.Controllers
             if (OK)
             {
                 return RedirectToAction("listBestillinger");
+            } else
+            {
+                return RedirectToAction("Bestilling");
             }
-            return RedirectToAction("Bestilling");
+            
         }
 
         public ActionResult listBestillinger()
