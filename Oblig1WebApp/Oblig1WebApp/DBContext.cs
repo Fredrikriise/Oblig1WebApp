@@ -17,9 +17,9 @@ namespace Oblig1WebApp
                     fraLokasjon = b.FraLokasjon,
                     tilLokasjon = b.TilLokasjon,
                     billettType = b.BillettType,
-                    //utreiseDato = b.UtreiseDato,
+                    utreiseDato = b.UtreiseDato,
                     utreiseTid = b.UtreiseTid,
-                    //returDato = b.ReturDato,
+                    returDato = b.ReturDato,
                     returTid = b.ReturTid,
                     voksen = b.Voksen,
                     barn0_5 = b.Barn0_5,
@@ -63,6 +63,13 @@ namespace Oblig1WebApp
                     nyBestilling.Sykkel = innBestilling.sykkel;
                     nyBestilling.Hundover_40cm = innBestilling.hundover_40cm;
                     nyBestilling.Kjaeledyrunder_40cm = innBestilling.kjaeledyrunder_40cm;
+
+                    /*
+                    if (innBestilling.returDato == null)
+                    {
+                        9 / 27 / 2019 12:00:00 AM
+                    }
+                    */
 
                     db.Bestillinger.Add(nyBestilling);
                     db.SaveChanges();

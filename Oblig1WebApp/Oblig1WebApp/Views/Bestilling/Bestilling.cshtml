@@ -297,8 +297,7 @@
     </form>
 
 </body>
- 
-
+<!-- Javascript -->
 <script>
     // For en vei- og returdatoer (vise/skjule)
     $(document).ready(function () {
@@ -346,6 +345,7 @@
 
     // Script for å skrive ut antall reisende av hver type reisende
     $(':input').on('keyup mouseup', function () {
+        // Voksen
         var utStrengVoksen = "";
         utStrengVoksen += " " + $('#voksen').val();
         if ($('#voksen').val() == 1) {
@@ -357,6 +357,8 @@
             utStrengVoksen = "";
         }
         $("#numberVoksen").text(utStrengVoksen);
+
+        // Barn (0 til 5 år)
         var utStrengSmåbarn = "";
         utStrengSmåbarn += " " + $('#barn0_5').val();
         if ($('#barn0_5').val() >= 1) {
@@ -365,6 +367,8 @@
             utStrengSmåbarn = "";
         }
         $("#numberSmåbarn").text(utStrengSmåbarn);
+
+        // Student 
         var utStrengStudent = "";
         utStrengStudent += " " + $('#student').val();
         if ($('#student').val() == 1) {
@@ -376,6 +380,8 @@
             utStrengStudent = "";
         }
         $("#numberStudent").text(utStrengStudent);
+
+        // Honnør
         var utStrengHonnoer = "";
         utStrengHonnoer += " " + $('#honnoer').val();
         if ($('#honnoer').val() == 1) {
@@ -387,6 +393,8 @@
             utStrengHonnoer = "";
         }
         $("#numberHonnoer").text(utStrengHonnoer);
+
+        // Vernepliktig
         var utStrengVernepliktig = "";
         utStrengVernepliktig += " " + $('#vernepliktig').val();
         if ($('#vernepliktig').val() == 1) {
@@ -398,6 +406,8 @@
             utStrengVernepliktig = "";
         }
         $("#numberVernepliktig").text(utStrengVernepliktig);
+
+        // Barn (6 til 17 år)
         var utStrengBarn = "";
         utStrengBarn += " " + $('#barn6_17').val();
         if ($('#barn6_17').val() >= 1) {
@@ -406,18 +416,23 @@
             utStrengBarn = "";
         }
         $("#numberBarn").text(utStrengBarn);
+
+        // Totalt reisende 
         var array = [$('#voksen'), $('#barn0_5'), $('#student'), $('#honnoer'), $('#vernepliktig'), $('#barn6_17')];
-        var utStrengTotaltReisende = 0;
+        var utStrengTotalt = 0;
         for (var i in array) {
             if (array[i].val() >= 1) {
-                utStrengTotaltReisende += array[i].val();
+                utStrengTotalt += parseInt(array[i].val());
             }
         }
+        var utStrengTotaltReisende = utStrengTotalt + " reisende: "
         $("#numberTotaltReisende").text(utStrengTotaltReisende);
+
     }).trigger('mouseup');
 
     // Script for å vise/skjule valgte checkboxer
     $('input[type=checkbox]').on('click', function () {
+        // Barnevogn
         if ($('input[name="barnevogn"]').is(':checked')) {
             var utStrengBarnevogn = "";
             utStrengBarnevogn += " " + $('#barnevogn').val();
@@ -426,6 +441,8 @@
             utStrengBarnevogn = " ";
             $("#CheckboxBarnevogn").html(utStrengBarnevogn);
         }
+
+        // Sykkel
         if ($('input[name="sykkel"]').is(':checked')) {
             var utStrengSykkel = "";
             utStrengSykkel += " " + $('#sykkel').val();
@@ -434,6 +451,8 @@
             utStrengSykkel = " ";
             $("#CheckboxSykkel").html(utStrengSykkel);
         }
+
+        // Hund over 40 cm
         if ($('input[name="hundover_40cm"]').is(':checked')) {
             var utStrengHund = "";
             utStrengHund += " " + $('#hundover_40cm').val();
@@ -442,6 +461,8 @@
             utStrengHund = " ";
             $("#Checkboxhund").html(utStrengHund);
         }
+
+        // Kjæledyr under 40 cm
         if ($('input[name="kjaeledyrunder_40cm"]').is(':checked')) {
             var utStrengDyr = "";
             utStrengDyr += " " + $('#kjaeledyrunder_40cm').val();
@@ -470,5 +491,4 @@
         });
     });
 </script>
-
 
