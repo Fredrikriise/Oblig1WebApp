@@ -21,14 +21,14 @@ namespace Oblig1WebApp.Models
 
         [Display(Name = "Dato utreise")]
         [Required(ErrorMessage = "Dato må oppgis")]
-        public DateTime utreiseDato { get; set; }
+        public DateTime? utreiseDato { get; set; }
 
         [Display(Name = "Klokkeslett utreise")]
         [Required(ErrorMessage = "Tid må oppgis")]
         public string utreiseTid { get; set; }
 
         [Display(Name = "Dato retur")]
-        public DateTime returDato { get; set; }
+        public DateTime? returDato { get; set; }
 
         [Display(Name = "Klokkeslett retur")]
         public string returTid { get; set; }
