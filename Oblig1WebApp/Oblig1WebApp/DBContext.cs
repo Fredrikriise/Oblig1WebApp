@@ -40,7 +40,6 @@ namespace Oblig1WebApp
         // Metode for å lagre bestilling
         public bool lagreBestilling(Bestilling innBestilling)
         {
-            
             using (var db = new BestillingContext())
             {
                 try
@@ -59,11 +58,31 @@ namespace Oblig1WebApp
                     nyBestilling.Honnoer = innBestilling.honnoer;
                     nyBestilling.Vernepliktig = innBestilling.vernepliktig;
                     nyBestilling.Barn6_17 = innBestilling.barn6_17;
+
+                    if(innBestilling.barnevogn == 0)
+                    {
+                        innBestilling.barnevogn = null;
+                    }
                     nyBestilling.Barnevogn = innBestilling.barnevogn;
+
+                    if (innBestilling.sykkel == 0)
+                    {
+                        innBestilling.sykkel = null;
+                    }
                     nyBestilling.Sykkel = innBestilling.sykkel;
+
+                    if (innBestilling.hundover_40cm == 0)
+                    {
+                        innBestilling.hundover_40cm = null;
+                    }
                     nyBestilling.Hundover_40cm = innBestilling.hundover_40cm;
+
+                    if (innBestilling.kjaeledyrunder_40cm == 0)
+                    {
+                        innBestilling.kjaeledyrunder_40cm = null;
+                    }
                     nyBestilling.Kjaeledyrunder_40cm = innBestilling.kjaeledyrunder_40cm;
-                    
+                  
 
                     db.Bestillinger.Add(nyBestilling);
                     db.SaveChanges();
@@ -99,7 +118,11 @@ namespace Oblig1WebApp
                     student = enBestilling.Student,
                     honnoer = enBestilling.Honnoer,
                     vernepliktig = enBestilling.Vernepliktig,
-                    barn6_17 = enBestilling.Barn6_17
+                    barn6_17 = enBestilling.Barn6_17,
+                    barnevogn = enBestilling.Barnevogn,
+                    sykkel = enBestilling.Sykkel,
+                    hundover_40cm = enBestilling.Hundover_40cm,
+                    kjaeledyrunder_40cm = enBestilling.Kjaeledyrunder_40cm
                 };
                 return hentetBestilling;
             }

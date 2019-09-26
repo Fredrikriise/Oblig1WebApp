@@ -47,12 +47,12 @@ namespace Oblig1WebApp.Models
         public int barn6_17 { get; set; }
 
         [Display(Name = "Barnevogn")]
-        public bool barnevogn { get; set; }
+        public int? barnevogn { get; set; }
         [Display(Name = "Sykkel")]
-        public bool sykkel { get; set; }
+        public int? sykkel { get; set; }
         [Display(Name = "Hund over 40cm")]
-        public bool hundover_40cm { get; set; }
+        public int? hundover_40cm { get; set; }
         [Display(Name = "Kjæledyr under 40cm")]
-        public bool kjaeledyrunder_40cm { get; set; }
+        public int? kjaeledyrunder_40cm { get; set; }
     }
 }

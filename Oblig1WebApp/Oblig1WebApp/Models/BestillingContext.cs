@@ -22,10 +22,10 @@ namespace Oblig1WebApp.Models
         public int Honnoer { get; set; }
         public int Vernepliktig { get; set; }
         public int Barn6_17 { get; set; }
-        public bool Barnevogn { get; set; }
-        public bool Sykkel { get; set; }
-        public bool Hundover_40cm { get; set; }
-        public bool Kjaeledyrunder_40cm { get; set; }
+        public int? Barnevogn { get; set; }
+        public int? Sykkel { get; set; }
+        public int? Hundover_40cm { get; set; }
+        public int? Kjaeledyrunder_40cm { get; set; }
     }
     /*
         public class Kunder
