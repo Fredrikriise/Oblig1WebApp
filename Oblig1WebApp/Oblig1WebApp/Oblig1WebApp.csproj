@@ -166,6 +166,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Content\Images\vylogo.ico" />
+    <Content Include="scripts.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -196,8 +197,6 @@
     <Content Include="Views\Bestilling\listAvganger.cshtml" />
     <Content Include="Views\Bestilling\endreAvgang.cshtml" />
     <Content Include="Views\Bestilling\listBestillinger.cshtml" />
-    <Content Include="Views\Bestilling\TestView.cshtml" />
-    <Content Include="Views\Bestilling\ViewTest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

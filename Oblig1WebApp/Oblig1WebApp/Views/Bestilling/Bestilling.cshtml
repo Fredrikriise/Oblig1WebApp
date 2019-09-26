@@ -1,519 +1,167 @@
 ﻿@model Oblig1WebApp.Models.Bestilling
-
-<head>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="favicon.ico" type="image/ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="~/Scripts/jquery-1.8.0.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
-    <!-- For utreise og retur datoer (vise/skjule) -->
-    <script>
-        $(document).ready(function () {
-            $("#retur").hide();
-            $("#visReturDato").hide();
-            $("#turRetur").click(function () {
-                $("#retur").show();
-                $("#visReturDato").show();
-            });
-
-            $("#enVei").click(function () {
-                $("#retur").hide();
-                $("#visReturDato").hide();
-            });
-        });
-
-        $(document).ready(function () {
-            $('[data-toggle="popover"]').popover({ html: true });
-        });
-    </script>
-
-    <!-- For å vise utreiseinformasjon nederst på siden -->
-    <script>
-        $(document).ready(function () {
-
-        });
-    </script>
-
-    <!-- Ajax for første avgang -->
-    <script type="text/javascript">
-        $(function () {
-
-            // Kaller på hentAlleAvganger og bygger opp dropdown-liste når siden lastes
-            $.ajax({
-                url: '/Avgang/hentAlleAvganger',
-                type: 'GET',
-                dataType: 'json',
-                success: function (jsAvgang) {
-                    VisDropDownForste(jsAvgang);
-                },
-                error: function (x, y, z) {
-                    alert(x + '\n' + y + '\n' + z);
-                }
-            });
-
-            // Oppretter en hendelse på dropdown-listen når siden lastes
-            $("#dropForste").change(function () {
-                var id = $(this).val();
-                $.ajax({
-                    url: '/Avgang/hentAvgangInfo/' + id,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (Avgang) {
-                        VisInfoForste(Avgang);
-                    },
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
-                    }
-                });
-            });
-
-            // Oppretter en hendelse som kjøres når registreringsknappen trykkes
-            $("#registrer").click(function () {
-
-                // Bygger et js objekt fra dropdown feltene "Reise fra" og "Reise til"
-                var jsInnForste = {
-                    forsteAvgang: $('#fraLokasjon :selected').text()
-                }
-
-                $.ajax({
-                    url: '/Avgang/registrerAvgang',
-                    type: 'POST',
-                    data: JSON.stringify(jsInnForste),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (ok) {
-                        // Legg inn feilhåndtering dersom feil i registrering
-                        window.location.reload();
-                        // Reloader vinduet etter at kallet har returnert
-                    },
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
-                    }
-                });
-            })
-        })
-
-        // Setter forsteAvgang inn i select
-        function VisDropDownForste(jsAvgang) {
-            var utStreng = "";
-            for (var i in jsAvgang) {
-                utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i].forsteAvgang + "</option>";
-            }
-            $("#dropForste").append(utStreng);
-        }
-
-        // Viser forste avgang
-        function VisInfoForste(Avgang) {
-            var utStreng = Avgang.forsteAvgang;
-            $("#visInfoForste").html(utStreng);
-        }
-    </script>
-
-    <!-- Ajax for siste avgang -->
-    <script type="text/javascript">
-        $(function () {
-
-            // Kaller på hentAlleAvganger og bygger opp dropdown-liste når siden lastes
-            $.ajax({
-                url: '/Avgang/hentAlleAvganger',
-                type: 'GET',
-                dataType: 'json',
-                success: function (jsAvgang) {
-                    VisDropDownSiste(jsAvgang);
-                },
-                error: function (x, y, z) {
-                    alert(x + '\n' + y + '\n' + z);
-                }
-            });
-
-            // Oppretter en hendelse på dropdown-listen når siden lastes
-            $("#dropSiste").change(function () {
-                var id = $(this).val();
-                $.ajax({
-                    url: '/Avgang/hentAvgangInfo/' + id,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (Avgang) {
-                        VisInfoSiste(Avgang);
-                    },
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
-                    }
-                });
-            });
-
-            // Oppretter en hendelse som kjøres når registreringsknappen trykkes
-            $("#registrer").click(function () {
-
-                // Bygger et js objekt fra dropdown feltene "Reise fra" og "Reise til"
-                var jsInnSiste = {
-                    sisteAvgang: $('#tilLokasjon :selected').text()
-
-                }
-
-                $.ajax({
-                    url: '/Avgang/registrerAvgang',
-                    type: 'POST',
-                    data: JSON.stringify(jsInnSiste),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (ok) {
-                        // Legg inn feilhåndtering dersom feil i registrering
-                        window.location.reload();
-                        // Reloader vinduet etter at kallet har returnert
-                    },
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
-                    }
-                });
-            })
-        })
-
-        // Setter sisteAvgang inn i select
-        function VisDropDownSiste(jsAvgang) {
-            var utStreng = "";
-            for (var i in jsAvgang) {
-                utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i].sisteAvgang + "</option>";
-            }
-            $("#dropSiste").append(utStreng);
-        }
-
-        // Viser siste avgang
-        function VisInfoSiste(Avgang) {
-            var utStreng = Avgang.sisteAvgang;
-            $("#visInfoSiste").html(utStreng);
-        }
-    </script>
-
-</head>
-<body>
-    <h1>Hei, hvor har du lyst til å reise?</h1>
-    <br />
-
-    <form action="/Bestilling/regBestilling" id="bestillingsSkjema" method="post">
-        <table class="borderless">
-            <tr>
-                <td width="20%">
-                    <b>Reise fra</b>
-                    <select name="fraLokasjon" id="dropForste" class="form-control">
-                        <option selected="selected" hidden>-- Velg Utreise --</option>
-                    </select>
-                </td>
-                <td width="20%">
-                    <b>Reise til</b>
-                    <select name="tilLokasjon" id="dropSiste" class="form-control">
-                        <option selected="selected" hidden>-- Velg Retur --</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="20%">
-                    <br />
-                    <b>Type billett</b><br />
-                    <input type="radio" name="billettType" id="enVei" value="EnVei" checked> En vei<br>
-                    <input type="radio" name="billettType" id="turRetur" value="TurRetur"> Tur/Retur
-                </td>
-            </tr>
-            <tr>
-                <td width="20%">
-                    <br />
-                    <b>Utreise</b>
-                    <br />
-                    <input type="date" id="datoUtreise" name="utreiseDato" class="form-control">
-                </td>
-                <td width="20%">
-                    <br />
-                    <b>Tid</b>
-                    <br />
-                    <select name="utreiseTid" id="tid" class="form-control">
-                        <option value="00:00">00:00</option>
-                        <option value="01:00">01:00</option>
-                        <option value="02:00">02:00</option>
-                        <option value="03:00">03:00</option>
-                        <option value="04:00">04:00</option>
-                        <option value="05:00">05:00</option>
-                        <option value="06:00">06:00</option>
-                        <option value="07:00">07:00</option>
-                        <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                        <option value="21:00">21:00</option>
-                        <option value="22:00">22:00</option>
-                        <option value="23:00">23:00</option>
-                    </select>
-                </td>
-            </tr>
-            <tr id="retur">
-                <td width="20%">
-                    <br />
-                    <b>Retur</b>
-                    <br />
-                    <input type="date" id="datoRetur" name="returDato" class="form-control">
-                </td>
-                <td width="20%">
-                    <br />
-                    <b>Tid</b>
-                    <br />
-                    <select name="returTid" id="tid" class="form-control">
-                        <option value="00:00">00:00</option>
-                        <option value="01:00">01:00</option>
-                        <option value="02:00">02:00</option>
-                        <option value="03:00">03:00</option>
-                        <option value="04:00">04:00</option>
-                        <option value="05:00">05:00</option>
-                        <option value="06:00">06:00</option>
-                        <option value="07:00">07:00</option>
-                        <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                        <option value="21:00">21:00</option>
-                        <option value="22:00">22:00</option>
-                        <option value="23:00">23:00</option>
-                    </select>
-                </td>
-            </tr>
-
-            <tr>
-                <td width="20%">
-                    <br />
-                    <b>Reisende </b>
-                    <br />
-                    <p> <input type="number" id="voksen" name="voksen" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Voksen <a href="#" data-toggle="popover" data-content="Ordinær bilett for reisende over 18 år. <a href='https://www.vy.no/alt-om-reisen/tog/billetter'>Les mer her</a>">&#9432;</a> <br></p>
-                    <p> <input type="number" id="barn0_5" name="barn0_5" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Barn 0-5 år <a href="#" data-toggle="popover" data-content="Barn under 6 år reiser gratis med tog, og får 90 prosent rabatt på bussbilletter. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br></p>
-                    <p> <input type="number" id="student" name="student" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Student <a href="#" data-toggle="popover" data-content="Studenter får 25 prosent rabatt på togbilletter. På buss får studenter samme rabatt som ungdom uavhengig av alder. Rabattene forutsetter legitimasjon og bekreftelse for betalt semesteravgift. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br> </p>
-                    <p> <input type="number" id="honnoer" name="honnoer" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Honnør <a href="#" data-toggle="popover" data-content="Reisende som er over 67 år, uføretrygdet eller ledsager for blind, får 50 prosent rabatt på togbilletter og en rabatt på bussbilletter. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br> </p>
-                    <p> <input type="number" id="vernepliktig" name="vernepliktig" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Vernepliktig <a href="#" data-toggle="popover" data-content="Vernepliktige får 90 prosent rabatt på togbilletter. Rabatten forutsetter gyldig vernepliktskort ved billettkontroll. For buss gjelder rabatten kun på strekningen Oslo-Elverum. Denne billetten kjøpes på nettbuss.no med kampanjekoden UNIFORM. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br> </p>
-                    <p> <input type="number" id="barn6_17" name="barn6_17" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Barn 6-17 år <a href="#" data-toggle="popover" data-content="Barn fra 6 til og med 17 år får 50 prosent rabatt på togbilletter og en rabatt på bussbilletter. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br> </p>
-
-                </td>
-            </tr>
-        </table>
+    <html>
+    <head>
+        <script src="scripts.js"></script>
+        <script src="~/Scripts/jquery-1.8.0.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="favicon.ico" type="image/ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    </head>
+    <body>
+        <h1>Hei, hvor har du lyst til å reise?</h1>
         <br />
 
-        <a id="visSpesielleBehov"> <b> Spesielle behov</b>  <img src="~/Content/Images/spesiellebehov.png" /></a> <br />
-        <span id="visCheckboxer">
-            <input type="checkbox" id="barnevogn" name="barnevogn" value="barnevogn"> Barnevogn <a href="#" data-toggle="popover" data-content="Det er gratis å ta med barnevogn på tog og buss, forutsatt at det er nok plass. Det er barnevognplasser i alle tog. For tog med plassreservering, må du bestille plass på forhånd. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br>
-            <input type="checkbox" id="sykkel" name="sykkel" value="sykkel"> Sykkel <a href="#" data-toggle="popover" data-content="Du må reservere plass til sykkel på alle lange regionstrekninger og på Gjøvikbanen. Skal du ha med sykkelvogn på toget, må du bestille plass via kundesenteret. Sykkelplass på buss må du forhåndsbestille når du kjøper billett på nettbuss.no. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br />
-            <input type="checkbox" id="hundover_40cm" name="hundover_40cm" value="hund over 40cm"> Hund over 40cm <a href="#" data-toggle="popover" data-content="Hunder med skulderhøyde over 40 cm får 50 prosent rabatt på togbilletter. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
-            <input type="checkbox" id="kjaeledyrunder_40cm" name="kjaeledyrunder_40cm" value="kjæledyr under 40cm"> Kjæledyr under 40 cm <a href="#" data-toggle="popover" data-content="Kjæledyr med skulderhøyde under 40 cm reiser gratis med toget. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
-            <input type="checkbox" id="ingenSpesialBehov" class="uncheck"> Ingen spesielle behov <br>
+        <form action="/Bestilling/regBestilling" id="bestillingsSkjema" method="post">
+            <table class="borderless">
+                <tr>
+                    <td width="20%">
+                        <b>Reise fra</b>
+                        <select name="fraLokasjon" id="dropForste" class="form-control">
+                            <option selected="selected" hidden>-- Velg Utreise --</option>
+                        </select>
+                    </td>
+                    <td width="20%">
+                        <b>Reise til</b>
+                        <select name="tilLokasjon" id="dropSiste" class="form-control">
+                            <option selected="selected" hidden>-- Velg Retur --</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                        <br />
+                        <b>Type billett</b><br />
+                        <input type="radio" name="billettType" id="enVei" value="EnVei" checked> En vei<br>
+                        <input type="radio" name="billettType" id="turRetur" value="TurRetur"> Tur/Retur
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                        <br />
+                        <b>Utreise</b>
+                        <br />
+                        <input type="date" id="datoUtreise" name="utreiseDato" class="form-control">
+                    </td>
+                    <td width="20%">
+                        <br />
+                        <b>Tid</b>
+                        <br />
+                        <select name="utreiseTid" id="tid" class="form-control">
+                            <option value="00:00">00:00</option>
+                            <option value="01:00">01:00</option>
+                            <option value="02:00">02:00</option>
+                            <option value="03:00">03:00</option>
+                            <option value="04:00">04:00</option>
+                            <option value="05:00">05:00</option>
+                            <option value="06:00">06:00</option>
+                            <option value="07:00">07:00</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
+                            <option value="22:00">22:00</option>
+                            <option value="23:00">23:00</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="retur">
+                    <td width="20%">
+                        <br />
+                        <b>Retur</b>
+                        <br />
+                        <input type="date" id="datoRetur" name="returDato" class="form-control">
+                    </td>
+                    <td width="20%">
+                        <br />
+                        <b>Tid</b>
+                        <br />
+                        <select name="returTid" id="tid" class="form-control">
+                            <option value="00:00">00:00</option>
+                            <option value="01:00">01:00</option>
+                            <option value="02:00">02:00</option>
+                            <option value="03:00">03:00</option>
+                            <option value="04:00">04:00</option>
+                            <option value="05:00">05:00</option>
+                            <option value="06:00">06:00</option>
+                            <option value="07:00">07:00</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
+                            <option value="22:00">22:00</option>
+                            <option value="23:00">23:00</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="20%">
+                        <br />
+                        <b>Reisende </b>
+                        <br />
+                        <p> <input type="number" id="voksen" name="voksen" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Voksen <a href="#" data-toggle="popover" data-content="Ordinær bilett for reisende over 18 år. <a href='https://www.vy.no/alt-om-reisen/tog/billetter'>Les mer her</a>">&#9432;</a> <br></p>
+                        <p> <input type="number" id="barn0_5" name="barn0_5" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Barn 0-5 år <a href="#" data-toggle="popover" data-content="Barn under 6 år reiser gratis med tog, og får 90 prosent rabatt på bussbilletter. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br></p>
+                        <p> <input type="number" id="student" name="student" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Student <a href="#" data-toggle="popover" data-content="Studenter får 25 prosent rabatt på togbilletter. På buss får studenter samme rabatt som ungdom uavhengig av alder. Rabattene forutsetter legitimasjon og bekreftelse for betalt semesteravgift. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br> </p>
+                        <p> <input type="number" id="honnoer" name="honnoer" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Honnør <a href="#" data-toggle="popover" data-content="Reisende som er over 67 år, uføretrygdet eller ledsager for blind, får 50 prosent rabatt på togbilletter og en rabatt på bussbilletter. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br> </p>
+                        <p> <input type="number" id="vernepliktig" name="vernepliktig" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Vernepliktig <a href="#" data-toggle="popover" data-content="Vernepliktige får 90 prosent rabatt på togbilletter. Rabatten forutsetter gyldig vernepliktskort ved billettkontroll. For buss gjelder rabatten kun på strekningen Oslo-Elverum. Denne billetten kjøpes på nettbuss.no med kampanjekoden UNIFORM. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br> </p>
+                        <p> <input type="number" id="barn6_17" name="barn6_17" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Barn 6-17 år <a href="#" data-toggle="popover" data-content="Barn fra 6 til og med 17 år får 50 prosent rabatt på togbilletter og en rabatt på bussbilletter. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br> </p>
+
+                    </td>
+                </tr>
+            </table>
             <br />
-            <p><b>Rullestol på tog - </b>Alle nyere tog er tilrettelagt for rullestolbrukere. Vennligst kjøp billett via kundesenteret.</p>
-            <p><b>Rullestol på buss - </b>Reisende med nedsatt funksjonsevne har rett til å reise med Nettbuss så langt det er praktisk mulig. Vennligst kjøp billett på bussen.</p>
-        </span>
-        <br />
 
-        <div id="valgtReise">
-            <h4> <u> <b>Reisen du har valgt:</b> </u> </h4>
-            Fra lokasjon:<b> <span id="visInfoForste"></span> </b> <br />
-            Til lokasjon:<b> <span id="visInfoSiste"></span> </b> <br />
-            Utreisedato:<b> <span id="utreiseDatoUt"></span> </b> <br />
-            <span id="visReturDato">Returdato: <b> <span id="returDatoUt"></span> </b> <br /> </span>
-            Reisende: <span id="numberTotaltReisende"></span> <span id="numberVoksen"></span><span id="numberSmåbarn"></span><span id="numberStudent"></span><span id="numberHonnoer"></span><span id="numberVernepliktig"></span> <span id="numberBarn"></span><br />
-            Spesialbehov: <span id="CheckboxBarnevogn"></span> <span id="CheckboxSykkel"></span><span id="Checkboxhund"></span><span id="Checkboxdyr"></span> <br />
-        </div>
-        <br />
+            <a id="visSpesielleBehov"> <b> Spesielle behov</b>  <img src="~/Content/Images/spesiellebehov.png" /></a> <br />
+            <span id="visCheckboxer">
+                <input type="checkbox" id="barnevogn" name="barnevogn" value="barnevogn"> Barnevogn <a href="#" data-toggle="popover" data-content="Det er gratis å ta med barnevogn på tog og buss, forutsatt at det er nok plass. Det er barnevognplasser i alle tog. For tog med plassreservering, må du bestille plass på forhånd. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br>
+                <input type="checkbox" id="sykkel" name="sykkel" value="sykkel"> Sykkel <a href="#" data-toggle="popover" data-content="Du må reservere plass til sykkel på alle lange regionstrekninger og på Gjøvikbanen. Skal du ha med sykkelvogn på toget, må du bestille plass via kundesenteret. Sykkelplass på buss må du forhåndsbestille når du kjøper billett på nettbuss.no. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br />
+                <input type="checkbox" id="hundover_40cm" name="hundover_40cm" value="hund over 40cm"> Hund over 40cm <a href="#" data-toggle="popover" data-content="Hunder med skulderhøyde over 40 cm får 50 prosent rabatt på togbilletter. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
+                <input type="checkbox" id="kjaeledyrunder_40cm" name="kjaeledyrunder_40cm" value="kjæledyr under 40cm"> Kjæledyr under 40 cm <a href="#" data-toggle="popover" data-content="Kjæledyr med skulderhøyde under 40 cm reiser gratis med toget. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
+                <input type="checkbox" id="ingenSpesialBehov" class="uncheck"> Ingen spesielle behov <br>
+                <br />
+                <p><b>Rullestol på tog - </b>Alle nyere tog er tilrettelagt for rullestolbrukere. Vennligst kjøp billett via kundesenteret.</p>
+                <p><b>Rullestol på buss - </b>Reisende med nedsatt funksjonsevne har rett til å reise med Nettbuss så langt det er praktisk mulig. Vennligst kjøp billett på bussen.</p>
+            </span>
+            <br />
 
-        <input type="submit" value="Se avganger" name="regBestilling" class="btn btn-success" />
-    </form>
-</body>
+            <div id="valgtReise">
+                <h4> <u> <b>Reisen du har valgt:</b> </u> </h4>
+                Fra lokasjon:<b> <span id="visInfoForste"></span> </b> <br />
+                Til lokasjon:<b> <span id="visInfoSiste"></span> </b> <br />
+                Utreisedato:<b> <span id="utreiseDatoUt"></span> </b> <br />
+                <span id="visReturDato">Returdato: <b> <span id="returDatoUt"></span> </b> <br /> </span>
+                Reisende: <span id="numberTotaltReisende"></span> <span id="numberVoksen"></span><span id="numberSmåbarn"></span><span id="numberStudent"></span><span id="numberHonnoer"></span><span id="numberVernepliktig"></span> <span id="numberBarn"></span><br />
+                Spesialbehov: <span id="CheckboxBarnevogn"></span> <span id="CheckboxSykkel"></span><span id="Checkboxhund"></span><span id="Checkboxdyr"></span> <br />
+            </div>
+            <br />
 
-<!-- Script for å vise spesielleBehov ved klikk -->
-<script>
-    $("#visCheckboxer").hide();
-    $('#visSpesielleBehov').on('click', function () {
-        $("#visCheckboxer").show();
-    });
-</script>
-
-<!-- Script for å skrive ut utreise- og returdato  -->
-<script>
-    // Utreise
-    document.getElementById("datoUtreise").addEventListener("change", function () {
-        var input = this.value;
-        utStrengDatoUtreise = " " + input;
-        $("#utreiseDatoUt").text(utStrengDatoUtreise);
-    });
-
-    // Retur
-    document.getElementById("datoRetur").addEventListener("change", function () {
-        var input = this.value;
-        utStrengDatoUtreise = " " + input;
-        $("#returDatoUt").text(utStrengDatoUtreise);
-    });
-</script>
-
-<!-- Script for å skrive ut antall reisende av hver type reisende -->
-<script>
-    $(':input').on('keyup mouseup', function () {
-        var utStrengVoksen = "";
-        utStrengVoksen += " " + $('#voksen').val();
-        if ($('#voksen').val() == 1) {
-            utStrengVoksen += " voksen";
-        } else if ($('#voksen').val() > 1) {
-            utStrengVoksen += " voksene";
-        }
-        else {
-            utStrengVoksen = "";
-        }
-        $("#numberVoksen").text(utStrengVoksen);
-
-
-        var utStrengSmåbarn = "";
-        utStrengSmåbarn += " " + $('#barn0_5').val();
-        if ($('#barn0_5').val() >= 1) {
-            utStrengSmåbarn += " barn (0-5 år)";
-        } else {
-            utStrengSmåbarn = "";
-        }
-        $("#numberSmåbarn").text(utStrengSmåbarn);
-
-
-        var utStrengStudent = "";
-        utStrengStudent += " " + $('#student').val();
-        if ($('#student').val() == 1) {
-            utStrengStudent += " student";
-        } else if ($('#student').val() > 1) {
-            utStrengStudent += " studenter";
-        }
-        else {
-            utStrengStudent = "";
-        }
-        $("#numberStudent").text(utStrengStudent);
-
-        var utStrengHonnoer = "";
-        utStrengHonnoer += " " + $('#honnoer').val();
-        if ($('#honnoer').val() == 1) {
-            utStrengHonnoer += " honnør";
-        } else if ($('#honnoer').val() > 1) {
-            utStrengHonnoer += " honnører";
-        }
-        else {
-            utStrengHonnoer = "";
-        }
-        $("#numberHonnoer").text(utStrengHonnoer);
-
-
-        var utStrengVernepliktig = "";
-        utStrengVernepliktig += " " + $('#vernepliktig').val();
-        if ($('#vernepliktig').val() == 1) {
-            utStrengVernepliktig += " vernepliktig";
-        } else if ($('#vernepliktig').val() > 1) {
-            utStrengVernepliktig += " vernepliktige";
-        }
-        else {
-            utStrengVernepliktig = "";
-        }
-        $("#numberVernepliktig").text(utStrengVernepliktig);
-
-        var utStrengBarn = "";
-        utStrengBarn += " " + $('#barn6_17').val();
-        if ($('#barn6_17').val() >= 1) {
-            utStrengBarn += " barn (6-17 år)";
-        } else {
-            utStrengBarn = "";
-        }
-        $("#numberBarn").text(utStrengBarn);
-
-
-        var array = [$('#voksen'), $('#barn0_5'), $('#student'), $('#honnoer'), $('#vernepliktig'), $('#barn6_17')];
-        var utStrengTotaltReisende = 0;
-
-        for (var i in array) {
-            if (array[i].val() >= 1) {
-                utStrengTotaltReisende += array[i].val();
-            }
-        }
-        $("#numberTotaltReisende").text(utStrengTotaltReisende);
-
-    }).trigger('mouseup');
-</script>
-
-<!-- Script for å vise valgte checkboxer -->
-<script>
-    $('input[type=checkbox]').on('click', function () {
-        if ($('input[name="barnevogn"]').is(':checked')) {
-            var utStrengBarnevogn = "";
-            utStrengBarnevogn += " " + $('#barnevogn').val();
-            $("#CheckboxBarnevogn").html(utStrengBarnevogn);
-        } else {
-            utStrengBarnevogn = " ";
-            $("#CheckboxBarnevogn").html(utStrengBarnevogn);
-        }
-
-        if ($('input[name="sykkel"]').is(':checked')) {
-            var utStrengSykkel = "";
-            utStrengSykkel += " " + $('#sykkel').val();
-            $("#CheckboxSykkel").html(utStrengSykkel);
-        } else {
-            utStrengSykkel = " ";
-            $("#CheckboxSykkel").html(utStrengSykkel);
-        }
-
-        if ($('input[name="hundover_40cm"]').is(':checked')) {
-            var utStrengHund = "";
-            utStrengHund += " " + $('#hundover_40cm').val();
-            $("#Checkboxhund").html(utStrengHund);
-        } else {
-            utStrengHund = " ";
-            $("#Checkboxhund").html(utStrengHund);
-        }
-
-        if ($('input[name="kjaeledyrunder_40cm"]').is(':checked')) {
-
-            var utStrengDyr = "";
-            utStrengDyr += " " + $('#kjaeledyrunder_40cm').val();
-            $("#Checkboxdyr").html(utStrengDyr);
-        } else {
-            utStrengDyr = " ";
-            $("#Checkboxdyr").html(utStrengDyr);
-        }
-    });
-</script>
-
-
-<!-- Unchecker alle checkboxene dersom man klikker på "ingen spesielle behov" og fjerner dynamisk output nederst-->
-<script>
-    $('#ingenSpesialBehov').on('click', function () {
-        $(".uncheck").click(function () {
-            $('input[name="barnevogn"').prop("checked", false);
-            $('input[name="sykkel"').prop("checked", false);
-            $('input[name="hundover_40cm"').prop("checked", false);
-            $('input[name="kjaeledyrunder_40cm"').prop("checked", false);
-
-            utStrengBarnevogn = "";
-            $("#CheckboxBarnevogn").html(utStrengBarnevogn);
-            utStrengSykkel = " ";
-            $("#CheckboxSykkel").html(utStrengSykkel);
-            utStrengHund = " ";
-            $("#Checkboxhund").html(utStrengHund);
-            utStrengDyr = " ";
-            $("#Checkboxdyr").html(utStrengDyr);
-        });
-    });
-
-</script>
+            <input type="submit" value="Se avganger" name="regBestilling" class="btn btn-success" />
+        </form>
+    </body>
+    </html>

@@ -17,9 +17,9 @@ namespace Oblig1WebApp
                     fraLokasjon = b.FraLokasjon,
                     tilLokasjon = b.TilLokasjon,
                     billettType = b.BillettType,
-                    utreiseDato = b.UtreiseDato,
+                    //utreiseDato = b.UtreiseDato,
                     utreiseTid = b.UtreiseTid,
-                    returDato = b.ReturDato,
+                    //returDato = b.ReturDato,
                     returTid = b.ReturTid,
                     voksen = b.Voksen,
                     barn0_5 = b.Barn0_5,
@@ -37,8 +37,10 @@ namespace Oblig1WebApp
             }
         }
 
+        // Metode for å lagre bestilling
         public bool lagreBestilling(Bestilling innBestilling)
         {
+            
             using (var db = new BestillingContext())
             {
                 try
@@ -75,6 +77,7 @@ namespace Oblig1WebApp
             }
         }
 
+        // Metode for å hente bestilling
         public Bestilling hentBestilling(int id)
         {
             using (var db = new BestillingContext())
@@ -119,6 +122,7 @@ namespace Oblig1WebApp
             }
         }
 
+        // Metode for å lagre avgang
         public bool lagreAvgang(Avgang innAvgang)
         {
             using (var db = new AvgangContext())
@@ -145,6 +149,7 @@ namespace Oblig1WebApp
             }
         }
 
+        // Metode for å endre avgang
         public bool endreAvgang(Avgang innAvgang)
         {
             using (var db = new AvgangContext())
@@ -169,6 +174,7 @@ namespace Oblig1WebApp
                 return true;
             }
         }
+
 
         public Avgang hentAvgang(int id)
         {
