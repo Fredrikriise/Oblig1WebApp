@@ -63,13 +63,7 @@ namespace Oblig1WebApp
                     nyBestilling.Sykkel = innBestilling.sykkel;
                     nyBestilling.Hundover_40cm = innBestilling.hundover_40cm;
                     nyBestilling.Kjaeledyrunder_40cm = innBestilling.kjaeledyrunder_40cm;
-
-                    /*
-                    if (innBestilling.returDato == null)
-                    {
-                        9 / 27 / 2019 12:00:00 AM
-                    }
-                    */
+                    
 
                     db.Bestillinger.Add(nyBestilling);
                     db.SaveChanges();

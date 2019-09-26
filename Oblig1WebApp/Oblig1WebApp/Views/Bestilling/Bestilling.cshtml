@@ -11,6 +11,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        
         <!-- Ajax script -->
         <script type="text/javascript">
 
@@ -269,13 +270,13 @@
         </table>
         <br />
 
-        <a id="visSpesielleBehov"> <b> Spesielle behov</b>  <img src="~/Content/Images/spesiellebehov.png" /></a> <br />
+        <a id="visSpesielleBehov" style="color: forestgreen;"> <b> Spesielle behov</b>  <img src="~/Content/Images/spesiellebehov.png" /></a> <br />
         <span id="visCheckboxer">
-            <input type="checkbox" id="barnevogn" name="barnevogn" value="barnevogn"> Barnevogn <a href="#" data-toggle="popover" data-content="Det er gratis å ta med barnevogn på tog og buss, forutsatt at det er nok plass. Det er barnevognplasser i alle tog. For tog med plassreservering, må du bestille plass på forhånd. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br>
-            <input type="checkbox" id="sykkel" name="sykkel" value="sykkel"> Sykkel <a href="#" data-toggle="popover" data-content="Du må reservere plass til sykkel på alle lange regionstrekninger og på Gjøvikbanen. Skal du ha med sykkelvogn på toget, må du bestille plass via kundesenteret. Sykkelplass på buss må du forhåndsbestille når du kjøper billett på nettbuss.no. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br />
-            <input type="checkbox" id="hundover_40cm" name="hundover_40cm" value="hund over 40cm"> Hund over 40cm <a href="#" data-toggle="popover" data-content="Hunder med skulderhøyde over 40 cm får 50 prosent rabatt på togbilletter. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
-            <input type="checkbox" id="kjaeledyrunder_40cm" name="kjaeledyrunder_40cm" value="kjæledyr under 40cm"> Kjæledyr under 40 cm <a href="#" data-toggle="popover" data-content="Kjæledyr med skulderhøyde under 40 cm reiser gratis med toget. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
-            <input type="checkbox" id="ingenSpesialBehov" class="uncheck"> Ingen spesielle behov <br>
+            <input type="checkbox" id="barnevogn" name="barnevogn" class="uncheckBarnevogn" value="barnevogn"> Barnevogn <a href="#" data-toggle="popover" data-content="Det er gratis å ta med barnevogn på tog og buss, forutsatt at det er nok plass. Det er barnevognplasser i alle tog. For tog med plassreservering, må du bestille plass på forhånd. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br>
+            <input type="checkbox" id="sykkel" name="sykkel" class="uncheckSykkel" value="sykkel"> Sykkel <a href="#" data-toggle="popover" data-content="Du må reservere plass til sykkel på alle lange regionstrekninger og på Gjøvikbanen. Skal du ha med sykkelvogn på toget, må du bestille plass via kundesenteret. Sykkelplass på buss må du forhåndsbestille når du kjøper billett på nettbuss.no. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br />
+            <input type="checkbox" id="hundover_40cm" class="uncheckHund" name="hundover_40cm" value="hund over 40cm"> Hund over 40cm <a href="#" data-toggle="popover" data-content="Hunder med skulderhøyde over 40 cm får 50 prosent rabatt på togbilletter. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
+            <input type="checkbox" id="kjaeledyrunder_40cm" class="uncheckKjaele" name="kjaeledyrunder_40cm" value="kjæledyr under 40cm"> Kjæledyr under 40 cm <a href="#" data-toggle="popover" data-content="Kjæledyr med skulderhøyde under 40 cm reiser gratis med toget. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
+            <input type="checkbox" name="ingenSpesialBehov" class="uncheck"> Ingen spesielle behov <br>
             <br />
             <p><b>Rullestol på tog - </b>Alle nyere tog er tilrettelagt for rullestolbrukere. Vennligst kjøp billett via kundesenteret.</p>
             <p><b>Rullestol på buss - </b>Reisende med nedsatt funksjonsevne har rett til å reise med Nettbuss så langt det er praktisk mulig. Vennligst kjøp billett på bussen.</p>
@@ -295,7 +296,6 @@
 
         <input type="submit" value="Se avganger" name="regBestilling" class="btn btn-success" />
     </form>
-
 </body>
 <!-- Javascript -->
 <script>
@@ -318,14 +318,14 @@
 
     // Script for å vise / skjule spesielleBehov ved klikk
     $("#visCheckboxer").hide();
-    var x = document.getElementById('visCheckboxer');
-    $('#visSpesielleBehov').on('click', function () {
-        if (window.getComputedStyle(x).visibility == "hidden") {
+    var checkbox = document.getElementById('visCheckboxer');
+    $('#visSpesielleBehov').click(function () {
+        if (window.getComputedStyle(checkbox).visibility == "hidden") {
             $("#visCheckboxer").show();
-            x.style.visibility = "visible";
+            checkbox.style.visibility = "visible";
         } else {
             $("#visCheckboxer").hide();
-            x.style.visibility = "hidden";
+            checkbox.style.visibility = "hidden";
         }
     });
 
@@ -474,21 +474,36 @@
     });
 
     // Unchecker alle checkboxene dersom man klikker på "ingen spesielle behov" og fjerner dynamisk output nederst
-    $('#ingenSpesialBehov').on('click', function () {
-        $(".uncheck").click(function () {
-            $('input[name="barnevogn"').prop("checked", false);
-            $('input[name="sykkel"').prop("checked", false);
-            $('input[name="hundover_40cm"').prop("checked", false);
-            $('input[name="kjaeledyrunder_40cm"').prop("checked", false);
-            utStrengBarnevogn = "";
-            $("#CheckboxBarnevogn").html(utStrengBarnevogn);
-            utStrengSykkel = " ";
-            $("#CheckboxSykkel").html(utStrengSykkel);
-            utStrengHund = " ";
-            $("#Checkboxhund").html(utStrengHund);
-            utStrengDyr = " ";
-            $("#Checkboxdyr").html(utStrengDyr);
-        });
+    $(".uncheck").click(function () {
+        $('input[name="barnevogn"').prop("checked", false);
+        $('input[name="sykkel"').prop("checked", false);
+        $('input[name="hundover_40cm"').prop("checked", false);
+        $('input[name="kjaeledyrunder_40cm"').prop("checked", false);
+        utStrengBarnevogn = "";
+        $("#CheckboxBarnevogn").html(utStrengBarnevogn);
+        utStrengSykkel = " ";
+        $("#CheckboxSykkel").html(utStrengSykkel);
+        utStrengHund = " ";
+        $("#Checkboxhund").html(utStrengHund);
+        utStrengDyr = " ";
+        $("#Checkboxdyr").html(utStrengDyr);
+    });
+
+    // Uncheck checkboxen "Ingen speiselle behov" når det trykkes på en av de andre checkboxene
+    $(".uncheckBarnevogn").click(function () {
+        $('input[name="ingenSpesialBehov"').prop("checked", false);
+    });
+
+    $(".uncheckSykkel").click(function () {
+        $('input[name="ingenSpesialBehov"').prop("checked", false);
+    });
+
+    $(".uncheckHund").click(function () {
+        $('input[name="ingenSpesialBehov"').prop("checked", false);
+    });
+
+    $(".uncheckKjaele").click(function () {
+        $('input[name="ingenSpesialBehov"').prop("checked", false);
     });
 </script>
 
