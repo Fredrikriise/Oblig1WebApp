@@ -11,6 +11,11 @@ namespace Oblig1WebApp.Controllers
             return View();
         }
 
+        public ActionResult visAvganger()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult regBestilling(Bestilling innBestilling)
         {

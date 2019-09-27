@@ -1,0 +1,78 @@
+﻿@model Oblig1WebApp.Models.Bestilling
+
+<head>
+    <script type="text/javascript">
+        // Ajax
+        $(function () {
+            // Kaller på hentAlleAvgangerAvganger og bygger opp tabellRad når siden lastes
+            $.ajax({
+                url: '/Avgang/hentAlleAvgangerAvganger',
+                type: 'GET',
+                dataType: 'json',
+                success: function (jsAvgangAvgang) {
+                    VisAvgang(jsAvgangAvgang);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+
+            // Oppretter en hendelse på tabellraden når siden lastes
+            $("#tabellRad").change(function () {
+                var id = $(this).val();
+                $.ajax({
+                    url: '/Avgang/hentAvgangAvgangInfo/' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (Avgang) {
+                        VisInfoAvgang(Avgang);
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+            });
+        })
+        // Setter forsteAvgang inn i select
+        function VisAvgang(jsAvgangAvgang) {
+            var utStrengForste = "";
+            var utStrengSiste = "";
+            var utStrengReiseTid = "";
+            var utStrengSpor = "";
+            var utStrengTognummer = "";
+            var utStrengAvreisetid = "";
+            for (var i in jsAvgangAvgang) {
+                utStrengForste += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].forsteAvgang + "</td>";
+                utStrengSiste += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].sisteAvgang + "</td>";
+                utStrengReiseTid += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].reiseTid + "</td>";
+                utStrengSpor += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].spor + "</td>";
+                utStrengTognummer += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].togNummer + "</td>";
+                utStrengAvreisetid += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].avreiseTid + "</td>";
+                var velgKnapp = "<input type='submit' value='Velg' class='btn btn' />";
+            }
+            $("#tabellRad").append(utStrengForste);
+            $("#tabellRad").append(utStrengSiste);
+            $("#tabellRad").append(utStrengReiseTid);
+            $("#tabellRad").append(utStrengSpor);
+            $("#tabellRad").append(utStrengTognummer);
+            $("#tabellRad").append(utStrengAvreisetid);
+            $("tabellRad").append(velgKnapp);
+        }
+
+        // Viser forste avgang
+        function VisInfoAvgang(Avgang) {
+            var utStrengForste = Avgang.forsteAvgang;
+            $("#visInfoAvgang").html(utStrengForste);
+        }
+    </script>
+</head>
+<body>
+    <h2>Avganger</h2>
+    <form action="/Bestilling/Betaling" method="post">
+        <table>
+            <tr id="tabellRad">
+            </tr>
+        </table>
+        <span id="visInfoAvgang"></span>
+    </form>
+</body>

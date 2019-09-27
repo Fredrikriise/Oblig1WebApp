@@ -7,11 +7,6 @@ namespace Oblig1WebApp.Controllers
 {
     public class AvgangController : Controller
     {
-        public ActionResult DynamikkView()
-        {
-            return View();
-        }
-
         public string hentAlleAvganger()
         {
             var db = new DBContext();

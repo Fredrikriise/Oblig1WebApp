@@ -15,7 +15,6 @@
 
         <!-- Ajax script -->
         <script type="text/javascript">
-
             // Ajax for første avgang
             $(function () {
                 // Kaller på hentAlleAvganger og bygger opp dropdown-liste når siden lastes
@@ -45,27 +44,6 @@
                         }
                     });
                 });
-                // Oppretter en hendelse som kjøres når registreringsknappen trykkes
-                $("#registrer").click(function () {
-                    // Bygger et js objekt fra dropdown feltene "Reise fra" og "Reise til"
-                    var jsInnForste = {
-                        forsteAvgang: $('#fraLokasjon :selected').text()
-                    }
-                    $.ajax({
-                        url: '/Avgang/registrerAvgang',
-                        type: 'POST',
-                        data: JSON.stringify(jsInnForste),
-                        contentType: "application/json;charset=utf-8",
-                        success: function (ok) {
-                            // Legg inn feilhåndtering dersom feil i registrering
-                            window.location.reload();
-                            // Reloader vinduet etter at kallet har returnert
-                        },
-                        error: function (x, y, z) {
-                            alert(x + '\n' + y + '\n' + z);
-                        }
-                    });
-                })
             })
             // Setter forsteAvgang inn i select
             function VisDropDownForste(jsAvgang) {
@@ -96,6 +74,7 @@
                         alert(x + '\n' + y + '\n' + z);
                     }
                 });
+
                 // Oppretter en hendelse på dropdown-listen når siden lastes
                 $("#dropSiste").change(function () {
                     var id = $(this).val();
@@ -111,28 +90,8 @@
                         }
                     });
                 });
-                // Oppretter en hendelse som kjøres når registreringsknappen trykkes
-                $("#registrer").click(function () {
-                    // Bygger et js objekt fra dropdown feltene "Reise fra" og "Reise til"
-                    var jsInnSiste = {
-                        sisteAvgang: $('#tilLokasjon :selected').text()
-                    }
-                    $.ajax({
-                        url: '/Avgang/registrerAvgang',
-                        type: 'POST',
-                        data: JSON.stringify(jsInnSiste),
-                        contentType: "application/json;charset=utf-8",
-                        success: function (ok) {
-                            // Legg inn feilhåndtering dersom feil i registrering
-                            window.location.reload();
-                            // Reloader vinduet etter at kallet har returnert
-                        },
-                        error: function (x, y, z) {
-                            alert(x + '\n' + y + '\n' + z);
-                        }
-                    });
-                })
             })
+
             // Setter sisteAvgang inn i select
             function VisDropDownSiste(jsAvgang) {
                 var utStreng = "";
