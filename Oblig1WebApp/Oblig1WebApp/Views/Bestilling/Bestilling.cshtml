@@ -289,8 +289,8 @@
             Til lokasjon:<b> <span id="visInfoSiste"></span> </b> <br />
             Utreisedato:<b> <span id="utreiseDatoUt"></span> </b> <br />
             <span id="visReturDato">Returdato: <b> <span id="returDatoUt"></span> </b> <br /> </span>
-            Reisende: <span id="numberTotaltReisende"></span> <span id="numberVoksen"></span><span id="numberSmåbarn"></span><span id="numberStudent"></span><span id="numberHonnoer"></span><span id="numberVernepliktig"></span> <span id="numberBarn"></span><br />
-            Spesialbehov: <span id="CheckboxBarnevogn"></span> <span id="CheckboxSykkel"></span><span id="Checkboxhund"></span><span id="Checkboxdyr"></span> <br />
+            Totalt reisende: <span id="numberTotaltReisende"></span> <span id="numberVoksen"></span><span id="numberSmåbarn"></span><span id="numberStudent"></span><span id="numberHonnoer"></span><span id="numberVernepliktig"></span> <span id="numberBarn"></span><br />
+            Spesialbehov: <span id="numberBarnevogn"></span> <span id="numberSykkel"></span><span id="numberHund"></span><span id="numberKjaele"></span> <br />
         </div>
         <br />
 
@@ -342,6 +342,56 @@
         utStrengDatoUtreise = " " + input;
         $("#returDatoUt").text(utStrengDatoUtreise);
     });
+
+    // Script for å skrive ut antall spesialbehov av hvert spesialbehov
+    $(':input').on('keyup mouseup', function () {
+       // Barnevogn
+       var utStrengBarnevogn = "";
+       utStrengBarnevogn += " " + $('#barnevogn').val();
+       if ($('#barnevogn').val() == 1) {
+           utStrengBarnevogn += " barnevogn";
+       } else if ($('#barnevogn').val() > 1) {
+           utStrengBarnevogn += " barnevogner";
+       } else {
+           utStrengBarnevogn = "";
+       }
+       $("#numberBarnevogn").text(utStrengBarnevogn);
+
+       // Sykkel
+       var utStrengSykkel = "";
+       utStrengSykkel += " " + $('#sykkel').val();
+       if ($('#sykkel').val() == 1) {
+           utStrengSykkel += " sykkel";
+       } else if ($('#sykkel').val() > 1) {
+           utStrengSykkel += " sykler";
+       } else {
+           utStrengSykkel = "";
+       }
+       $("#numberSykkel").text(utStrengSykkel);
+
+       // Hund over 40 cm
+       var utStrengHund = "";
+       utStrengHund += " " + $('#hundover_40cm').val();
+       if ($('#hundover_40cm').val() == 1) {
+           utStrengHund += " hund over 40 cm";
+       } else if ($('#hundover_40cm').val() > 1) {
+           utStrengHund += " hunder over 40 cm";
+       }
+       else {
+           utStrengHund = "";
+       }
+       $("#numberHund").text(utStrengHund);
+
+       // Kjæledyr under 40cm
+       var utStrengKjaele = "";
+       utStrengKjaele += " " + $('#kjaeledyrunder_40cm').val();
+        if ($('#kjaeledyrunder_40cm').val() >= 1) {
+            utStrengKjaele += " kjæledyr under 40cm";
+        } else {
+           utStrengKjaele = "";
+       }
+       $("#numberKjaele").text(utStrengKjaele);
+    }).trigger('mouseup');
 
     // Script for å skrive ut antall reisende av hver type reisende
     $(':input').on('keyup mouseup', function () {
@@ -425,8 +475,13 @@
                 utStrengTotalt += parseInt(array[i].val());
             }
         }
-        var utStrengTotaltReisende = utStrengTotalt + " reisende: "
+
+        var utStrengTotaltReisende = utStrengTotalt + " -> ";
+        if (utStrengTotalt == 0) {
+            utStrengTotaltReisende.hide();
+        }
         $("#numberTotaltReisende").text(utStrengTotaltReisende);
+
 
     }).trigger('mouseup');
 
@@ -489,6 +544,7 @@
         $("#Checkboxdyr").html(utStrengDyr);
     });
 
+
     // Uncheck checkboxen "Ingen speiselle behov" når det trykkes på en av de andre checkboxene
     $(".uncheckBarnevogn").click(function () {
         $('input[name="ingenSpesialBehov"').prop("checked", false);
@@ -505,5 +561,7 @@
     $(".uncheckKjaele").click(function () {
         $('input[name="ingenSpesialBehov"').prop("checked", false);
     });
+
+
 </script>
 
