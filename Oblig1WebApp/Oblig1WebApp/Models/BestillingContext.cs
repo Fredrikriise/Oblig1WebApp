@@ -16,12 +16,12 @@ namespace Oblig1WebApp.Models
         public DateTime? ReturDato { get; set; }
         public string ReturTid { get; set; }
 
-        public int Voksen { get; set; }
-        public int Barn0_5 { get; set; }
-        public int Student { get; set; }
-        public int Honnoer { get; set; }
-        public int Vernepliktig { get; set; }
-        public int Barn6_17 { get; set; }
+        public int? Voksen { get; set; }
+        public int? Barn0_5 { get; set; }
+        public int? Student { get; set; }
+        public int? Honnoer { get; set; }
+        public int? Vernepliktig { get; set; }
+        public int? Barn6_17 { get; set; }
         public int? Barnevogn { get; set; }
         public int? Sykkel { get; set; }
         public int? Hundover_40cm { get; set; }

@@ -177,6 +177,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Avgang.cs" />
+    <Compile Include="Models\AvgangAvgang.cs" />
+    <Compile Include="Models\AvgangAvgangContext.cs" />
     <Compile Include="Models\AvgangContext.cs" />
     <Compile Include="Models\Bestilling.cs" />
     <Compile Include="Models\BestillingContext.cs" />
@@ -196,6 +198,9 @@
     <Content Include="Views\Bestilling\listAvganger.cshtml" />
     <Content Include="Views\Bestilling\endreAvgang.cshtml" />
     <Content Include="Views\Bestilling\listBestillinger.cshtml" />
+    <Content Include="Views\Bestilling\TestView.cshtml" />
+    <Content Include="Views\Bestilling\listAvgangerAvganger.cshtml" />
+    <Content Include="Views\Bestilling\registrerAvgangAvgang.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -205,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Avgang\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

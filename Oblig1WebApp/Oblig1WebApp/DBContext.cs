@@ -32,7 +32,6 @@ namespace Oblig1WebApp
                     hundover_40cm = b.Hundover_40cm,
                     kjaeledyrunder_40cm = b.Kjaeledyrunder_40cm
                 }).ToList();
-
                 return alleBestillinger;
             }
         }
@@ -48,15 +47,64 @@ namespace Oblig1WebApp
                     nyBestilling.FraLokasjon = innBestilling.fraLokasjon;
                     nyBestilling.TilLokasjon = innBestilling.tilLokasjon;
                     nyBestilling.BillettType = innBestilling.billettType;
+
+                   // string test = innBestilling.utreiseDato.HasValue ? innBestilling.utreiseDato.Value.ToString("dd/MM/yyyy") : string.Empty;
+                   // DateTime? dt = string.IsNullOrEmpty(test) ? (DateTime?)null : DateTime.Parse(test);
+
+                    //string test2 = innBestilling.utreiseDato.Value.ToString("dd/MM/yyyy");
+                    //DateTime? dt = string.IsNullOrEmpty(test2) ? (DateTime?)null : DateTime.Parse(test2);
+
                     nyBestilling.UtreiseDato = innBestilling.utreiseDato;
+
+                    if(nyBestilling.UtreiseDato == null)
+                    {
+                        innBestilling.utreiseTid = null;
+                    }
+
                     nyBestilling.UtreiseTid = innBestilling.utreiseTid;
                     nyBestilling.ReturDato = innBestilling.returDato;
+
+                    if(innBestilling.returDato == null)
+                    {
+                        innBestilling.returTid = null;
+                    }
+
                     nyBestilling.ReturTid = innBestilling.returTid;
+
+                    if (innBestilling.voksen == 0)
+                    {
+                        innBestilling.voksen = null;
+                    }
                     nyBestilling.Voksen = innBestilling.voksen;
+
+                    if (innBestilling.barn0_5 == 0)
+                    {
+                        innBestilling.barn0_5 = null;
+                    }
                     nyBestilling.Barn0_5 = innBestilling.barn0_5;
+
+                    if (innBestilling.student == 0)
+                    {
+                        innBestilling.student = null;
+                    }
                     nyBestilling.Student = innBestilling.student;
+
+                    if (innBestilling.honnoer == 0)
+                    {
+                        innBestilling.honnoer = null;
+                    }
                     nyBestilling.Honnoer = innBestilling.honnoer;
+
+                    if (innBestilling.vernepliktig == 0)
+                    {
+                        innBestilling.vernepliktig = null;
+                    }
                     nyBestilling.Vernepliktig = innBestilling.vernepliktig;
+
+                    if (innBestilling.barn6_17 == 0)
+                    {
+                        innBestilling.barn6_17 = null;
+                    }
                     nyBestilling.Barn6_17 = innBestilling.barn6_17;
 
                     if(innBestilling.barnevogn == 0)
@@ -172,6 +220,73 @@ namespace Oblig1WebApp
                 }
             }
         }
+
+        // Metode for å lagre avgangAvganger
+        public bool lagreAvgangAvgang(AvgangAvgang innAvgang)
+        {
+            using (var db = new AvgangAvgangContext())
+            {
+                try
+                {
+                    var nyAvgang = new AvgangerAvganger();
+                    nyAvgang.ForsteAvgang = innAvgang.forsteAvgang;
+                    nyAvgang.SisteAvgang = innAvgang.sisteAvgang;
+                    nyAvgang.ReiseTid = innAvgang.reiseTid;
+                    nyAvgang.Spor = innAvgang.spor;
+                    nyAvgang.TogNummer = innAvgang.togNummer;
+                    nyAvgang.Avgangstid = innAvgang.avgangstid;
+
+                    db.AvgangerAvganger.Add(nyAvgang);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                }
+            }
+        }
+
+        //Metode for å liste alle AvgangerAvganger
+        public List<AvgangAvgang> alleAvgangerAvganger()
+        {
+            using (var db = new AvgangAvgangContext())
+            {
+                List<AvgangAvgang> alleAvganger = db.AvgangerAvganger.Select(a => new AvgangAvgang
+                {
+                    id = a.Id,
+                    forsteAvgang = a.ForsteAvgang,
+                    sisteAvgang = a.SisteAvgang,
+                    reiseTid = a.ReiseTid,
+                    spor = a.Spor,
+                    togNummer = a.TogNummer,
+                    avgangstid = a.Avgangstid
+                }).ToList();
+                return alleAvganger;
+            }
+        }
+
+        public AvgangAvgang hentAvgangAvgang(int id)
+        {
+            using (var db = new AvgangAvgangContext())
+            {
+                AvgangerAvganger enAvgang = db.AvgangerAvganger.Find(id);
+                var hentetAvgang = new AvgangAvgang()
+                {
+                    id = enAvgang.Id,
+                    forsteAvgang = enAvgang.ForsteAvgang,
+                    sisteAvgang = enAvgang.SisteAvgang,
+                    reiseTid = enAvgang.ReiseTid,
+                    spor = enAvgang.Spor,
+                    togNummer = enAvgang.TogNummer,
+                    avgangstid = enAvgang.Avgangstid
+                };
+                return hentetAvgang;
+            }
+        }
+
 
         // Metode for å endre avgang
         public bool endreAvgang(Avgang innAvgang)

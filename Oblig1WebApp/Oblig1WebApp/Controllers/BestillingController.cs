@@ -86,5 +86,30 @@ namespace Oblig1WebApp.Controllers
             }
             return View();
         }
+
+        
+        public ActionResult registrerAvgangAvgang()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult registrerAvgangAvgang(AvgangAvgang innAvgang)
+        {
+            var db = new DBContext();
+            bool OK = db.lagreAvgangAvgang(innAvgang);
+            if (OK)
+            {
+                return RedirectToAction("listAvganger");
+            }
+            return View();
+        }
+
+        public ActionResult listAvgangerAvganger()
+        {
+            var db = new DBContext();
+            List<AvgangAvgang> alleAvganger = db.alleAvgangerAvganger();
+            return View(alleAvganger);
+        }
     }
 }

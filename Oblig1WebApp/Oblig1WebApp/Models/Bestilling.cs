@@ -34,17 +34,17 @@ namespace Oblig1WebApp.Models
         public string returTid { get; set; }
 
         [Display(Name = "Antall voksenbilletter")]
-        public int voksen { get; set; }
+        public int? voksen { get; set; }
         [Display(Name = "Antall barn 0-5 billetter")]
-        public int barn0_5 { get; set; }
+        public int? barn0_5 { get; set; }
         [Display(Name = "Antall studentbilletter")]
-        public int student { get; set; }
+        public int? student { get; set; }
         [Display(Name = "Antall honnørbilletter")]
-        public int honnoer { get; set; }
+        public int? honnoer { get; set; }
         [Display(Name = "Antall vernepliktbilletter")]
-        public int vernepliktig { get; set; }
+        public int? vernepliktig { get; set; }
         [Display(Name = "Antall barn 6-17 billetter")]
-        public int barn6_17 { get; set; }
+        public int? barn6_17 { get; set; }
 
         [Display(Name = "Barnevogn")]
         public int? barnevogn { get; set; }
