@@ -19,6 +19,7 @@ namespace Oblig1WebApp.Models
         public string spor { get; set; }
         [Display(Name = "Tognummer")]
         public string togNummer { get; set; }
+        [Display(Name = "Avgangstid")]
         public string avgangstid { get; set; } 
     }
 
