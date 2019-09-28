@@ -19,6 +19,8 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult regBestilling(Bestilling innBestilling)
         {
+     
+
             var db = new DBContext();
             bool OK = db.lagreBestilling(innBestilling);
             if (OK)

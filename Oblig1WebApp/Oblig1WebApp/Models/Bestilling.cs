@@ -21,6 +21,7 @@ namespace Oblig1WebApp.Models
 
         [Display(Name = "Dato utreise")]
         [Required(ErrorMessage = "Dato må oppgis")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? utreiseDato { get; set; }
 
         [Display(Name = "Klokkeslett utreise")]
@@ -28,6 +29,7 @@ namespace Oblig1WebApp.Models
         public string utreiseTid { get; set; }
 
         [Display(Name = "Dato retur")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? returDato { get; set; }
 
         [Display(Name = "Klokkeslett retur")]
