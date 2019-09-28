@@ -132,7 +132,7 @@
                     <br />
                     <b>Type billett</b><br />
                     <input type="radio" name="billettType" id="enVei" value="EnVei" checked> En vei<br>
-                    <input type="radio" name="billettType" id="turRetur" value="TurRetur"> Tur/Retur 
+                    <input type="radio" name="billettType" id="turRetur" value="TurRetur"> Tur/Retur
                 </td>
             </tr>
             <tr>
@@ -232,7 +232,7 @@
         <br />
 
         <a id="visSpesielleBehov" style="color: #5cb85c;"> <b> Spesielle behov</b>  <img src="~/Content/Images/spesiellebehov.png" /></a> <br />
-        <span id="visCheckboxer">
+        <span id="visImputboxer">
             <input type="number" id="barnevogn" name="barnevogn" class="uncheckBarnevogn" style="border: 0px; width: 2em" value="0" min="0" max="9"> Barnevogn <a href="#" data-toggle="popover" data-content="Det er gratis å ta med barnevogn på tog og buss, forutsatt at det er nok plass. Det er barnevognplasser i alle tog. For tog med plassreservering, må du bestille plass på forhånd. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br>
             <input type="number" id="sykkel" name="sykkel" class="uncheckSykkel" style="border: 0px; width: 2em" value="0" min="0" max="9"> Sykkel <a href="#" data-toggle="popover" data-content="Du må reservere plass til sykkel på alle lange regionstrekninger og på Gjøvikbanen. Skal du ha med sykkelvogn på toget, må du bestille plass via kundesenteret. Sykkelplass på buss må du forhåndsbestille når du kjøper billett på nettbuss.no. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br />
             <input type="number" id="hundover_40cm" class="uncheckHund" name="hundover_40cm" style="border: 0px; width: 2em" value="0" min="0" max="9"> Hund over 40cm <a href="#" data-toggle="popover" data-content="Hunder med skulderhøyde over 40 cm får 50 prosent rabatt på togbilletter. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
@@ -245,13 +245,17 @@
         <br />
 
         <h4> <u> <b>Reisen du har valgt:</b> </u> </h4>
+
+        <span id="visLokasjoner"> <b><span id="visInfoForste"></span></b><img src="~/Content/Images/ArrowForwardBlack.png" /><b><span id="visInfoSiste"></span></b><br /> </span>
+        <!--
         Fra lokasjon:<b> <span id="visInfoForste"></span> </b> <br />
         Til lokasjon:<b> <span id="visInfoSiste"></span> </b> <br />
+        -->
         Utreisedato:<b> <span id="utreiseDatoUt"></span> </b> <br />
         <span id="visReturDato">Returdato: <b> <span id="returDatoUt"></span> </b> <br /> </span>
         Totalt reisende: <span id="numberTotaltReisende"></span> <span id="numberVoksen"></span><span id="numberSmåbarn"></span><span id="numberStudent"></span><span id="numberHonnoer"></span><span id="numberVernepliktig"></span> <span id="numberBarn"></span><br />
-        Spesialbehov: <span id="numberBarnevogn"></span> <span id="numberSykkel"></span><span id="numberHund"></span><span id="numberKjaele"></span> <br />
-        <br/>
+        <span id="visSpesialBehov"> Spesialbehov: <span id="numberBarnevogn"></span> <span id="numberSykkel"></span><span id="numberHund"></span><span id="numberKjaele"></span> <br /> </span>
+        <br />
 
         <input type="submit" value="Se avganger" name="regBestilling" id="regBestilling" class="btn btn-success" />
     </form>
@@ -259,6 +263,16 @@
 
 <!-- Javascript -->
 <script>
+    /*
+    // Vise/skjule resielokasjoner
+    $(document).ready(function () {
+        $("#visLokasjoner").hide();
+        if ($("#dropForste").val() != "-- Velg Utreise --" && $("#dropSiste").val() != "-- Velg Retur --") {
+            $("#visLokasjoner").show();
+        }
+    });
+    */
+
     // For en vei- og returdatoer (vise/skjule)
     $(document).ready(function () {
         $("#retur").hide();
@@ -272,21 +286,31 @@
             $("#visReturDato").hide();
         });
     });
+
+    // Vise/skjule "Spesialbehov:" nederst på bestillingskjema
     $(document).ready(function () {
-        $('[data-toggle="popover"]').popover({ html: true });
+        $("#visSpesialBehov").hide();
+        // Barnevogn 
+        $("#barnevogn").on('change', function () {
+            $("#visSpesialBehov").show();
+        });
+        // Sykkel
+        $("#sykkel").on('change', function () {
+            $("#visSpesialBehov").show();
+        });
+        // Hund over 40 cm
+        $("#hundover_40cm").on('change', function () {
+            $("#visSpesialBehov").show();
+        });
+        // Kjæledyr under 40 cm
+        $("#kjaeledyrunder_40cm").on('change', function () {
+            $("#visSpesialBehov").show();
+        });
     });
 
-    // Script for å vise / skjule spesielleBehov ved klikk
-    $("#visCheckboxer").hide();
-    var checkbox = document.getElementById('visCheckboxer');
-    $('#visSpesielleBehov').click(function () {
-        if (window.getComputedStyle(checkbox).visibility == "hidden") {
-            $("#visCheckboxer").show();
-            checkbox.style.visibility = "visible";
-        } else {
-            $("#visCheckboxer").hide();
-            checkbox.style.visibility = "hidden";
-        }
+    // For informasjonsbokser i "spesielle behov"
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover({ html: true });
     });
 
     //Script for å skrive ut utreise- og returdato
@@ -440,88 +464,24 @@
         if (utStrengTotalt == 0) {
             utStrengTotaltReisende.hide();
         }
-        $("#numberTotaltReisende").text(utStrengTotaltReisende);
+        $("#numberTotaltReisende").text(utStrengTotaltReisende + "->");
     }).trigger('mouseup');
 
-
-    // IKKE I BRUK, SIDEN VI BYTTET FRA CHECKBOX TIL NUMBERINPUT
-    // Script for å vise/skjule valgte checkboxer
-    $('input[type=checkbox]').on('click', function () {
-        // Barnevogn
-        if ($('input[name="barnevogn"]').is(':checked')) {
-            var utStrengBarnevogn = "";
-            utStrengBarnevogn += " " + $('#barnevogn').val();
-            $("#CheckboxBarnevogn").html(utStrengBarnevogn);
+   
+    // Script for å vise / skjule spesielleBehov ved klikk (funker å vise, men ikke skjule dersom verdiene settes til 0 igjen)
+    $("#visInputboxer").hide();
+    var inputbox = document.getElementById('visInputboxer');
+    $('#visSpesielleBehov').click(function () {
+        if (window.getComputedStyle(inputbox).visibility == "hidden") {
+            $("#visInputboxer").show();
+            inputbox.style.visibility = "visible";
         } else {
-            utStrengBarnevogn = " ";
-            $("#CheckboxBarnevogn").html(utStrengBarnevogn);
-        }
-
-        // Sykkel
-        if ($('input[name="sykkel"]').is(':checked')) {
-            var utStrengSykkel = "";
-            utStrengSykkel += " " + $('#sykkel').val();
-            $("#CheckboxSykkel").html(utStrengSykkel);
-        } else {
-            utStrengSykkel = " ";
-            $("#CheckboxSykkel").html(utStrengSykkel);
-        }
-
-        // Hund over 40 cm
-        if ($('input[name="hundover_40cm"]').is(':checked')) {
-            var utStrengHund = "";
-            utStrengHund += " " + $('#hundover_40cm').val();
-            $("#Checkboxhund").html(utStrengHund);
-        } else {
-            utStrengHund = " ";
-            $("#Checkboxhund").html(utStrengHund);
-        }
-
-        // Kjæledyr under 40 cm
-        if ($('input[name="kjaeledyrunder_40cm"]').is(':checked')) {
-            var utStrengDyr = "";
-            utStrengDyr += " " + $('#kjaeledyrunder_40cm').val();
-            $("#Checkboxdyr").html(utStrengDyr);
-        } else {
-            utStrengDyr = " ";
-            $("#Checkboxdyr").html(utStrengDyr);
+            $("#visInputboxer").hide();
+            inputbox.style.visibility = "hidden";
         }
     });
-
-    // Unchecker alle checkboxene dersom man klikker på "ingen spesielle behov" og fjerner dynamisk output nederst
-    $(".uncheck").click(function () {
-        $('input[name="barnevogn"').prop("checked", false);
-        $('input[name="sykkel"').prop("checked", false);
-        $('input[name="hundover_40cm"').prop("checked", false);
-        $('input[name="kjaeledyrunder_40cm"').prop("checked", false);
-        utStrengBarnevogn = "";
-        $("#CheckboxBarnevogn").html(utStrengBarnevogn);
-        utStrengSykkel = " ";
-        $("#CheckboxSykkel").html(utStrengSykkel);
-        utStrengHund = " ";
-        $("#Checkboxhund").html(utStrengHund);
-        utStrengDyr = " ";
-        $("#Checkboxdyr").html(utStrengDyr);
-    });
-
-
-    // Uncheck checkboxen "Ingen speiselle behov" når det trykkes på en av de andre checkboxene
-    $(".uncheckBarnevogn").click(function () {
-        $('input[name="ingenSpesialBehov"').prop("checked", false);
-    });
-
-    $(".uncheckSykkel").click(function () {
-        $('input[name="ingenSpesialBehov"').prop("checked", false);
-    });
-
-    $(".uncheckHund").click(function () {
-        $('input[name="ingenSpesialBehov"').prop("checked", false);
-    });
-
-    $(".uncheckKjaele").click(function () {
-        $('input[name="ingenSpesialBehov"').prop("checked", false);
-    });
-
 
 </script>
+
+
 
