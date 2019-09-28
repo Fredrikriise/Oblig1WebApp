@@ -28,6 +28,7 @@
                         alert(x + '\n' + y + '\n' + z);
                     }
                 });
+
                 // Oppretter en hendelse på dropdown-listen når siden lastes
                 $("#dropForste").change(function () {
                     var id = $(this).val();
@@ -44,6 +45,7 @@
                     });
                 });
             })
+
             // Setter forsteAvgang inn i select
             function VisDropDownForste(jsAvgang) {
                 var utStreng = "";
@@ -52,6 +54,7 @@
                 }
                 $("#dropForste").append(utStreng);
             }
+
             // Viser forste avgang
             function VisInfoForste(Avgang) {
                 var utStreng = Avgang.forsteAvgang;
@@ -99,6 +102,7 @@
                 }
                 $("#dropSiste").append(utStreng);
             }
+
             // Viser siste avgang
             function VisInfoSiste(Avgang) {
                 var utStreng = Avgang.sisteAvgang;
@@ -312,6 +316,7 @@
     $(document).ready(function () {
         $('[data-toggle="popover"]').popover({ html: true });
     });
+
 
     //Script for å skrive ut utreise- og returdato
     // Utreise

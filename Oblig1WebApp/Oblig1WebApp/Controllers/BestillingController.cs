@@ -83,6 +83,25 @@ namespace Oblig1WebApp.Controllers
             return View();
         }
 
+        public ActionResult endreVisAvgang(int id)
+        {
+            var db = new DBContext();
+            visAvgang enAvgang = db.hentVisAvgang(id);
+            return View(enAvgang);
+        }
+
+        [HttpPost]
+        public ActionResult endreVisAvgang(visAvgang innAvgang)
+        {
+            var db = new DBContext();
+            bool OK = db.endreVisAvgang(innAvgang);
+            if (OK)
+            {
+                RedirectToAction("listVisAvganger");
+            }
+            return View();
+        }
+
         public ActionResult slettAvgang(int id)
         {
             var db = new DBContext();
@@ -94,7 +113,18 @@ namespace Oblig1WebApp.Controllers
             return View();
         }
 
-        
+        public ActionResult slettVisAvgang(int id)
+        {
+            var db = new DBContext();
+            bool OK = db.slettVisAvgang(id);
+            if (OK)
+            {
+                RedirectToAction("listVisAvganger");
+            }
+            return View();
+        }
+
+
         public ActionResult registrerVisAvgang()
         {
             return View();

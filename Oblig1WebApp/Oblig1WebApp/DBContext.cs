@@ -48,12 +48,6 @@ namespace Oblig1WebApp
                     nyBestilling.TilLokasjon = innBestilling.tilLokasjon;
                     nyBestilling.BillettType = innBestilling.billettType;
 
-                   // string test = innBestilling.utreiseDato.HasValue ? innBestilling.utreiseDato.Value.ToString("dd/MM/yyyy") : string.Empty;
-                   // DateTime? dt = string.IsNullOrEmpty(test) ? (DateTime?)null : DateTime.Parse(test);
-
-                    //string test2 = innBestilling.utreiseDato.Value.ToString("dd/MM/yyyy");
-                    //DateTime? dt = string.IsNullOrEmpty(test2) ? (DateTime?)null : DateTime.Parse(test2);
-
                     nyBestilling.UtreiseDato = innBestilling.utreiseDato;
 
                     if(nyBestilling.UtreiseDato == null)
@@ -268,6 +262,7 @@ namespace Oblig1WebApp
             }
         }
 
+
         public visAvgang hentVisAvgang(int id)
         {
             using (var db = new visAvgangContext())
@@ -287,6 +282,32 @@ namespace Oblig1WebApp
             }
         }
 
+
+        // Metode for å endre avgang
+        public bool endreVisAvgang(visAvgang innAvgang)
+        {
+            using (var db = new visAvgangContext())
+            {
+                try
+                {
+                    var endreObjekt = db.visAvganger.Find(innAvgang.id);
+                    endreObjekt.Id = innAvgang.id;
+                    endreObjekt.ForsteAvgang = innAvgang.forsteAvgang;
+                    endreObjekt.SisteAvgang = innAvgang.sisteAvgang;
+                    endreObjekt.ReiseTid = innAvgang.reiseTid;
+                    endreObjekt.Spor = innAvgang.spor;
+                    endreObjekt.TogNummer = innAvgang.togNummer;
+                    db.SaveChanges();
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                }
+                return true;
+            }
+        }
 
         // Metode for å endre avgang
         public bool endreAvgang(Avgang innAvgang)
@@ -333,6 +354,7 @@ namespace Oblig1WebApp
             }
         }
 
+
         public bool slettAvgang(int id)
         {
             using (var db = new AvgangContext())
@@ -341,6 +363,27 @@ namespace Oblig1WebApp
                 {
                     var slettObjekt = db.Avganger.Find(id);
                     db.Avganger.Remove(slettObjekt);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                }
+            }
+
+        }
+
+        public bool slettVisAvgang(int id)
+        {
+            using (var db = new visAvgangContext())
+            {
+                try
+                {
+                    var slettObjekt = db.visAvganger.Find(id);
+                    db.visAvganger.Remove(slettObjekt);
                     db.SaveChanges();
                     return true;
                 }
