@@ -20,6 +20,7 @@ namespace Oblig1WebApp.Models
     public class jsAvgang
     {
         public int id { get; set; }
-        public string avgang { get; set; }
+        public string forsteAvgang { get; set; }
+        public string sisteAvgang { get; set; }
     }
 }

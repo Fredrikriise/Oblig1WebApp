@@ -222,13 +222,13 @@ namespace Oblig1WebApp
         }
 
         // Metode for å lagre avgangAvganger
-        public bool lagreAvgangAvgang(AvgangAvgang innAvgang)
+        public bool lagreVisAvgang(visAvgang innAvgang)
         {
-            using (var db = new AvgangAvgangContext())
+            using (var db = new visAvgangContext())
             {
                 try
                 {
-                    var nyAvgang = new AvgangerAvganger();
+                    var nyAvgang = new visAvganger();
                     nyAvgang.ForsteAvgang = innAvgang.forsteAvgang;
                     nyAvgang.SisteAvgang = innAvgang.sisteAvgang;
                     nyAvgang.ReiseTid = innAvgang.reiseTid;
@@ -236,7 +236,7 @@ namespace Oblig1WebApp
                     nyAvgang.TogNummer = innAvgang.togNummer;
                     nyAvgang.Avgangstid = innAvgang.avgangstid;
 
-                    db.AvgangerAvganger.Add(nyAvgang);
+                    db.visAvganger.Add(nyAvgang);
                     db.SaveChanges();
                     return true;
                 }
@@ -250,11 +250,11 @@ namespace Oblig1WebApp
         }
 
         //Metode for å liste alle AvgangerAvganger
-        public List<AvgangAvgang> alleAvgangerAvganger()
+        public List<visAvgang> alleVisAvganger()
         {
-            using (var db = new AvgangAvgangContext())
+            using (var db = new visAvgangContext())
             {
-                List<AvgangAvgang> alleAvganger = db.AvgangerAvganger.Select(a => new AvgangAvgang
+                List<visAvgang> alleAvganger = db.visAvganger.Select(a => new visAvgang
                 {
                     id = a.Id,
                     forsteAvgang = a.ForsteAvgang,
@@ -268,12 +268,12 @@ namespace Oblig1WebApp
             }
         }
 
-        public AvgangAvgang hentAvgangAvgang(int id)
+        public visAvgang hentVisAvgang(int id)
         {
-            using (var db = new AvgangAvgangContext())
+            using (var db = new visAvgangContext())
             {
-                AvgangerAvganger enAvgang = db.AvgangerAvganger.Find(id);
-                var hentetAvgang = new AvgangAvgang()
+                visAvganger enAvgang = db.visAvganger.Find(id);
+                var hentetAvgang = new visAvgang()
                 {
                     id = enAvgang.Id,
                     forsteAvgang = enAvgang.ForsteAvgang,

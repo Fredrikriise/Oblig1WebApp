@@ -17,7 +17,8 @@ namespace Oblig1WebApp.Controllers
             {
                 var enAvgang = new jsAvgang();
                 enAvgang.id = a.id;
-                enAvgang.avgang = a.forsteAvgang + " " + a.sisteAvgang;
+                enAvgang.forsteAvgang = a.forsteAvgang;
+                enAvgang.sisteAvgang = a.sisteAvgang;
                 alleStrekninger.Add(enAvgang);
             }
             var jsonSerializer = new JavaScriptSerializer();
@@ -42,17 +43,22 @@ namespace Oblig1WebApp.Controllers
             return jsonSerializer.Serialize("OK");
         }
 
-        public string hentAlleAvgangerAvganger()
+        public string hentAlleVisAvganger()
         {
             var db = new DBContext();
-            List<AvgangAvgang> alleAvganger = db.alleAvgangerAvganger();
+            List<visAvgang> alleAvganger = db.alleVisAvganger();
 
-            var alleStrekninger = new List<jsAvgangAvgang>();
-            foreach (AvgangAvgang a in alleAvganger)
+            var alleStrekninger = new List<jsVisAvgang>();
+            foreach (visAvgang a in alleAvganger)
             {
-                var enAvgang = new jsAvgangAvgang();
+                var enAvgang = new jsVisAvgang();
                 enAvgang.id = a.id;
-                enAvgang.avgang = a.forsteAvgang + " " + a.sisteAvgang;
+                enAvgang.forsteAvgang = a.forsteAvgang;
+                enAvgang.sisteAvgang = a.sisteAvgang;
+                enAvgang.reiseTid = a.reiseTid;
+                enAvgang.spor = a.spor;
+                enAvgang.togNummer = a.togNummer;
+                enAvgang.avgangstid = a.avgangstid;
                 alleStrekninger.Add(enAvgang);
             }
             var jsonSerializer = new JavaScriptSerializer();
@@ -60,19 +66,19 @@ namespace Oblig1WebApp.Controllers
             return json;
         }
 
-        public string hentAvgangAvgangInfo(int id)
+        public string hentVisAvgangInfo(int id)
         {
             var db = new DBContext();
-            AvgangAvgang enAvgang = db.hentAvgangAvgang(id);
+            visAvgang enAvgang = db.hentVisAvgang(id);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(enAvgang);
             return json;
         }
 
-        public string registerAvgangAvgang(AvgangAvgang innAvgang)
+        public string registerVisAvgang(visAvgang innAvgang)
         {
             var db = new DBContext();
-            db.lagreAvgangAvgang(innAvgang);
+            db.lagreVisAvgang(innAvgang);
             var jsonSerializer = new JavaScriptSerializer();
             return jsonSerializer.Serialize("OK");
         }

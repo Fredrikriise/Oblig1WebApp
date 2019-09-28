@@ -93,16 +93,16 @@ namespace Oblig1WebApp.Controllers
         }
 
         
-        public ActionResult registrerAvgangAvgang()
+        public ActionResult registrerVisAvgang()
         {
             return View();
         }
         
         [HttpPost]
-        public ActionResult registrerAvgangAvgang(AvgangAvgang innAvgang)
+        public ActionResult registrerVisAvgang(visAvgang innAvgang)
         {
             var db = new DBContext();
-            bool OK = db.lagreAvgangAvgang(innAvgang);
+            bool OK = db.lagreVisAvgang(innAvgang);
             if (OK)
             {
                 return RedirectToAction("listAvganger");
@@ -110,10 +110,10 @@ namespace Oblig1WebApp.Controllers
             return View();
         }
 
-        public ActionResult listAvgangerAvganger()
+        public ActionResult listVisAvganger()
         {
             var db = new DBContext();
-            List<AvgangAvgang> alleAvganger = db.alleAvgangerAvganger();
+            List<visAvgang> alleAvganger = db.alleVisAvganger();
             return View(alleAvganger);
         }
     }

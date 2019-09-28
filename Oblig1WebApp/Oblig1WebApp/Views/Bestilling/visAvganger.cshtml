@@ -6,11 +6,11 @@
         $(function () {
             // Kaller på hentAlleAvgangerAvganger og bygger opp tabellRad når siden lastes
             $.ajax({
-                url: '/Avgang/hentAlleAvgangerAvganger',
+                url: '/Avgang/hentAlleVisAvganger',
                 type: 'GET',
                 dataType: 'json',
-                success: function (jsAvgangAvgang) {
-                    VisAvgang(jsAvgangAvgang);
+                success: function (jsVisAvgang) {
+                    VisAvgang(jsVisAvgang);
                 },
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
@@ -21,11 +21,11 @@
             $("#tabellRad").change(function () {
                 var id = $(this).val();
                 $.ajax({
-                    url: '/Avgang/hentAvgangAvgangInfo/' + id,
+                    url: '/Avgang/hentVisAvgangInfo/' + id,
                     type: 'GET',
                     dataType: 'json',
-                    success: function (Avgang) {
-                        VisInfoAvgang(Avgang);
+                    success: function (visAvgang) {
+                        VisInfoAvgang(visAvgang);
                     },
                     error: function (x, y, z) {
                         alert(x + '\n' + y + '\n' + z);
@@ -33,43 +33,46 @@
                 });
             });
         })
+        
         // Setter forsteAvgang inn i select
-        function VisAvgang(jsAvgangAvgang) {
-            var utStrengForste = "";
-            var utStrengSiste = "";
-            var utStrengReiseTid = "";
-            var utStrengSpor = "";
-            var utStrengTognummer = "";
-            var utStrengAvreisetid = "";
-            for (var i in jsAvgangAvgang) {
-                utStrengForste += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].forsteAvgang + "</td>";
-                utStrengSiste += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].sisteAvgang + "</td>";
-                utStrengReiseTid += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].reiseTid + "</td>";
-                utStrengSpor += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].spor + "</td>";
-                utStrengTognummer += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].togNummer + "</td>";
-                utStrengAvreisetid += "<td value='" + jsAvgangAvgang[i].id + "'>" + jsAvgangAvgang[i].avreiseTid + "</td>";
-                var velgKnapp = "<input type='submit' value='Velg' class='btn btn' />";
+        function VisAvgang(jsVisAvgang) {
+            var utStreng = "";
+            var velgKnapp = "<input type='submit' value='Velg' class='btn btn' />";
+            for (var val in jsVisAvgang) {
+                utStreng += "<tr id='tabellRad'>";
+                utStreng += "<td value='" + jsVisAvgang[val].id + "'>" + jsVisAvgang[val].forsteAvgang + "</td>";
+                utStreng += "<td>" + jsVisAvgang[val].sisteAvgang + "</td>";
+                utStreng += "<td>" + jsVisAvgang[val].reiseTid + "</td>";
+                utStreng += "<td>" + jsVisAvgang[val].spor + "</td>";
+                utStreng += "<td>" + jsVisAvgang[val].togNummer + "</td>";
+                utStreng += "<td>" + jsVisAvgang[val].avgangstid + "</td>";
+                utStreng += velgKnapp;
+                utStreng += "</tr>";
             }
-            $("#tabellRad").append(utStrengForste);
-            $("#tabellRad").append(utStrengSiste);
-            $("#tabellRad").append(utStrengReiseTid);
-            $("#tabellRad").append(utStrengSpor);
-            $("#tabellRad").append(utStrengTognummer);
-            $("#tabellRad").append(utStrengAvreisetid);
-            $("tabellRad").append(velgKnapp);
+            $("#tabellRad").append(utStreng);
         }
 
+        /*
         // Viser forste avgang
-        function VisInfoAvgang(Avgang) {
-            var utStrengForste = Avgang.forsteAvgang;
+        function VisInfoAvgang(visAvgang) {
+            var utStrengForste = visAvgang.forsteAvgang;
             $("#visInfoAvgang").html(utStrengForste);
         }
+        */
     </script>
 </head>
 <body>
     <h2>Avganger</h2>
     <form action="/Bestilling/Betaling" method="post">
-        <table>
+        <table style="width:100%">
+            <tr>
+                <td>Første Avgang</td>
+                <td>Siste Avgang</td>
+                <td>Reisetid</td>
+                <td>Spor</td>
+                <td>Tognummer</td>
+                <td>Avreisetid</td>
+            </tr>
             <tr id="tabellRad">
             </tr>
         </table>

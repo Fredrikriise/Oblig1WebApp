@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Oblig1WebApp.Models
 {
-    public class AvgangAvgang
+    public class visAvgang
     {
         public int id { get; set; }
         [Display(Name = "Første avgang")]
@@ -22,9 +22,14 @@ namespace Oblig1WebApp.Models
         public string avgangstid { get; set; } 
     }
 
-    public class jsAvgangAvgang
+    public class jsVisAvgang
     {
         public int id { get; set; }
-        public string avgang { get; set; }
+        public string forsteAvgang { get; set; }
+        public string sisteAvgang { get; set; }
+        public string reiseTid { get; set; }
+        public string spor { get; set; }
+        public string togNummer { get; set; }
+        public string avgangstid { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Oblig1WebApp.Models
 { 
-    public class AvgangerAvganger
+    public class visAvganger
     {
         public int Id { get; set; }
         public string ForsteAvgang { get; set; }
@@ -18,14 +18,14 @@ namespace Oblig1WebApp.Models
         public string Avgangstid { get; set; }
     }
 
-    public class AvgangAvgangContext : DbContext
+    public class visAvgangContext : DbContext
     {
-        public AvgangAvgangContext() : base("name=AvgangerAvganger")
+        public visAvgangContext() : base("name=visAvganger")
         {
             Database.CreateIfNotExists();
         }
 
-        public DbSet<AvgangerAvganger> AvgangerAvganger { get; set; }
+        public DbSet<visAvganger> visAvganger { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
