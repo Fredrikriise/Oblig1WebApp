@@ -7,6 +7,7 @@ namespace Oblig1WebApp.Controllers
 {
     public class AvgangController : Controller
     {
+        // Metoder for Avganger
         public string hentAlleAvganger()
         {
             var db = new DBContext();
@@ -43,6 +44,8 @@ namespace Oblig1WebApp.Controllers
             return jsonSerializer.Serialize("OK");
         }
 
+
+        // Metoder for visAvganger
         public string hentAlleVisAvganger()
         {
             var db = new DBContext();

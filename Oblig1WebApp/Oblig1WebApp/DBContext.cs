@@ -7,6 +7,7 @@ namespace Oblig1WebApp
 {
     public class DBContext
     {
+        // Bestilling
         public List<Bestilling> alleBestillinger()
         {
             using (var db = new BestillingContext())
@@ -36,7 +37,36 @@ namespace Oblig1WebApp
             }
         }
 
-        // Metode for å lagre bestilling
+        public Bestilling hentBestilling(int id)
+        {
+            using (var db = new BestillingContext())
+            {
+                Bestillinger enBestilling = db.Bestillinger.Find(id);
+                var hentetBestilling = new Bestilling()
+                {
+                    id = enBestilling.Id,
+                    fraLokasjon = enBestilling.FraLokasjon,
+                    tilLokasjon = enBestilling.TilLokasjon,
+                    billettType = enBestilling.BillettType,
+                    utreiseDato = enBestilling.UtreiseDato,
+                    utreiseTid = enBestilling.UtreiseTid,
+                    returDato = enBestilling.ReturDato,
+                    returTid = enBestilling.ReturTid,
+                    voksen = enBestilling.Voksen,
+                    barn0_5 = enBestilling.Barn0_5,
+                    student = enBestilling.Student,
+                    honnoer = enBestilling.Honnoer,
+                    vernepliktig = enBestilling.Vernepliktig,
+                    barn6_17 = enBestilling.Barn6_17,
+                    barnevogn = enBestilling.Barnevogn,
+                    sykkel = enBestilling.Sykkel,
+                    hundover_40cm = enBestilling.Hundover_40cm,
+                    kjaeledyrunder_40cm = enBestilling.Kjaeledyrunder_40cm
+                };
+                return hentetBestilling;
+            }
+        }
+
         public bool lagreBestilling(Bestilling innBestilling)
         {
             using (var db = new BestillingContext())
@@ -50,7 +80,7 @@ namespace Oblig1WebApp
 
                     nyBestilling.UtreiseDato = innBestilling.utreiseDato;
 
-                    if(nyBestilling.UtreiseDato == null)
+                    if (nyBestilling.UtreiseDato == null)
                     {
                         innBestilling.utreiseTid = null;
                     }
@@ -58,7 +88,7 @@ namespace Oblig1WebApp
                     nyBestilling.UtreiseTid = innBestilling.utreiseTid;
                     nyBestilling.ReturDato = innBestilling.returDato;
 
-                    if(innBestilling.returDato == null)
+                    if (innBestilling.returDato == null)
                     {
                         innBestilling.returTid = null;
                     }
@@ -101,7 +131,7 @@ namespace Oblig1WebApp
                     }
                     nyBestilling.Barn6_17 = innBestilling.barn6_17;
 
-                    if(innBestilling.barnevogn == 0)
+                    if (innBestilling.barnevogn == 0)
                     {
                         innBestilling.barnevogn = null;
                     }
@@ -124,7 +154,7 @@ namespace Oblig1WebApp
                         innBestilling.kjaeledyrunder_40cm = null;
                     }
                     nyBestilling.Kjaeledyrunder_40cm = innBestilling.kjaeledyrunder_40cm;
-                  
+
 
                     db.Bestillinger.Add(nyBestilling);
                     db.SaveChanges();
@@ -139,37 +169,7 @@ namespace Oblig1WebApp
             }
         }
 
-        // Metode for å hente bestilling
-        public Bestilling hentBestilling(int id)
-        {
-            using (var db = new BestillingContext())
-            {
-                Bestillinger enBestilling = db.Bestillinger.Find(id);
-                var hentetBestilling = new Bestilling()
-                {
-                    id = enBestilling.Id,
-                    fraLokasjon = enBestilling.FraLokasjon,
-                    tilLokasjon = enBestilling.TilLokasjon,
-                    billettType = enBestilling.BillettType,
-                    utreiseDato = enBestilling.UtreiseDato,
-                    utreiseTid = enBestilling.UtreiseTid,
-                    returDato = enBestilling.ReturDato,
-                    returTid = enBestilling.ReturTid,
-                    voksen = enBestilling.Voksen,
-                    barn0_5 = enBestilling.Barn0_5,
-                    student = enBestilling.Student,
-                    honnoer = enBestilling.Honnoer,
-                    vernepliktig = enBestilling.Vernepliktig,
-                    barn6_17 = enBestilling.Barn6_17,
-                    barnevogn = enBestilling.Barnevogn,
-                    sykkel = enBestilling.Sykkel,
-                    hundover_40cm = enBestilling.Hundover_40cm,
-                    kjaeledyrunder_40cm = enBestilling.Kjaeledyrunder_40cm
-                };
-                return hentetBestilling;
-            }
-        }
-
+        // Avganger
         public List<Avgang> alleAvganger()
         {
             using (var db = new AvgangContext())
@@ -188,7 +188,49 @@ namespace Oblig1WebApp
             }
         }
 
-        // Metode for å lagre avgang
+        public Avgang hentAvgang(int id)
+        {
+            using (var db = new AvgangContext())
+            {
+                Avganger enAvgang = db.Avganger.Find(id);
+                var hentetAvgang = new Avgang()
+                {
+                    id = enAvgang.Id,
+                    forsteAvgang = enAvgang.ForsteAvgang,
+                    sisteAvgang = enAvgang.SisteAvgang,
+                    reiseTid = enAvgang.ReiseTid,
+                    spor = enAvgang.Spor,
+                    togNummer = enAvgang.TogNummer
+                };
+                return hentetAvgang;
+            }
+        }
+
+        public bool endreAvgang(Avgang innAvgang)
+        {
+            using (var db = new AvgangContext())
+            {
+                try
+                {
+                    var endreObjekt = db.Avganger.Find(innAvgang.id);
+                    endreObjekt.Id = innAvgang.id;
+                    endreObjekt.ForsteAvgang = innAvgang.forsteAvgang;
+                    endreObjekt.SisteAvgang = innAvgang.sisteAvgang;
+                    endreObjekt.ReiseTid = innAvgang.reiseTid;
+                    endreObjekt.Spor = innAvgang.spor;
+                    endreObjekt.TogNummer = innAvgang.togNummer;
+                    db.SaveChanges();
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                }
+                return true;
+            }
+        }
+
         public bool lagreAvgang(Avgang innAvgang)
         {
             using (var db = new AvgangContext())
@@ -215,22 +257,14 @@ namespace Oblig1WebApp
             }
         }
 
-        // Metode for å lagre avgangAvganger
-        public bool lagreVisAvgang(visAvgang innAvgang)
+        public bool slettAvgang(int id)
         {
-            using (var db = new visAvgangContext())
+            using (var db = new AvgangContext())
             {
                 try
                 {
-                    var nyAvgang = new visAvganger();
-                    nyAvgang.ForsteAvgang = innAvgang.forsteAvgang;
-                    nyAvgang.SisteAvgang = innAvgang.sisteAvgang;
-                    nyAvgang.ReiseTid = innAvgang.reiseTid;
-                    nyAvgang.Spor = innAvgang.spor;
-                    nyAvgang.TogNummer = innAvgang.togNummer;
-                    nyAvgang.Avgangstid = innAvgang.avgangstid;
-
-                    db.visAvganger.Add(nyAvgang);
+                    var slettObjekt = db.Avganger.Find(id);
+                    db.Avganger.Remove(slettObjekt);
                     db.SaveChanges();
                     return true;
                 }
@@ -241,9 +275,10 @@ namespace Oblig1WebApp
                         "Feil ved insetting av data i databasen", innsettingsFeil);
                 }
             }
+
         }
 
-        //Metode for å liste alle AvgangerAvganger
+        // visAvganger
         public List<visAvgang> alleVisAvganger()
         {
             using (var db = new visAvgangContext())
@@ -281,9 +316,7 @@ namespace Oblig1WebApp
                 return hentetAvgang;
             }
         }
-
-
-        // Metode for å endre avgang
+       
         public bool endreVisAvgang(visAvgang innAvgang)
         {
             using (var db = new visAvgangContext())
@@ -309,60 +342,21 @@ namespace Oblig1WebApp
             }
         }
 
-        // Metode for å endre avgang
-        public bool endreAvgang(Avgang innAvgang)
+        public bool lagreVisAvgang(visAvgang innAvgang)
         {
-            using (var db = new AvgangContext())
+            using (var db = new visAvgangContext())
             {
                 try
                 {
-                    var endreObjekt = db.Avganger.Find(innAvgang.id);
-                    endreObjekt.Id = innAvgang.id;
-                    endreObjekt.ForsteAvgang = innAvgang.forsteAvgang;
-                    endreObjekt.SisteAvgang = innAvgang.sisteAvgang;
-                    endreObjekt.ReiseTid = innAvgang.reiseTid;
-                    endreObjekt.Spor = innAvgang.spor;
-                    endreObjekt.TogNummer = innAvgang.togNummer;
-                    db.SaveChanges();
-                }
-                catch (Exception innsettingsFeil)
-                {
-                    return false;
-                    throw new Exception(
-                        "Feil ved insetting av data i databasen", innsettingsFeil);
-                }
-                return true;
-            }
-        }
+                    var nyAvgang = new visAvganger();
+                    nyAvgang.ForsteAvgang = innAvgang.forsteAvgang;
+                    nyAvgang.SisteAvgang = innAvgang.sisteAvgang;
+                    nyAvgang.ReiseTid = innAvgang.reiseTid;
+                    nyAvgang.Spor = innAvgang.spor;
+                    nyAvgang.TogNummer = innAvgang.togNummer;
+                    nyAvgang.Avgangstid = innAvgang.avgangstid;
 
-
-        public Avgang hentAvgang(int id)
-        {
-            using (var db = new AvgangContext())
-            {
-                Avganger enAvgang = db.Avganger.Find(id);
-                var hentetAvgang = new Avgang()
-                {
-                    id = enAvgang.Id,
-                    forsteAvgang = enAvgang.ForsteAvgang,
-                    sisteAvgang = enAvgang.SisteAvgang,
-                    reiseTid = enAvgang.ReiseTid,
-                    spor = enAvgang.Spor,
-                    togNummer = enAvgang.TogNummer
-                };
-                return hentetAvgang;
-            }
-        }
-
-
-        public bool slettAvgang(int id)
-        {
-            using (var db = new AvgangContext())
-            {
-                try
-                {
-                    var slettObjekt = db.Avganger.Find(id);
-                    db.Avganger.Remove(slettObjekt);
+                    db.visAvganger.Add(nyAvgang);
                     db.SaveChanges();
                     return true;
                 }
@@ -373,7 +367,6 @@ namespace Oblig1WebApp
                         "Feil ved insetting av data i databasen", innsettingsFeil);
                 }
             }
-
         }
 
         public bool slettVisAvgang(int id)

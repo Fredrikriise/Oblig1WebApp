@@ -20,7 +20,7 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function (jsVisAvgang) {
-                        VisDropDownForste(jsVisAvgang);
+                        VisTabellRad(jsVisAvgang);
                     },
                     error: function (x, y, z) {
                         alert(x + '\n' + y + '\n' + z);
@@ -28,14 +28,14 @@
                 });
 
                 // Oppretter en hendelse på tabellraden når siden lastes
-                $("#dropForste").change(function () {
+                $("#tabellRad").change(function () {
                     var id = $(this).val();
                     $.ajax({
                         url: '/Avgang/hentVisAvgangInfo/' + id,
                         type: 'GET',
                         dataType: 'json',
                         success: function (visAvgang) {
-                            VisInfoForste(visAvgang);
+                            VisInfoAvgang(visAvgang);
                         },
                         error: function (x, y, z) {
                             alert(x + '\n' + y + '\n' + z);
@@ -45,101 +45,45 @@
             })
             
             // Setter forsteAvgang inn i select
-            function VisDropDownForste(jsVisAvgang) {
+            function VisTabellRad(jsVisAvgang) {
                 var utStreng = "";
-                //var velgKnapp = "<input type='submit' value='Velg' class='btn btn' />";
+
                 for (var i in jsVisAvgang) {
-                    /*
-                    utStreng += "<tr id='tabellRad'>";
-                    utStreng += "<td value='" + jsVisAvgang[val].id + "'>" + jsVisAvgang[val].forsteAvgang + "</td>";
-                    utStreng += "<td>" + jsVisAvgang[val].sisteAvgang + "</td>";
-                    utStreng += "<td>" + jsVisAvgang[val].reiseTid + "</td>";
-                    utStreng += "<td>" + jsVisAvgang[val].spor + "</td>";
-                    utStreng += "<td>" + jsVisAvgang[val].togNummer + "</td>";
-                    utStreng += "<td>" + jsVisAvgang[val].avgangstid + "</td>";
-                    utStreng += velgKnapp;
+                    utStreng += "<tr>";
+                    utStreng += "<td>" + jsVisAvgang[i].forsteAvgang + "</td>";
+                    utStreng += "<td>" + jsVisAvgang[i].sisteAvgang + "</td>";
+                    utStreng += "<td>" + jsVisAvgang[i].reiseTid + "</td>";
+                    utStreng += "<td>" + jsVisAvgang[i].spor + "</td>";
+                    utStreng += "<td>" + jsVisAvgang[i].togNummer + "</td>";
+                    utStreng += "<td>" + jsVisAvgang[i].avgangstid + "</td>";
                     utStreng += "</tr>";
-                    */
-
-                    utStreng += "<option value='" + jsVisAvgang[i].id + "'>" + jsVisAvgang[i].forsteAvgang + " " + jsVisAvgang[i].sisteAvgang + " " + jsVisAvgang[i].reiseTid + " " + jsVisAvgang[i].spor + " " + jsVisAvgang[i].togNummer  + " " + jsVisAvgang[i].avgangstid + "</option>";
                 }
-                $("#dropForste").append(utStreng);
+                $("#tabellRad").append(utStreng);
             }
-
 
             // Viser forste avgang
-            function VisInfoForste(visAvgang) {
-                var utStreng = visAvgang.forsteAvgang;
-                $("#visInfoForste").html(utStreng);
+            function VisInfoAvgang(visAvgang) {
+                var utStreng = visAvgang.forsteAvgang + " - " + visAvgang.sisteAvgang + " - " + visAvgang.reiseTid + " - " + visAvgang.spor + " - " + visAvgang.togNummer + " - " + visAvgang.avgangstid;
+                $("#visValgtAvgang").html(utStreng);
             }
-
-            // Ajax for siste avgang
-            $(function () {
-                // Kaller på hentAlleAvganger og bygger opp dropdown-liste når siden lastes
-                $.ajax({
-                    url: '/Avgang/hentAlleVisAvganger',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (jsVisAvgang) {
-                        VisDropDownSiste(jsVisAvgang);
-                    },
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
-                    }
-                });
-
-                // Oppretter en hendelse på dropdown-listen når siden lastes
-                $("#dropSiste").change(function () {
-                    var id = $(this).val();
-                    $.ajax({
-                        url: '/Avgang/hentVisAvgangInfo/' + id,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (visAvgang) {
-                            VisInfoSiste(visAvgang);
-                        },
-                        error: function (x, y, z) {
-                            alert(x + '\n' + y + '\n' + z);
-                        }
-                    });
-                });
-            })
-
-                // Setter sisteAvgang inn i select
-                function VisDropDownSiste(jsVisAvgang) {
-                    var utStreng = "";
-                    for (var i in jsVisAvgang) {
-                        utStreng += "<option value='" + jsVisAvgang[i].id + "'>" + jsVisAvgang[i].sisteAvgang + "</option>";
-                    }
-                    $("#dropSiste").append(utStreng);
-            }
-
-                // Viser siste avgang
-                function VisInfoSiste(visAvgang) {
-                    var utStreng = visAvgang.sisteAvgang;
-                    $("#visInfoSiste").html(utStreng);
-                }
         </script>
     </head>
     <body>
         <h2>Avganger</h2>
-        <form action="/Bestilling/regBestilling" id="bestillingsSkjema" method="post">
-            <table class="borderless">
+        <form action="/Bestilling/Betaling" method="post">
+            <table style="width: 100%">
                 <tr>
-                    <td width="20%">
-                        <b>Reise fra</b>
-                        <select name="fraLokasjon" id="dropForste" class="form-control" required>
-                            <option value="" disabled selected>-- Velg Utreise --</option>
-                        </select>
-                    </td>
-                    <td width="20%">
-                        <b>Reise til</b>
-                        <select name="tilLokasjon" id="dropSiste" class="form-control" required>
-                            <option value="" disabled selected>-- Velg retur --</option>
-                        </select>
-                    </td>
+                    <td>Første Avgang</td>
+                    <td>Siste Avgang</td>
+                    <td>Reisetid</td>
+                    <td>Spor</td>
+                    <td>Tognummer</td>
+                    <td>Avreisetid</td>
                 </tr>
+                <tbody id="tabellRad">
+                </tbody>               
             </table>
-            <span id="visLokasjoner"> <b><span id="visInfoForste"></span></b><b><span id="visInfoSiste"></span></b><br /> </span>
+
+            <span id="visValgtAvgang"> <br /> </span> 
         </form>
     </body>
