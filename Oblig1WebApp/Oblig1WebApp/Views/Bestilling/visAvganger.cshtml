@@ -66,24 +66,31 @@
                 var utStreng = visAvgang.forsteAvgang + " - " + visAvgang.sisteAvgang + " - " + visAvgang.reiseTid + " - " + visAvgang.spor + " - " + visAvgang.togNummer + " - " + visAvgang.avgangstid;
                 $("#visValgtAvgang").html(utStreng);
             }
+
+             $(document).ready(function () {
+            var str = TempData["data2"].ToString();
+                 $("#ut").html(str);
+                 });
         </script>
     </head>
     <body>
-        <h2>Avganger</h2>
+        <h2>Når vil du reise fra  til  ?</h2>
         <form action="/Bestilling/Betaling" method="post">
             <table style="width: 100%">
                 <tr>
-                    <td>Første Avgang</td>
-                    <td>Siste Avgang</td>
-                    <td>Reisetid</td>
-                    <td>Spor</td>
-                    <td>Tognummer</td>
-                    <td>Avreisetid</td>
+                    <td><b>Første Avgang</b></td>
+                    <td><b>Siste Avgang</b></td>
+                    <td><b>Reisetid</b></td>
+                    <td><b>Spor</b></td>
+                    <td><b>Tognummer</b></td>
+                    <td><b>Avreisetid</b></td>
                 </tr>
                 <tbody id="tabellRad">
-                </tbody>               
+                </tbody>
             </table>
 
-            <span id="visValgtAvgang"> <br /> </span> 
+            <span>Første avgang</span> @ViewData["data1"]
+            <span id="ut"></span> 
+            <span id="visValgtAvgang"> <br /> </span>
         </form>
     </body>

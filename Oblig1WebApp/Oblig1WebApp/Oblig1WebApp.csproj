@@ -191,6 +191,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Avgang.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Models\visAvgang.cs" />
     <Compile Include="Models\visAvgangContext.cs" />
     <Compile Include="Models\AvgangContext.cs" />

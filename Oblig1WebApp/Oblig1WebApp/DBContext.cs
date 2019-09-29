@@ -76,6 +76,7 @@ namespace Oblig1WebApp
                     var nyBestilling = new Bestillinger();
                     nyBestilling.FraLokasjon = innBestilling.fraLokasjon;
                     nyBestilling.TilLokasjon = innBestilling.tilLokasjon;
+
                     nyBestilling.BillettType = innBestilling.billettType;
 
                     nyBestilling.UtreiseDato = innBestilling.utreiseDato;

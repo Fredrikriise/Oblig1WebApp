@@ -101,6 +101,7 @@
                     utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i].sisteAvgang + "</option>";
                 }
                 $("#dropSiste").append(utStreng);
+                
             }
 
             // Viser siste avgang
@@ -115,7 +116,7 @@
     <h1>Hei, hvor har du lyst til å reise?</h1>
     <br/>
 
-    <form action="/Bestilling/regBestilling" id="bestillingsSkjema" method="post">
+    <form action="/Bestilling/visAvganger" id="bestillingsSkjema" method="post">
         <table class="borderless">
             <tr>
                 <td width="20%">
@@ -250,11 +251,11 @@
 
         <h4> <u> <b>Reisen du har valgt:</b> </u> </h4>
 
-        <span id="visLokasjoner"> <b><span id="visInfoForste"></span></b><img src="~/Content/Images/ArrowForwardBlack.png" /><b><span id="visInfoSiste"></span></b><br /> </span>
+        <span id="visLokasjoner"> <b><span id="visInfoForste"></span></b> <img src="~/Content/Images/ArrowForwardBlack.png" /> <b><span id="visInfoSiste"></span></b><br /> </span> <br />
         <!--
-        Fra lokasjon:<b> <span id="visInfoForste"></span> </b> <br />
-        Til lokasjon:<b> <span id="visInfoSiste"></span> </b> <br />
-        -->
+    Fra lokasjon:<b> <span id="visInfoForste"></span> </b> <br />
+    Til lokasjon:<b> <span id="visInfoSiste"></span> </b> <br />
+    -->
         Utreisedato:<b> <span id="utreiseDatoUt"></span> </b> <br />
         <span id="visReturDato">Returdato: <b> <span id="returDatoUt"></span> </b> <br /> </span>
         Totalt reisende: <span id="numberTotaltReisende"></span> <span id="numberVoksen"></span><span id="numberSmåbarn"></span><span id="numberStudent"></span><span id="numberHonnoer"></span><span id="numberVernepliktig"></span> <span id="numberBarn"></span><br />
@@ -267,6 +268,7 @@
 
 <!-- Javascript -->
 <script>
+   
     /*
     // Vise/skjule resielokasjoner
     $(document).ready(function () {
