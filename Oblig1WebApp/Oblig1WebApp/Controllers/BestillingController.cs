@@ -22,19 +22,19 @@ namespace Oblig1WebApp.Controllers
 
         [HttpPost]
         public ActionResult regBestilling(Bestilling innBestilling)
-        {
-            var db = new DBContext();
-            bool OK = db.lagreBestilling(innBestilling);
-            if (OK)
-            {
-                TempData["data1"] = innBestilling.fraLokasjon;
-                TempData["data2"] = "heejejeje";
-                return RedirectToAction("listVisAvganger");
-            } else
-            {
-                return RedirectToAction("Bestilling");
-            }
-            
+        {     
+                var db = new DBContext();
+                bool OK = db.lagreBestilling(innBestilling);
+                if (OK)
+                {
+                    TempData["data1"] = innBestilling.fraLokasjon;
+                    TempData["data2"] = "heejejeje";
+                    return RedirectToAction("listVisAvganger");
+                } else
+                {
+                    return RedirectToAction("Bestilling");
+                }
+          
         } 
 
         // Metoder for Avgang

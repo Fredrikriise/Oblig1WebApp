@@ -1,36 +1,44 @@
-﻿<!DOCTYPE html>
+﻿
+@using System.Web.Optimization
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Vy Bestilling</title>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/Images/vylogo.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <a href="http://localhost:57882/Bestilling/Bestilling" class="navbar-left"><img src="~/Content/Images/vylogo-nav-justert.png"></a>
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
-
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    @Html.ActionLink("Bestilling", "Bestilling", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })
-                    @Html.ActionLink("Registrer avgang", "regAvgang", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })
-                    @Html.ActionLink("List alle avganger", "listAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })
-                    @Html.ActionLink("Alle bestillinger", "listBestillinger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })
-                    @Html.ActionLink("Registrer visAvgang", "registrerVisAvgang", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })
-                    @Html.ActionLink("List visAvgang", "listVisAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })
-                    @Html.ActionLink("Vis avganger", "visAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })
+                    <li>@Html.ActionLink("Bestilling", "Bestilling", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Registrer avgang", "regAvgang", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("List alle avganger", "listAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Alle bestillinger", "listBestillinger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Registrer visAvgang", "registrerVisAvgang", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("List visAvgang", "listVisAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Vis avganger", "visAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
                 </ul>
             </div>
         </div>
@@ -46,6 +54,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/javascript")
 
     @RenderSection("scripts", required: false)
 </body>
