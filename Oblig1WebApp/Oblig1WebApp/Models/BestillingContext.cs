@@ -26,6 +26,8 @@ namespace Oblig1WebApp.Models
         public int? Sykkel { get; set; }
         public int? Hundover_40cm { get; set; }
         public int? Kjaeledyrunder_40cm { get; set; }
+
+        public string Avgangstid { get; set; }
     }
     /*
         public class Kunder

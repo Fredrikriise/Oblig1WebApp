@@ -56,5 +56,7 @@ namespace Oblig1WebApp.Models
         public int? hundover_40cm { get; set; }
         [Display(Name = "Kjæledyr under 40cm")]
         public int? kjaeledyrunder_40cm { get; set; }
+
+        public string avgangstid { get; set; }
     }
 }
