@@ -1,96 +1,102 @@
-﻿@model Oblig1WebApp.Models.Bestilling
+﻿@using Oblig1WebApp.Models
+@model IEnumerable<Oblig1WebApp.Models.Bestilling>
 
-    <head>
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-        <link rel="icon" href="favicon.ico" type="image/ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="~/Scripts/jquery-1.8.0.js"></script>
-        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-        <script type="text/javascript">
-            // Ajax
-            $(function () {
-                // Kaller på hentAlleVisAvganger og bygger opp tabellRad når siden lastes
+<head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/Scripts/jquery-1.8.0.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        // Ajax
+        $(function () {
+            // Kaller på hentAlleVisAvganger og bygger opp tabellRad når siden lastes
+            $.ajax({
+                url: '/Avgang/hentAlleVisAvganger',
+                type: 'GET',
+                dataType: 'json',
+                success: function (jsVisAvgang) {
+                    VisTabellRad(jsVisAvgang);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+
+            // Oppretter en hendelse på tabellraden når siden lastes
+            $("#tabellRad").change(function () {
+                var id = $(this).val();
                 $.ajax({
-                    url: '/Avgang/hentAlleVisAvganger',
+                    url: '/Avgang/hentVisAvgangInfo/' + id,
                     type: 'GET',
                     dataType: 'json',
-                    success: function (jsVisAvgang) {
-                        VisTabellRad(jsVisAvgang);
+                    success: function (visAvgang) {
+                        VisInfoAvgang(visAvgang);
                     },
                     error: function (x, y, z) {
                         alert(x + '\n' + y + '\n' + z);
                     }
                 });
+            });
+        })
 
-                // Oppretter en hendelse på tabellraden når siden lastes
-                $("#tabellRad").change(function () {
-                    var id = $(this).val();
-                    $.ajax({
-                        url: '/Avgang/hentVisAvgangInfo/' + id,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (visAvgang) {
-                            VisInfoAvgang(visAvgang);
-                        },
-                        error: function (x, y, z) {
-                            alert(x + '\n' + y + '\n' + z);
-                        }
-                    });
-                });
-            })
-            
-            // Setter forsteAvgang inn i select
-            function VisTabellRad(jsVisAvgang) {
-                var utStreng = "";
+        // Setter forsteAvgang inn i select
+        function VisTabellRad(jsVisAvgang) {
+            var utStreng = "";
 
-                for (var i in jsVisAvgang) {
-                    utStreng += "<tr>";
-                    utStreng += "<td>" + jsVisAvgang[i].forsteAvgang + "</td>";
-                    utStreng += "<td>" + jsVisAvgang[i].sisteAvgang + "</td>";
-                    utStreng += "<td>" + jsVisAvgang[i].reiseTid + "</td>";
-                    utStreng += "<td>" + jsVisAvgang[i].spor + "</td>";
-                    utStreng += "<td>" + jsVisAvgang[i].togNummer + "</td>";
-                    utStreng += "<td>" + jsVisAvgang[i].avgangstid + "</td>";
-                    utStreng += "</tr>";
-                }
-                $("#tabellRad").append(utStreng);
+            for (var i in jsVisAvgang) {
+                utStreng += "<tr>";
+                utStreng += "<td>" + jsVisAvgang[i].forsteAvgang + "</td>";
+                utStreng += "<td>" + jsVisAvgang[i].sisteAvgang + "</td>";
+                utStreng += "<td>" + jsVisAvgang[i].reiseTid + "</td>";
+                utStreng += "<td>" + jsVisAvgang[i].spor + "</td>";
+                utStreng += "<td>" + jsVisAvgang[i].togNummer + "</td>";
+                utStreng += "<td>" + jsVisAvgang[i].avgangstid + "</td>";
+                utStreng += "</tr>";
             }
+            $("#tabellRad").append(utStreng);
+        }
 
-            // Viser forste avgang
-            function VisInfoAvgang(visAvgang) {
-                var utStreng = visAvgang.forsteAvgang + " - " + visAvgang.sisteAvgang + " - " + visAvgang.reiseTid + " - " + visAvgang.spor + " - " + visAvgang.togNummer + " - " + visAvgang.avgangstid;
-                $("#visValgtAvgang").html(utStreng);
-            }
+        // Viser forste avgang
+        function VisInfoAvgang(visAvgang) {
+            var utStreng = visAvgang.forsteAvgang + " - " + visAvgang.sisteAvgang + " - " + visAvgang.reiseTid + " - " + visAvgang.spor + " - " + visAvgang.togNummer + " - " + visAvgang.avgangstid;
+            $("#visValgtAvgang").html(utStreng);
+        }
 
-             $(document).ready(function () {
+        $(document).ready(function () {
             var str = TempData["data2"].ToString();
-                 $("#ut").html(str);
-                 });
-        </script>
-    </head>
-    <body>
-        <h2>Når vil du reise fra  til  ?</h2>
-        <form action="/Bestilling/Betaling" method="post">
-            <table style="width: 100%">
-                <tr>
-                    <td><b>Første Avgang</b></td>
-                    <td><b>Siste Avgang</b></td>
-                    <td><b>Reisetid</b></td>
-                    <td><b>Spor</b></td>
-                    <td><b>Tognummer</b></td>
-                    <td><b>Avreisetid</b></td>
-                </tr>
-                <tbody id="tabellRad">
-                </tbody>
-            </table>
+            $("#ut").html(str);
+        });
+    </script>
+</head>
+<body>
+    <h2>Når vil du reise fra  til  ?</h2>
+    <form action="/Bestilling/Betaling" method="post">
+        <table style="width: 100%">
+            <tr>
+                <td><b>Første Avgang</b></td>
+                <td><b>Siste Avgang</b></td>
+                <td><b>Reisetid</b></td>
+                <td><b>Spor</b></td>
+                <td><b>Tognummer</b></td>
+                <td><b>Avreisetid</b></td>
+            </tr>
+            <tbody id="tabellRad">
+            </tbody>
+        </table>
 
-            <span>Første avgang</span> @ViewData["data1"]
-            <span id="ut"></span> 
-            <span id="visValgtAvgang"> <br /> </span>
-        </form>
-    </body>
+        <span>Første avgang</span>
+        <span id="ut"></span>
+        <span id="visValgtAvgang"> <br /> </span>
+        @Session["bestilling"]
+        @Session["data1"]
+        @Session["data2"]
+
+
+    </form>
+</body>

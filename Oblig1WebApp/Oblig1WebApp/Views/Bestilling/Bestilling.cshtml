@@ -117,8 +117,9 @@
 
 
         <script>
-           $().ready(function () {
+            $().ready(function () {
 
+         
             var validate;
 
             //$("#regBestilling").click(function() {
@@ -129,12 +130,11 @@
                 if (!validate) {
                       $("#regBestilling").click(function (evt) {
                           evt.preventDefault();
-
                           //fiks koden under, funker ikke
                           if ($("#dropForste").val() != null) {
                               validate = true;
+                              $('#regBestilling').unbind('click');
                           }
-                          
                        });
                 }
             } else {
@@ -149,7 +149,7 @@
      <br />
 
 
-     <form id="bestillingsSkjema" method="post">
+     <form id="bestillingsSkjema" action="/Bestilling/regBestilling" method="post">
          <table class="borderless">
              <tr>
                  <td width="20%">
@@ -292,7 +292,7 @@
          <span id="visSpesialBehov"> Spesialbehov: <span id="numberBarnevogn"></span> <span id="numberSykkel"></span><span id="numberHund"></span><span id="numberKjaele"></span> <br /> </span>
          <br />
 
-         <input type="submit" formaction="/Bestilling/visAvganger" value="Se avganger" name="regBestilling" id="regBestilling" class="btn btn-success" />
+         <input type="submit" value="Se avganger" name="regBestilling" id="regBestilling" class="btn btn-success" />
      </form>
  </body>
 

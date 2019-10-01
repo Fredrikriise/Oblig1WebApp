@@ -27,8 +27,8 @@ namespace Oblig1WebApp.Controllers
                 bool OK = db.lagreBestilling(innBestilling);
                 if (OK)
                 {
-                    TempData["data1"] = innBestilling.fraLokasjon;
-                    TempData["data2"] = "heejejeje";
+                    Session["data1"] = innBestilling.fraLokasjon;
+                    Session["data2"] = "heejejeje";
                     return RedirectToAction("listVisAvganger");
                 } else
                 {
@@ -101,6 +101,7 @@ namespace Oblig1WebApp.Controllers
         public ActionResult listVisAvganger()
         {
             var db = new DBContext();
+
             List<visAvgang> alleAvganger = db.alleVisAvganger();
             return View(alleAvganger);
         }
