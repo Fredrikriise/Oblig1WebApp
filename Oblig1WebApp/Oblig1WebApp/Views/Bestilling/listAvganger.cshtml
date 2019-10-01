@@ -15,19 +15,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.forsteAvgang)
+            @Html.DisplayNameFor(model => model._forsteAvgang)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sisteAvgang)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.reiseTid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.spor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.togNummer)
+            @Html.DisplayNameFor(model => model._sisteAvgang)
         </th>
         <th></th>
     </tr>
@@ -36,19 +27,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.forsteAvgang)
+                @Html.DisplayFor(modelItem => item._forsteAvgang)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.sisteAvgang)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.reiseTid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.spor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.togNummer)
+                @Html.DisplayFor(modelItem => item._sisteAvgang)
             </td>
             <td>
                 @Html.ActionLink("Endre avganger", "endreAvgang", new { id = item.id }) |

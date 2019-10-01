@@ -152,7 +152,5 @@ namespace Oblig1WebApp.Controllers
             }
             return View();
         }
-
-        
     }
 }

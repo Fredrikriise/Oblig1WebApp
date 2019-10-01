@@ -178,11 +178,8 @@ namespace Oblig1WebApp
                 List<Avgang> alleAvganger = db.Avganger.Select(a => new Avgang
                 {
                     id = a.Id,
-                    forsteAvgang = a.ForsteAvgang,
-                    sisteAvgang = a.SisteAvgang,
-                    reiseTid = a.ReiseTid,
-                    spor = a.Spor,
-                    togNummer = a.TogNummer
+                    _forsteAvgang = a._ForsteAvgang,
+                    _sisteAvgang = a._SisteAvgang
                 }).ToList();
 
                 return alleAvganger;
@@ -197,11 +194,8 @@ namespace Oblig1WebApp
                 var hentetAvgang = new Avgang()
                 {
                     id = enAvgang.Id,
-                    forsteAvgang = enAvgang.ForsteAvgang,
-                    sisteAvgang = enAvgang.SisteAvgang,
-                    reiseTid = enAvgang.ReiseTid,
-                    spor = enAvgang.Spor,
-                    togNummer = enAvgang.TogNummer
+                    _forsteAvgang = enAvgang._ForsteAvgang,
+                    _sisteAvgang = enAvgang._SisteAvgang
                 };
                 return hentetAvgang;
             }
@@ -215,11 +209,8 @@ namespace Oblig1WebApp
                 {
                     var endreObjekt = db.Avganger.Find(innAvgang.id);
                     endreObjekt.Id = innAvgang.id;
-                    endreObjekt.ForsteAvgang = innAvgang.forsteAvgang;
-                    endreObjekt.SisteAvgang = innAvgang.sisteAvgang;
-                    endreObjekt.ReiseTid = innAvgang.reiseTid;
-                    endreObjekt.Spor = innAvgang.spor;
-                    endreObjekt.TogNummer = innAvgang.togNummer;
+                    endreObjekt._ForsteAvgang = innAvgang._forsteAvgang;
+                    endreObjekt._SisteAvgang = innAvgang._sisteAvgang;
                     db.SaveChanges();
                 }
                 catch (Exception innsettingsFeil)
@@ -239,11 +230,8 @@ namespace Oblig1WebApp
                 try
                 {
                     var nyAvgang = new Avganger();
-                    nyAvgang.ForsteAvgang = innAvgang.forsteAvgang;
-                    nyAvgang.SisteAvgang = innAvgang.sisteAvgang;
-                    nyAvgang.ReiseTid = innAvgang.reiseTid;
-                    nyAvgang.Spor = innAvgang.spor;
-                    nyAvgang.TogNummer = innAvgang.togNummer;
+                    nyAvgang._ForsteAvgang = innAvgang._forsteAvgang;
+                    nyAvgang._SisteAvgang = innAvgang._sisteAvgang;
 
                     db.Avganger.Add(nyAvgang);
                     db.SaveChanges();
@@ -282,7 +270,7 @@ namespace Oblig1WebApp
         // visAvganger
         public List<visAvgang> alleVisAvganger()
         {
-            using (var db = new visAvgangContext())
+            using (var db = new AvgangContext())
             {
                 List<visAvgang> alleAvganger = db.visAvganger.Select(a => new visAvgang
                 {
@@ -301,7 +289,7 @@ namespace Oblig1WebApp
 
         public visAvgang hentVisAvgang(int id)
         {
-            using (var db = new visAvgangContext())
+            using (var db = new AvgangContext())
             {
                 visAvganger enAvgang = db.visAvganger.Find(id);
                 var hentetAvgang = new visAvgang()
@@ -320,7 +308,7 @@ namespace Oblig1WebApp
        
         public bool endreVisAvgang(visAvgang innAvgang)
         {
-            using (var db = new visAvgangContext())
+            using (var db = new AvgangContext())
             {
                 try
                 {
@@ -345,7 +333,7 @@ namespace Oblig1WebApp
 
         public bool lagreVisAvgang(visAvgang innAvgang)
         {
-            using (var db = new visAvgangContext())
+            using (var db = new AvgangContext())
             {
                 try
                 {
@@ -372,7 +360,7 @@ namespace Oblig1WebApp
 
         public bool slettVisAvgang(int id)
         {
-            using (var db = new visAvgangContext())
+            using (var db = new AvgangContext())
             {
                 try
                 {

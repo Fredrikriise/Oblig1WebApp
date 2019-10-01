@@ -18,8 +18,8 @@ namespace Oblig1WebApp.Controllers
             {
                 var enAvgang = new jsAvgang();
                 enAvgang.id = a.id;
-                enAvgang.forsteAvgang = a.forsteAvgang;
-                enAvgang.sisteAvgang = a.sisteAvgang;
+                enAvgang._forsteAvgang = a._forsteAvgang;
+                enAvgang._sisteAvgang = a._sisteAvgang;
                 alleStrekninger.Add(enAvgang);
             }
             var jsonSerializer = new JavaScriptSerializer();
