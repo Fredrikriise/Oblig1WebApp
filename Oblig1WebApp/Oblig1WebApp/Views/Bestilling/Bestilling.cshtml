@@ -52,7 +52,7 @@
             function VisDropDownForste(jsAvgang) {
                 var utStreng = "";
                 for (var i in jsAvgang) {
-                    utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i].forsteAvgang + "</option>";
+                    utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i]._forsteAvgang + "</option>";
                 }
                 $("#dropForste").append(utStreng);
             }
@@ -100,7 +100,7 @@
             function VisDropDownSiste(jsAvgang) {
                 var utStreng = "";
                 for (var i in jsAvgang) {
-                    utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i].sisteAvgang + "</option>";
+                    utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i]._sisteAvgang + "</option>";
                 }
                 $("#dropSiste").append(utStreng);
 
