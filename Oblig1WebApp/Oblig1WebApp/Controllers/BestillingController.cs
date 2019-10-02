@@ -22,20 +22,67 @@ namespace Oblig1WebApp.Controllers
 
         [HttpPost]
         public ActionResult regBestilling(Bestilling innBestilling)
-        {     
-                var db = new DBContext();
-                bool OK = db.lagreBestilling(innBestilling);
-                if (OK)
-                {
-                    Session["data1"] = innBestilling.fraLokasjon;
-                    Session["data2"] = "heejejeje";
-                    return RedirectToAction("listVisAvganger");
-                } else
-                {
-                    return RedirectToAction("Bestilling");
-                }
-          
-        } 
+        {
+            Session["fraLokasjon"] = innBestilling.fraLokasjon;
+            Session["tilLokasjon"] = innBestilling.tilLokasjon;
+            Session["billettType"] = innBestilling.billettType;
+            Session["utreiseDato"] = innBestilling.utreiseDato;
+            Session["utreiseTid"] = innBestilling.utreiseTid;
+            Session["returDato"] = innBestilling.returDato;
+            Session["returTid"] = innBestilling.returTid;
+            Session["voksen"] = innBestilling.voksen;
+            Session["barn0_5"] = innBestilling.barn0_5;
+            Session["student"] = innBestilling.student;
+            Session["honnoer"] = innBestilling.honnoer;
+            Session["vernepliktig"] = innBestilling.vernepliktig;
+            Session["barn6_17"] = innBestilling.barn6_17;
+            Session["barnevogn"] = innBestilling.barnevogn;
+            Session["sykkel"] = innBestilling.sykkel;
+            Session["hundover_40cm"] = innBestilling.hundover_40cm;
+            Session["kjaeledyrunder_40cm"] = innBestilling.kjaeledyrunder_40cm;
+
+
+            // var db = new DBContext();
+            //bool OK = db.lagreBestilling(innBestilling);
+            //if (OK)
+            // {
+            //   Session["data1"] = innBestilling.fraLokasjon;
+            //  Session["data2"] = innBestilling.tilLokasjon;
+            return RedirectToAction("visAvganger");
+                //} else
+               // {
+                //    return RedirectToAction("Bestilling");
+               // }
+        }
+
+
+        public ActionResult hentBestilling2(int id)
+        {
+            var db = new DBContext();
+            Bestilling enBestilling = db.hentBestilling2(id);
+            return View(enBestilling);
+        }
+
+        //TEST
+        [HttpPost]
+        public ActionResult regBestilling2(Bestilling innBestilling)
+        {
+
+
+            var db = new DBContext();
+            bool OK = db.lagreBestilling2(innBestilling);
+            if (OK)
+            {
+                Session["data1"] = innBestilling.fraLokasjon;
+                Session["data2"] = innBestilling.tilLokasjon;
+                return RedirectToAction("listVisAvganger");
+            }
+            else
+            {
+                return RedirectToAction("Bestilling");
+            }
+
+        }
 
         // Metoder for Avgang
         public ActionResult listAvganger()
@@ -101,8 +148,7 @@ namespace Oblig1WebApp.Controllers
         public ActionResult listVisAvganger()
         {
             var db = new DBContext();
-
-            List<visAvgang> alleAvganger = db.alleVisAvganger();
+            List<visAvgang>  alleAvganger = db.alleVisAvganger();
             return View(alleAvganger);
         }
 

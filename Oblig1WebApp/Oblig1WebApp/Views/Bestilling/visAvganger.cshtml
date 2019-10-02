@@ -22,6 +22,7 @@
                 dataType: 'json',
                 success: function (jsVisAvgang) {
                     VisTabellRad(jsVisAvgang);
+                    VisDropDown(jsVisAvgang);
                 },
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
@@ -43,40 +44,75 @@
                     }
                 });
             });
+
+               $("#drop").change(function () {
+                var id = $(this).val();
+                $.ajax({
+                    url: '/Avgang/hentVisAvgangInfo/' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (visAvgang) {
+                        VisInfoAvgang(visAvgang);
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+            });
         })
 
-        // Setter forsteAvgang inn i select
+        // Setter forsteAvgang inn i span
         function VisTabellRad(jsVisAvgang) {
-            var utStreng = "";
+            var utStrengForste = "";
+            var utStrengSiste = "";
+            var utStrengTid = "";
+            var utStrengSpor = "";
+            var utStrengTogNr = "";
+            var utStrengAvgangstid = "";
+
 
             for (var i in jsVisAvgang) {
-                utStreng += "<tr>";
-                utStreng += "<td>" + jsVisAvgang[i].forsteAvgang + "</td>";
-                utStreng += "<td>" + jsVisAvgang[i].sisteAvgang + "</td>";
-                utStreng += "<td>" + jsVisAvgang[i].reiseTid + "</td>";
-                utStreng += "<td>" + jsVisAvgang[i].spor + "</td>";
-                utStreng += "<td>" + jsVisAvgang[i].togNummer + "</td>";
-                utStreng += "<td>" + jsVisAvgang[i].avgangstid + "</td>";
-                utStreng += "</tr>";
+       
+                utStrengForste +=  jsVisAvgang[i].forsteAvgang + "<br/>";
+                utStrengSiste +=  jsVisAvgang[i].sisteAvgang + "<br/>";
+                utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
+                utStrengSpor +=  jsVisAvgang[i].spor + "<br/>";
+                utStrengTogNr +=  jsVisAvgang[i].togNummer + "<br/>";
+                utStrengAvgangstid += jsVisAvgang[i].avgangstid + "<br/>";
+
             }
-            $("#tabellRad").append(utStreng);
+
+            $("#forste").append(utStrengForste);
+            $("#siste").append(utStrengSiste);
+            $("#tid").append(utStrengTid);
+            $("#spor").append(utStrengSpor);
+            $("#nr").append(utStrengTogNr);
+            $("#avgang").append(utStrengAvgangstid);
+
         }
 
-        // Viser forste avgang
-        function VisInfoAvgang(visAvgang) {
-            var utStreng = visAvgang.forsteAvgang + " - " + visAvgang.sisteAvgang + " - " + visAvgang.reiseTid + " - " + visAvgang.spor + " - " + visAvgang.togNummer + " - " + visAvgang.avgangstid;
-            $("#visValgtAvgang").html(utStreng);
+        function VisDropDown(jsVisAvgang) {
+            var utStreng = "";
+            for (var i in jsVisAvgang) {
+                utStreng += "<option value='" + jsVisAvgang[i].avgangstid + "'>" + jsVisAvgang[i].avgangstid + "</option>";
+            }
+            $("#drop").append(utStreng);
         }
 
-        $(document).ready(function () {
-            var str = TempData["data2"].ToString();
-            $("#ut").html(str);
-        });
+
+            function VisInfoAvgang(visAvgang) {
+            var utStreng = visAvgang.avgangstid;
+            $("#avgangstid").html(utStreng);
+        }
+
+
+
+
     </script>
 </head>
 <body>
-    <h2>Når vil du reise fra  til  ?</h2>
-    <form action="/Bestilling/Betaling" method="post">
+    <h2>Når vil du reise fra    @Session["data1"] til  @Session["data2"] ?</h2>
+    <form action="/Bestilling/regBestilling2" method="post">
         <table style="width: 100%">
             <tr>
                 <td><b>Første Avgang</b></td>
@@ -87,16 +123,28 @@
                 <td><b>Avreisetid</b></td>
             </tr>
             <tbody id="tabellRad">
+                <tr>
+                    <td name="fraLokasjon" id="forste"></td>
+                    <td name="tilLokasjon" id="siste"></td>
+                    <td id="tid"></td>
+                    <td id="spor"></td>
+                    <td id="nr"></td>
+                    <td id="avgang"></td>
+                </tr>
             </tbody>
         </table>
 
-        <span>Første avgang</span>
-        <span id="ut"></span>
-        <span id="visValgtAvgang"> <br /> </span>
+        <select name="avgangstid" id="drop" class="form-control">
+            <option value=""></option>
+        </select>
+
+
+        <span id="visValgtAvgang"> <br /> </span><span name="avgangstid" id="avgangstid"></span>
+
         @Session["bestilling"]
         @Session["data1"]
         @Session["data2"]
 
-
+        <input type="submit" value="Bestill" name="regBestilling2" id="regBestilling2" class="btn btn-success" />
     </form>
 </body>

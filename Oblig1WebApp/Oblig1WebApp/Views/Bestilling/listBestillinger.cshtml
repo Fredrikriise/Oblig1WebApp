@@ -62,6 +62,9 @@
         <th>
             @Html.DisplayNameFor(model => model.kjaeledyrunder_40cm)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.avgangstid)
+        </th>
         <th></th>
     </tr>
 
@@ -119,9 +122,11 @@
             @Html.DisplayFor(modelItem => item.kjaeledyrunder_40cm)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.DisplayFor(modelItem => item.avgangstid)
+        </td>
+        <td>
+            @Html.ActionLink("Endre", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Slett", "slettBestilling", new { id=item.id })
         </td>
     </tr>
 }

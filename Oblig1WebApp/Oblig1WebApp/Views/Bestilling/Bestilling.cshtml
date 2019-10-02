@@ -103,7 +103,6 @@
                     utStreng += "<option value='" + jsAvgang[i].id + "'>" + jsAvgang[i]._sisteAvgang + "</option>";
                 }
                 $("#dropSiste").append(utStreng);
-
             }
 
             // Viser siste avgang
@@ -115,33 +114,57 @@
 
         </script>
 
+       
+            <script>
+                //Validering
+                $().ready(function () {
+                    var validateForste;
+                    if ($("#dropForste").val() == null) {
 
-        <script>
-            $().ready(function () {
+                        validateForste = false;
 
-         
-            var validate;
+                        if (!validateForste) {
+                            $("#regBestilling").click(function (evt) {
+                                evt.preventDefault();
+                                document.getElementById("forsteAvgangValidering").innerHTML = "*Vennligst velg hvor du ønsker å reise fra*";
+                                document.getElementById("forsteAvgangValidering").style.color = "red";
+                            });
+                                $("#dropForste").on('change', function () {
+                                validateForste = true;
+                                $('#regBestilling').unbind('click');
+                                var ok = "";
+                                $("#forsteAvgangValidering").html(ok);
+                            });
+                        }
+                    } 
 
-            //$("#regBestilling").click(function() {
-            if ($("#dropForste").val() == null) {
-                //alert("Vennligst velg utreise");
-                validate = false;
+                        var validateSiste;
+                        if ($("#dropSiste").val() == null) {
+                            validateSiste = false;
 
-                if (!validate) {
-                      $("#regBestilling").click(function (evt) {
-                          evt.preventDefault();
-                          //fiks koden under, funker ikke
-                          if ($("#dropForste").val() != null) {
-                              validate = true;
-                              $('#regBestilling').unbind('click');
-                          }
-                       });
-                }
-            } else {
-                validate = true;
-            }
-        });
-        </script>
+                            if (!validateSiste) {
+                                $("#regBestilling").click(function (evt) {
+                                    evt.preventDefault();
+                                    document.getElementById("sisteAvgangValidering").innerHTML = "*Vennligst velg hvor du ønsker å reise til*";
+                                    document.getElementById("sisteAvgangValidering").style.color = "red";
+                                });
+                               
+                               // $("#dropSiste").on('change', function () {
+                                //    validateSiste = true;
+                                 //   $('#regBestilling').unbind('click');
+                                //    var ok = "";
+                                 //   $("#sisteAvgangValidering").html(ok);
+                               // });
+                            } else {
+                                validate = true;
+                            }
+                        } else {
+                            validate = true;
+                        }
+                    }
+   
+                });
+            </script>
 
     </head>
  <body>
@@ -149,7 +172,7 @@
      <br />
 
 
-     <form id="bestillingsSkjema" action="/Bestilling/regBestilling" method="post">
+     <form id="bestillingsSkjema" action="/Bestilling/regBestilling" method="post" onsubmit="return validering()">
          <table class="borderless">
              <tr>
                  <td width="20%">
@@ -157,13 +180,14 @@
                      <select name="fraLokasjon" id="dropForste" class="form-control">
                          <option value="" disabled selected>-- Velg Utreise --</option>
                      </select>
-                     <div id="log"></div>
+                     <span id="forsteAvgangValidering"></span>
                  </td>
                  <td width="20%">
                      <b>Reise til</b>
                      <select name="tilLokasjon" id="dropSiste" class="form-control">
                          <option value="" disabled selected>-- Velg retur --</option>
                      </select>
+                     <span id="sisteAvgangValidering"></span>
                  </td>
              </tr>
              <tr>

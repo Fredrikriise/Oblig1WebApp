@@ -1,6 +1,7 @@
 ﻿using Oblig1WebApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Oblig1WebApp
@@ -31,7 +32,8 @@ namespace Oblig1WebApp
                     barnevogn = b.Barnevogn,
                     sykkel = b.Sykkel,
                     hundover_40cm = b.Hundover_40cm,
-                    kjaeledyrunder_40cm = b.Kjaeledyrunder_40cm
+                    kjaeledyrunder_40cm = b.Kjaeledyrunder_40cm,
+                    avgangstid = b.Avgangstid
                 }).ToList();
                 return alleBestillinger;
             }
@@ -61,7 +63,8 @@ namespace Oblig1WebApp
                     barnevogn = enBestilling.Barnevogn,
                     sykkel = enBestilling.Sykkel,
                     hundover_40cm = enBestilling.Hundover_40cm,
-                    kjaeledyrunder_40cm = enBestilling.Kjaeledyrunder_40cm
+                    kjaeledyrunder_40cm = enBestilling.Kjaeledyrunder_40cm,
+                    avgangstid = enBestilling.Avgangstid
                 };
                 return hentetBestilling;
             }
@@ -156,6 +159,8 @@ namespace Oblig1WebApp
                     }
                     nyBestilling.Kjaeledyrunder_40cm = innBestilling.kjaeledyrunder_40cm;
 
+                    nyBestilling.Avgangstid = innBestilling.avgangstid;
+
 
                     db.Bestillinger.Add(nyBestilling);
                     db.SaveChanges();
@@ -168,6 +173,75 @@ namespace Oblig1WebApp
                         "Feil ved insetting av data i databasen", innsettingsFeil);
                 }
             }
+        }
+
+        //TEST
+
+        public Bestilling hentBestilling2(int id)
+        {
+            using (var db = new BestillingContext())
+            {
+                Bestillinger enBestilling = db.Bestillinger.Find(id);
+                var hentetBestilling = new Bestilling()
+                {
+                    id = enBestilling.Id,
+                    avgangstid = enBestilling.Avgangstid
+                };
+                return hentetBestilling;
+            }
+        }
+
+        public bool lagreBestilling2(Bestilling innBestilling)
+        {
+            using (var db = new BestillingContext())
+            {
+                try
+                {
+                    var objektFra = db.Bestillinger.Find(innBestilling.fraLokasjon);
+                    var objektTil = db.Bestillinger.Find(innBestilling.tilLokasjon);
+                    var test1 = innBestilling.fraLokasjon;
+                    var test2 = innBestilling.tilLokasjon;
+
+
+                    if (objektFra.ToString() == test1 && objektTil.ToString() == test2)
+                    {
+                        Console.WriteLine("YES");
+                        var endreObjekt = db.Bestillinger.Find(innBestilling.id);
+                        endreObjekt.Id = innBestilling.id;
+                        endreObjekt.Avgangstid = innBestilling.avgangstid;
+                        db.SaveChanges();
+                        return true;
+                    }
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                }
+            }
+        }
+
+        public bool slettBestilling(int id)
+        {
+            using (var db = new BestillingContext())
+            {
+                try
+                {
+                    var slettObjekt = db.Bestillinger.Find(id);
+                    db.Bestillinger.Remove(slettObjekt);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved sletting av data i databasen", innsettingsFeil);
+                }
+            }
+
         }
 
         // Avganger
@@ -217,7 +291,7 @@ namespace Oblig1WebApp
                 {
                     return false;
                     throw new Exception(
-                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                        "Feil ved endring av data i databasen", innsettingsFeil);
                 }
                 return true;
             }
@@ -261,7 +335,7 @@ namespace Oblig1WebApp
                 {
                     return false;
                     throw new Exception(
-                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                        "Feil ved sletting av data i databasen", innsettingsFeil);
                 }
             }
 
@@ -286,7 +360,6 @@ namespace Oblig1WebApp
             }
         }
 
-
         public visAvgang hentVisAvgang(int id)
         {
             using (var db = new AvgangContext())
@@ -305,7 +378,7 @@ namespace Oblig1WebApp
                 return hentetAvgang;
             }
         }
-       
+
         public bool endreVisAvgang(visAvgang innAvgang)
         {
             using (var db = new AvgangContext())
@@ -325,7 +398,7 @@ namespace Oblig1WebApp
                 {
                     return false;
                     throw new Exception(
-                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                        "Feil ved endring av data i databasen", innsettingsFeil);
                 }
                 return true;
             }
@@ -373,7 +446,7 @@ namespace Oblig1WebApp
                 {
                     return false;
                     throw new Exception(
-                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                        "Feil ved sletting av data i databasen", innsettingsFeil);
                 }
             }
 
