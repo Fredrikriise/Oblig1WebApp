@@ -112,59 +112,78 @@
             }
 
 
-        </script>
+        </script> 
 
-       
-            <script>
-                //Validering
-                $().ready(function () {
-                    var validateForste;
-                    if ($("#dropForste").val() == null) {
+        <script>
+            //Validering - klient
+            $(document).ready(function () {
+                $("#regBestilling").click(function (evt) {
+                    var dropForste = document.getElementById('dropForste').value;
+                    var dropSiste = document.getElementById('dropSiste').value;
+                    var dato = document.getElementById('datoUtreise').value;
 
-                        validateForste = false;
+                    var voksenValidering = document.getElementById('voksen').value;
+                    var barn0_5Validering = document.getElementById('barn0_5').value;
+                    var studentValidering = document.getElementById('student').value;
+                    var honnoerValidering = document.getElementById('honnoer').value;
+                    var vernepliktigValidering = document.getElementById('vernepliktig').value;
+                    var barn6_17Validering = document.getElementById('barn6_17').value;
+                    
+                    if (dropForste.length == 0) {
+                        evt.preventDefault()
+                        document.getElementById("forsteAvgangValidering").innerHTML = "*Vennligst velg hvor du ønsker å reise fra*";
+                        document.getElementById("forsteAvgangValidering").style.color = "red";
 
-                        if (!validateForste) {
-                            $("#regBestilling").click(function (evt) {
-                                evt.preventDefault();
-                                document.getElementById("forsteAvgangValidering").innerHTML = "*Vennligst velg hvor du ønsker å reise fra*";
-                                document.getElementById("forsteAvgangValidering").style.color = "red";
-                            });
-                                $("#dropForste").on('change', function () {
-                                validateForste = true;
-                                $('#regBestilling').unbind('click');
-                                var ok = "";
-                                $("#forsteAvgangValidering").html(ok);
-                            });
-                        }
+                        $("#dropForste").on('change', function () {
+                            var ok = "";
+                            $("#forsteAvgangValidering").html(ok);
+                        });
                     } 
 
-                        var validateSiste;
-                        if ($("#dropSiste").val() == null) {
-                            validateSiste = false;
+                    if (dropSiste.length == 0) {
+                        evt.preventDefault()
+                        document.getElementById("sisteAvgangValidering").innerHTML = "*Vennligst velg hvor du ønsker å reise til*";
+                        document.getElementById("sisteAvgangValidering").style.color = "red";
 
-                            if (!validateSiste) {
-                                $("#regBestilling").click(function (evt) {
-                                    evt.preventDefault();
-                                    document.getElementById("sisteAvgangValidering").innerHTML = "*Vennligst velg hvor du ønsker å reise til*";
-                                    document.getElementById("sisteAvgangValidering").style.color = "red";
-                                });
-                               
-                               // $("#dropSiste").on('change', function () {
-                                //    validateSiste = true;
-                                 //   $('#regBestilling').unbind('click');
-                                //    var ok = "";
-                                 //   $("#sisteAvgangValidering").html(ok);
-                               // });
-                            } else {
-                                validate = true;
-                            }
-                        } else {
-                            validate = true;
-                        }
+                        $("#dropSiste").on('change', function () {;
+                            var ok = "";
+                            $("#sisteAvgangValidering").html(ok);
+                        });
+                    } 
+
+                    if (dato.length == 0) {
+                        evt.preventDefault()
+                        document.getElementById("datoValidering").innerHTML = "*Vennligst velg hvilke dato du ønsker å reise*";
+                        document.getElementById("datoValidering").style.color = "red";
+
+                        $("#datoUtreise").on('change', function () {;
+                            var ok = "";
+                            $("#datoValidering").html(ok);
+                        });
+                    } 
+
+                    if ($("#utreiseTid").val() == "00:00") {
+                        document.getElementById("tidValidering").innerHTML = "*Obs! Du har ikke endret tid for utreise, sikker på at tiden er korrekt?*";
+                        document.getElementById("tidValidering").style.color = "orange";
+
+                        $("#utreiseTid").on('change', function () {;
+                            var ok = "";
+                            $("#tidValidering").html(ok);
+                        });
                     }
-   
+
+                    if (voksenValidering == 0 && studentValidering == 0 && barn0_5Validering == 00 && honnoerValidering == 0 && vernepliktigValidering == 00 && barn6_17Validering == 00) {
+                        document.getElementById("billettValidering").innerHTML = "*Ingen billett valgt! Du er nødt til å velge en type billett*";
+                        document.getElementById("billettValidering").style.color = "red";
+
+                        $("#reisende").on('change', function () {;
+                            var ok = "";
+                            $("#billettValidering").html(ok);
+                        });
+                    }
                 });
-            </script>
+            });
+        </script>
 
     </head>
  <body>
@@ -204,12 +223,13 @@
                      <b>Utreise</b>
                      <br />
                      <input type="date" id="datoUtreise" name="utreiseDato" class="form-control">
+                     <span id="datoValidering"></span>
                  </td>
                  <td width="20%">
                      <br />
                      <b>Tid</b>
                      <br />
-                     <select name="utreiseTid" id="tid" class="form-control">
+                     <select name="utreiseTid" id="utreiseTid" class="form-control">
                          <option value="00:00">00:00</option>
                          <option value="01:00">01:00</option>
                          <option value="02:00">02:00</option>
@@ -235,6 +255,7 @@
                          <option value="22:00">22:00</option>
                          <option value="23:00">23:00</option>
                      </select>
+                     <span id="tidValidering"></span>
                  </td>
              </tr>
              <tr id="retur">
@@ -248,7 +269,7 @@
                      <br />
                      <b>Tid</b>
                      <br />
-                     <select name="returTid" id="tid" class="form-control">
+                     <select name="returTid" id="returTid" class="form-control">
                          <option value="00:00">00:00</option>
                          <option value="01:00">01:00</option>
                          <option value="02:00">02:00</option>
@@ -278,7 +299,7 @@
              </tr>
 
              <tr>
-                 <td width="20%" name="reisende">
+                 <td width="20%" name="reisende" id="reisende">
                      <br />
                      <b>Reisende </b>
                      <br />
@@ -288,13 +309,14 @@
                      <p> <input type="number" id="honnoer" name="honnoer" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Honnør <a href="#" data-toggle="popover" data-content="Reisende som er over 67 år, uføretrygdet eller ledsager for blind, får 50 prosent rabatt på togbilletter og en rabatt på bussbilletter. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br> </p>
                      <p> <input type="number" id="vernepliktig" name="vernepliktig" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Vernepliktig <a href="#" data-toggle="popover" data-content="Vernepliktige får 90 prosent rabatt på togbilletter. Rabatten forutsetter gyldig vernepliktskort ved billettkontroll. For buss gjelder rabatten kun på strekningen Oslo-Elverum. Denne billetten kjøpes på nettbuss.no med kampanjekoden UNIFORM. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br> </p>
                      <p> <input type="number" id="barn6_17" name="barn6_17" style="border: 0px; width: 2em" value="0" min="0" max="9" /> Barn 6-17 år <a href="#" data-toggle="popover" data-content="Barn fra 6 til og med 17 år får 50 prosent rabatt på togbilletter og en rabatt på bussbilletter. <a href='https://www.vy.no/alt-om-reisen/tog/billetter/rabatter'>Les mer her</a>">&#9432;</a><br> </p>
+                     <span id="billettValidering"></span>
                  </td>
              </tr>
          </table>
          <br />
 
          <a id="visSpesielleBehov" style="color: #5cb85c;"> <b> Spesielle behov</b>  <img src="~/Content/Images/spesiellebehov.png" /></a> <br />
-         <span id="visImputboxer">
+         <span id="visInputboxer">
              <input type="number" id="barnevogn" name="barnevogn" class="uncheckBarnevogn" style="border: 0px; width: 2em" value="0" min="0" max="9"> Barnevogn <a href="#" data-toggle="popover" data-content="Det er gratis å ta med barnevogn på tog og buss, forutsatt at det er nok plass. Det er barnevognplasser i alle tog. For tog med plassreservering, må du bestille plass på forhånd. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br>
              <input type="number" id="sykkel" name="sykkel" class="uncheckSykkel" style="border: 0px; width: 2em" value="0" min="0" max="9"> Sykkel <a href="#" data-toggle="popover" data-content="Du må reservere plass til sykkel på alle lange regionstrekninger og på Gjøvikbanen. Skal du ha med sykkelvogn på toget, må du bestille plass via kundesenteret. Sykkelplass på buss må du forhåndsbestille når du kjøper billett på nettbuss.no. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br />
              <input type="number" id="hundover_40cm" class="uncheckHund" name="hundover_40cm" style="border: 0px; width: 2em" value="0" min="0" max="9"> Hund over 40cm <a href="#" data-toggle="popover" data-content="Hunder med skulderhøyde over 40 cm får 50 prosent rabatt på togbilletter. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
