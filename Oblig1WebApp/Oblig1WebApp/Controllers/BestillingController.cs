@@ -198,5 +198,11 @@ namespace Oblig1WebApp.Controllers
             }
             return View();
         }
+
+        //Metoder for betaling
+        public ActionResult Betaling()
+        {
+            return View();
+        }
     }
 }

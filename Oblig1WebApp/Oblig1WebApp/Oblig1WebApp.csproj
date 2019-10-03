@@ -192,6 +192,7 @@
     </Compile>
     <Compile Include="Models\Avgang.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Models\Betaling.cs" />
     <Compile Include="Models\visAvgang.cs" />
     <Compile Include="Models\visAvgangContext.cs" />
     <Compile Include="Models\AvgangContext.cs" />
@@ -216,6 +217,7 @@
     <Content Include="Views\Bestilling\visAvganger.cshtml" />
     <Content Include="Views\Bestilling\listVisAvganger.cshtml" />
     <Content Include="Views\Bestilling\listBestillinger.cshtml" />
+    <Content Include="Views\Bestilling\Betaling.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

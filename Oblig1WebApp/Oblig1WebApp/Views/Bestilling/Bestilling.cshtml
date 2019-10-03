@@ -128,6 +128,26 @@
                     var honnoerValidering = document.getElementById('honnoer').value;
                     var vernepliktigValidering = document.getElementById('vernepliktig').value;
                     var barn6_17Validering = document.getElementById('barn6_17').value;
+
+
+                    var today = new Date();
+                    var dateSjekk = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                    datoKonvertert = new Date(dato);
+                    var konvertertDato = datoKonvertert.getFullYear() + '-' + (datoKonvertert.getMonth() + 1) + '-' + datoKonvertert.getDate();
+                   // alert(testSjekk);
+                    
+/*
+                    var test;
+
+                    if (konvertertDato < dateSjekk) {
+                        test = false;
+                        alert(test);
+                    } else if (datoKonvertert > test) {
+                        test = true;
+                        alert(test);
+                    } */
+
+
                     
                     if (dropForste.length == 0) {
                         evt.preventDefault()
@@ -145,28 +165,44 @@
                         document.getElementById("sisteAvgangValidering").innerHTML = "*Vennligst velg hvor du ønsker å reise til*";
                         document.getElementById("sisteAvgangValidering").style.color = "red";
 
-                        $("#dropSiste").on('change', function () {;
+                        $("#dropSiste").on('change', function () {
                             var ok = "";
                             $("#sisteAvgangValidering").html(ok);
                         });
                     } 
 
+                    //Datovalidering, fungerer ikke 100%
                     if (dato.length == 0) {
                         evt.preventDefault()
                         document.getElementById("datoValidering").innerHTML = "*Vennligst velg hvilke dato du ønsker å reise*";
                         document.getElementById("datoValidering").style.color = "red";
 
-                        $("#datoUtreise").on('change', function () {;
-                            var ok = "";
-                            $("#datoValidering").html(ok);
+                        $("#datoUtreise").on('change', function () {
+                            if (konvertertDato > dateSjekk) {
+                                var ok = "";
+                                $("#datoValidering").html(ok);
+                            } else if (konvertertDato < dateSjekk) {
+                                document.getElementById("datoValidering").innerHTML = "*Du kan ikke velge dato mindre enn per dags dato*";
+                                document.getElementById("datoValidering").style.color = "red";
+                            }
                         });
-                    } 
+                    } else if (konvertertDato >= dateSjekk || konvertertDato <= dateSjekk) {
+                         $("#datoUtreise").on('change', function () {
+                            if (konvertertDato >= dateSjekk) {
+                                var ok = "";
+                                $("#datoValidering").html(ok);
+                            } else if (konvertertDato < dateSjekk) {
+                                document.getElementById("datoValidering").innerHTML = "*Du kan ikke velge dato mindre enn per dags dato*";
+                                document.getElementById("datoValidering").style.color = "red";
+                            }
+                        });
+                    }
 
                     if ($("#utreiseTid").val() == "00:00") {
                         document.getElementById("tidValidering").innerHTML = "*Obs! Du har ikke endret tid for utreise, sikker på at tiden er korrekt?*";
                         document.getElementById("tidValidering").style.color = "orange";
 
-                        $("#utreiseTid").on('change', function () {;
+                        $("#utreiseTid").on('change', function () {
                             var ok = "";
                             $("#tidValidering").html(ok);
                         });
@@ -176,11 +212,17 @@
                         document.getElementById("billettValidering").innerHTML = "*Ingen billett valgt! Du er nødt til å velge en type billett*";
                         document.getElementById("billettValidering").style.color = "red";
 
-                        $("#reisende").on('change', function () {;
+                        $("#reisende").on('change', function () {
                             var ok = "";
                             $("#billettValidering").html(ok);
                         });
                     }
+
+
+                  
+
+         
+
                 });
             });
         </script>
