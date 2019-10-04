@@ -46,13 +46,14 @@
     <div class="container body-content">
         @RenderBody()
         @Scripts.Render("~/bundles/jqueryval")
+        @RenderSection("scripts", false)
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Vy Bestilling</p>
         </footer>
     </div>
 
-    @RenderSection("scripts")
+    
 
     
 </body>

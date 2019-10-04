@@ -59,7 +59,7 @@
 
             // Viser forste avgang
             function VisInfoForste(Avgang) {
-                var utStreng = Avgang.forsteAvgang;
+                var utStreng = Avgang._forsteAvgang;
                 $("#visInfoForste").html(utStreng);
             }
 
@@ -107,14 +107,14 @@
 
             // Viser siste avgang
             function VisInfoSiste(Avgang) {
-                var utStreng = Avgang.sisteAvgang;
+                var utStreng = Avgang._sisteAvgang;
                 $("#visInfoSiste").html(utStreng);
             }
-
 
         </script> 
 
         <script>
+            
             //Validering - klient
             $(document).ready(function () {
                 $("#regBestilling").click(function (evt) {
@@ -136,7 +136,7 @@
                     var konvertertDato = datoKonvertert.getFullYear() + '-' + (datoKonvertert.getMonth() + 1) + '-' + datoKonvertert.getDate();
                    // alert(testSjekk);
                     
-/*
+                    /*
                     var test;
 
                     if (konvertertDato < dateSjekk) {
