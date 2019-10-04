@@ -29,6 +29,19 @@ namespace Oblig1WebApp.Models
 
         public string Avgangstid { get; set; }
     }
+
+    public class Betalinger
+    {
+        public int Id { get; set; }
+        public string Fornavn { get; set; }
+        public string Etternavn { get; set; }
+        public string Email { get; set; }
+        public string Kortnummer { get; set; }
+        public DateTime UtløpsDato { get; set; }
+        public string CvC { get; set; }
+    }
+
+
     /*
         public class Kunder
         {
@@ -57,6 +70,7 @@ namespace Oblig1WebApp.Models
         }
 
         public DbSet<Bestillinger> Bestillinger { get; set; }
+        public DbSet<Betalinger> Betalinger { get; set; }
         /*
         public DbSet<Kunder> Kunder { get; set; }
         public DbSet<Poststeder> Poststeder { get; set; }

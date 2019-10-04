@@ -64,8 +64,12 @@ namespace Oblig1WebApp.Controllers
                 enAvgang.avgangstid = a.avgangstid;
                 alleStrekninger.Add(enAvgang);
             }
+
+            var test = Session["fraLokasjon"].ToString();
+            var test2 = Session["tilLokasjon"].ToString();
+            List<visAvgang> alleAvgangerNy = new List<visAvgang>(alleAvganger.FindAll(item => (item.forsteAvgang == test) && (item.sisteAvgang == test2)));
             var jsonSerializer = new JavaScriptSerializer();
-            string json = jsonSerializer.Serialize(alleAvganger);
+            string json = jsonSerializer.Serialize(alleAvgangerNy);
             return json;
         }
 

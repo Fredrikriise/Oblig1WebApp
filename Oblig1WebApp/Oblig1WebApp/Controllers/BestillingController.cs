@@ -1,6 +1,7 @@
 ﻿using Oblig1WebApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
 
@@ -43,7 +44,12 @@ namespace Oblig1WebApp.Controllers
             Session["billettType"] = innBestilling.billettType;
             Session["utreiseDato"] = innBestilling.utreiseDato;
             Session["utreiseTid"] = innBestilling.utreiseTid;
-            Session["returDato"] = innBestilling.returDato;
+
+            if(innBestilling.returDato != null)
+            {
+                Session["returDato"] = innBestilling.returDato;
+            }
+
             Session["returTid"] = innBestilling.returTid;
             Session["voksen"] = innBestilling.voksen;
             Session["barn0_5"] = innBestilling.barn0_5;
@@ -89,35 +95,26 @@ namespace Oblig1WebApp.Controllers
             innBestilling.tilLokasjon = (Session["tilLokasjon"]).ToString();
             innBestilling.billettType = (Session["billettType"]).ToString();
 
-            var inputUt = Session["utreiseDato"].ToString(); // dd-MM-yyyy    
-            DateTime dUt;
-            if (DateTime.TryParseExact(inputUt, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dUt))
-            {
-                innBestilling.utreiseDato = dUt;
-            }
-
+            var inputUt = Session["utreiseDato"].ToString(); // dd-MM-yyyy   
+            DateTime? dtTur = string.IsNullOrEmpty(inputUt) ? (DateTime?)null : DateTime.Parse(inputUt);
+            innBestilling.utreiseDato = dtTur;
+           
             innBestilling.utreiseTid = (Session["utreiseTid"]).ToString();
 
-            //MÅ ORDNE DERSOM RETUR IKKE ER VALGT
-            var inputRetur = Session["returDato"].ToString(); // dd-MM-yyyy    
-            DateTime dRetur;
-            if (DateTime.TryParseExact(inputRetur, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dRetur))
+            if(Session["returDato"] != null)
             {
-                innBestilling.utreiseDato = dRetur;
+                var inputRetur = Session["returDato"].ToString(); // dd-MM-yyyy    
+                DateTime? dtRetur = string.IsNullOrEmpty(inputRetur) ? (DateTime?)null : DateTime.Parse(inputRetur);
+                innBestilling.returDato = dtRetur;
             }
 
             innBestilling.returTid = (Session["returTid"]).ToString();
-
             innBestilling.voksen = (int?)Session["voksen"];
-
             innBestilling.barn0_5 = (int?)Session["barn0_5"];
-
-
             innBestilling.student = (int?)Session["student"];
             innBestilling.honnoer = (int?)Session["honnoer"];
             innBestilling.vernepliktig = (int?)Session["vernepliktig"];
             innBestilling.barn6_17 = (int?)Session["barn6_17"];
-
             innBestilling.barnevogn = (int?)Session["barnevogn"];
             innBestilling.sykkel = (int?)Session["sykkel"];
             innBestilling.hundover_40cm = (int?)Session["hundover_40cm"];
@@ -201,7 +198,7 @@ namespace Oblig1WebApp.Controllers
         public ActionResult listVisAvganger()
         {
             var db = new DBContext();
-            List<visAvgang>  alleAvganger = db.alleVisAvganger();
+            List<visAvgang> alleAvganger = db.alleVisAvganger();
             return View(alleAvganger);
         }
 
@@ -255,6 +252,60 @@ namespace Oblig1WebApp.Controllers
         //Metoder for betaling
         public ActionResult Betaling()
         {
+            return View();
+        }
+
+        public ActionResult listBetaling()
+        {
+            var db = new DBContext();
+            List<Betaling> alleBetalinger = db.alleBetalinger();
+            return View(alleBetalinger);
+        }
+
+        public ActionResult endreBetaling(int id)
+        {
+            var db = new DBContext();
+            Betaling enBetaling = db.hentBetaling(id);
+            return View(enBetaling);
+        }
+
+        [HttpPost]
+        public ActionResult endreBetaling(Betaling innBetaling)
+        {
+            var db = new DBContext();
+            bool OK = db.endreBetaling(innBetaling);
+            if (OK)
+            {
+                RedirectToAction("listBetalinger");
+            }
+            return View();
+        }
+
+        public ActionResult slettBetaling(int id)
+        {
+            var db = new DBContext();
+            bool OK = db.slettBetaling(id);
+            if (OK)
+            {
+                RedirectToAction("listBetaling");
+            }
+            return View();
+        }
+
+        public ActionResult registrerBetaling()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult registrerBetaling(Betaling innBetaling)
+        {
+            var db = new DBContext();
+            bool OK = db.lagreBetaling(innBetaling);
+            if (OK)
+            {
+                return RedirectToAction("listBetaling");
+            }
             return View();
         }
     }

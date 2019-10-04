@@ -175,55 +175,6 @@ namespace Oblig1WebApp
             }
         }
 
-        //TEST
-/*
-        public Bestilling hentBestilling2(int id)
-        {
-            using (var db = new BestillingContext())
-            {
-                Bestillinger enBestilling = db.Bestillinger.Find(id);
-                var hentetBestilling = new Bestilling()
-                {
-                    id = enBestilling.Id,
-                    avgangstid = enBestilling.Avgangstid
-                };
-                return hentetBestilling;
-            }
-        }
-
-        
-        public bool lagreBestilling2(Bestilling innBestilling)
-        {
-            using (var db = new BestillingContext())
-            {
-                try
-                {
-                    var objektFra = db.Bestillinger.Find(innBestilling.fraLokasjon);
-                    var objektTil = db.Bestillinger.Find(innBestilling.tilLokasjon);
-                    var test1 = innBestilling.fraLokasjon;
-                    var test2 = innBestilling.tilLokasjon;
-
-
-                    if (objektFra.ToString() == test1 && objektTil.ToString() == test2)
-                    {
-                        Console.WriteLine("YES");
-                        var endreObjekt = db.Bestillinger.Find(innBestilling.id);
-                        endreObjekt.Id = innBestilling.id;
-                        endreObjekt.Avgangstid = innBestilling.avgangstid;
-                        db.SaveChanges();
-                        return true;
-                    }
-                    return true;
-                }
-                catch (Exception innsettingsFeil)
-                {
-                    return false;
-                    throw new Exception(
-                        "Feil ved insetting av data i databasen", innsettingsFeil);
-                }
-            }
-        } */
-
         public bool slettBestilling(int id)
         {
             using (var db = new BestillingContext())
@@ -452,5 +403,116 @@ namespace Oblig1WebApp
             }
 
         }
+
+        // Betaling
+        public List<Betaling> alleBetalinger()
+        {
+            using (var db = new BestillingContext())
+            {
+                List<Betaling> alleBetalinger = db.Betalinger.Select(a => new Betaling
+                {
+                    id = a.Id,
+                    fornavn = a.Fornavn,
+                    etternavn = a.Etternavn,
+                    email = a.Email,
+                    kortnummer = a.Kortnummer,
+                    utløpsDato = a.UtløpsDato,
+                    CVC = a.CvC
+                }).ToList();
+                return alleBetalinger;
+            }
+        }
+
+        public Betaling hentBetaling(int id)
+        {
+            using (var db = new BestillingContext())
+            {
+                Betalinger enBetaling = db.Betalinger.Find(id);
+                var hentetBetaling = new Betaling()
+                {
+                    id = enBetaling.Id,
+                    fornavn = enBetaling.Fornavn,
+                    etternavn = enBetaling.Etternavn,
+                    email = enBetaling.Email,
+                    kortnummer = enBetaling.Kortnummer,
+                    utløpsDato = enBetaling.UtløpsDato,
+                    CVC = enBetaling.CvC
+                };
+                return hentetBetaling;
+            }
+        }
+
+        public bool endreBetaling(Betaling innBetaling)
+        {
+            using (var db = new BestillingContext())
+            {
+                try
+                {
+                    var endreObjekt = db.Betalinger.Find(innBetaling.id);
+                    endreObjekt.Id = innBetaling.id;
+                    endreObjekt.Fornavn = innBetaling.fornavn;
+                    endreObjekt.Etternavn = innBetaling.etternavn;
+                    endreObjekt.Email = innBetaling.email;
+                    endreObjekt.Kortnummer = innBetaling.kortnummer;
+                    endreObjekt.UtløpsDato = innBetaling.utløpsDato;
+                    db.SaveChanges();
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved endring av data i databasen", innsettingsFeil);
+                }
+                return true;
+            }
+        }
+
+        public bool lagreBetaling(Betaling innBetaling)
+        {
+            using (var db = new BestillingContext())
+            {
+                try
+                {
+                    var nyBetaling = new Betalinger();
+                    nyBetaling.Fornavn = innBetaling.fornavn;
+                    nyBetaling.Etternavn = innBetaling.etternavn;
+                    nyBetaling.Email = innBetaling.email;
+                    nyBetaling.Kortnummer = innBetaling.kortnummer;
+                    nyBetaling.UtløpsDato = innBetaling.utløpsDato;
+                    nyBetaling.CvC = innBetaling.CVC;
+
+                    db.Betalinger.Add(nyBetaling);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                }
+            }
+        }
+
+        public bool slettBetaling(int id)
+        {
+            using (var db = new BestillingContext())
+            {
+                try
+                {
+                    var slettObjekt = db.Betalinger.Find(id);
+                    db.Betalinger.Remove(slettObjekt);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved sletting av data i databasen", innsettingsFeil);
+                }
+            }
+        }
+
     }
 }
