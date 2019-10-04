@@ -94,7 +94,7 @@
         function VisDropDown(jsVisAvgang) {
             var utStreng = "";
             for (var i in jsVisAvgang) {
-                utStreng += "<option value='" + jsVisAvgang[i].avgangstid + "'>" + jsVisAvgang[i].avgangstid + "</option>";
+                utStreng += "<option value='" + jsVisAvgang[i].id + "'>" + jsVisAvgang[i].avgangstid + "</option>";
             }
             $("#drop").append(utStreng);
         }
@@ -111,8 +111,8 @@
     </script>
 </head>
 <body>
-    <h2>Når vil du reise fra    @Session["data1"] til  @Session["data2"] ?</h2>
-    <form action="/Bestilling/regBestilling2" method="post">
+    <h2>Når vil du reise fra    @Session["fraLokasjon"] til  @Session["tilLokasjon"] ?</h2>
+    <form action="/Bestilling/regBestilling3" method="post">
         <table style="width: 100%">
             <tr>
                 <td><b>Første Avgang</b></td>
@@ -141,10 +141,6 @@
 
         <span id="visValgtAvgang"> <br /> </span><span name="avgangstid" id="avgangstid"></span>
 
-        @Session["bestilling"]
-        @Session["data1"]
-        @Session["data2"]
-
-        <input type="submit" value="Bestill" name="regBestilling2" id="regBestilling2" class="btn btn-success" />
+        <input type="submit" value="Bestill" name="regBestilling3" id="regBestilling3" class="btn btn-success" />
     </form>
 </body>

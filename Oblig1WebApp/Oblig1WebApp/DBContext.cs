@@ -176,7 +176,7 @@ namespace Oblig1WebApp
         }
 
         //TEST
-
+/*
         public Bestilling hentBestilling2(int id)
         {
             using (var db = new BestillingContext())
@@ -191,6 +191,7 @@ namespace Oblig1WebApp
             }
         }
 
+        
         public bool lagreBestilling2(Bestilling innBestilling)
         {
             using (var db = new BestillingContext())
@@ -221,7 +222,7 @@ namespace Oblig1WebApp
                         "Feil ved insetting av data i databasen", innsettingsFeil);
                 }
             }
-        }
+        } */
 
         public bool slettBestilling(int id)
         {

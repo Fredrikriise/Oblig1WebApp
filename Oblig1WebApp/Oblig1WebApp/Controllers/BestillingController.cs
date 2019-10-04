@@ -1,5 +1,7 @@
 ﻿using Oblig1WebApp.Models;
+using System;
 using System.Collections.Generic;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace Oblig1WebApp.Controllers
@@ -8,6 +10,11 @@ namespace Oblig1WebApp.Controllers
     {
         // Metoder for Bestilling
         public ActionResult Bestilling()
+        {
+            return View();
+        }
+
+        public ActionResult TestView()
         {
             return View();
         }
@@ -23,8 +30,16 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult regBestilling(Bestilling innBestilling)
         {
-            Session["fraLokasjon"] = innBestilling.fraLokasjon;
-            Session["tilLokasjon"] = innBestilling.tilLokasjon;
+            var db = new DBContext();
+
+            var idFra = Int32.Parse(innBestilling.fraLokasjon);
+            visAvgang enAvgangFra = db.hentVisAvgang(idFra);
+            Session["fraLokasjon"] = enAvgangFra.forsteAvgang;
+
+            var idTil = Int32.Parse(innBestilling.tilLokasjon);
+            visAvgang enAvgangTil = db.hentVisAvgang(idTil);
+            Session["tilLokasjon"] = enAvgangTil.sisteAvgang;
+
             Session["billettType"] = innBestilling.billettType;
             Session["utreiseDato"] = innBestilling.utreiseDato;
             Session["utreiseTid"] = innBestilling.utreiseTid;
@@ -41,25 +56,26 @@ namespace Oblig1WebApp.Controllers
             Session["hundover_40cm"] = innBestilling.hundover_40cm;
             Session["kjaeledyrunder_40cm"] = innBestilling.kjaeledyrunder_40cm;
 
+            return RedirectToAction("visAvganger"); 
+        }
 
-            // var db = new DBContext();
-            //bool OK = db.lagreBestilling(innBestilling);
-            //if (OK)
-            // {
-            //   Session["data1"] = innBestilling.fraLokasjon;
-            //  Session["data2"] = innBestilling.tilLokasjon;
-            return RedirectToAction("visAvganger");
-                //} else
-               // {
-                //    return RedirectToAction("Bestilling");
-               // }
+        [HttpPost]
+        public ActionResult regBestilling3(Bestilling innBestilling)
+        {
+            var db = new DBContext();
+
+            var avgangstid = Int32.Parse(innBestilling.avgangstid);
+            visAvgang enAvgangFra = db.hentVisAvgang(avgangstid);
+            Session["avgangstid"] = enAvgangFra.avgangstid;
+
+            return RedirectToAction("TestView");
         }
 
 
-        public ActionResult hentBestilling2(int id)
+        public ActionResult hentBestilling(int id)
         {
             var db = new DBContext();
-            Bestilling enBestilling = db.hentBestilling2(id);
+            Bestilling enBestilling = db.hentBestilling(id);
             return View(enBestilling);
         }
 
@@ -67,15 +83,52 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult regBestilling2(Bestilling innBestilling)
         {
-
-
             var db = new DBContext();
-            bool OK = db.lagreBestilling2(innBestilling);
+
+            innBestilling.fraLokasjon = (Session["fraLokasjon"]).ToString();
+            innBestilling.tilLokasjon = (Session["tilLokasjon"]).ToString();
+            innBestilling.billettType = (Session["billettType"]).ToString();
+
+            var inputUt = Session["utreiseDato"].ToString(); // dd-MM-yyyy    
+            DateTime dUt;
+            if (DateTime.TryParseExact(inputUt, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dUt))
+            {
+                innBestilling.utreiseDato = dUt;
+            }
+
+            innBestilling.utreiseTid = (Session["utreiseTid"]).ToString();
+
+            //MÅ ORDNE DERSOM RETUR IKKE ER VALGT
+            var inputRetur = Session["returDato"].ToString(); // dd-MM-yyyy    
+            DateTime dRetur;
+            if (DateTime.TryParseExact(inputRetur, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dRetur))
+            {
+                innBestilling.utreiseDato = dRetur;
+            }
+
+            innBestilling.returTid = (Session["returTid"]).ToString();
+
+            innBestilling.voksen = (int?)Session["voksen"];
+
+            innBestilling.barn0_5 = (int?)Session["barn0_5"];
+
+
+            innBestilling.student = (int?)Session["student"];
+            innBestilling.honnoer = (int?)Session["honnoer"];
+            innBestilling.vernepliktig = (int?)Session["vernepliktig"];
+            innBestilling.barn6_17 = (int?)Session["barn6_17"];
+
+            innBestilling.barnevogn = (int?)Session["barnevogn"];
+            innBestilling.sykkel = (int?)Session["sykkel"];
+            innBestilling.hundover_40cm = (int?)Session["hundover_40cm"];
+            innBestilling.kjaeledyrunder_40cm = (int?)Session["kjaeledyrunder_40cm"];
+
+            innBestilling.avgangstid = Session["avgangstid"].ToString();
+
+            bool OK = db.lagreBestilling(innBestilling);
             if (OK)
             {
-                Session["data1"] = innBestilling.fraLokasjon;
-                Session["data2"] = innBestilling.tilLokasjon;
-                return RedirectToAction("listVisAvganger");
+                return RedirectToAction("Betaling");
             }
             else
             {
