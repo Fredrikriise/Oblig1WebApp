@@ -19,6 +19,7 @@ namespace Oblig1WebApp.Models
         public string Spor { get; set; }
         public string TogNummer { get; set; }
         public string Avgangstid { get; set; }
+        public string AvgangstidRetur { get; set; }
     }
 
     public class AvgangContext : DbContext

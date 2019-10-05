@@ -28,6 +28,7 @@ namespace Oblig1WebApp.Models
         public int? Kjaeledyrunder_40cm { get; set; }
 
         public string Avgangstid { get; set; }
+        public string AvgangstidRetur { get; set; }
     }
 
     public class Betalinger

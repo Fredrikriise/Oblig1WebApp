@@ -33,7 +33,8 @@ namespace Oblig1WebApp
                     sykkel = b.Sykkel,
                     hundover_40cm = b.Hundover_40cm,
                     kjaeledyrunder_40cm = b.Kjaeledyrunder_40cm,
-                    avgangstid = b.Avgangstid
+                    avgangstid = b.Avgangstid,
+                    avgangstidRetur = b.AvgangstidRetur
                 }).ToList();
                 return alleBestillinger;
             }
@@ -64,7 +65,8 @@ namespace Oblig1WebApp
                     sykkel = enBestilling.Sykkel,
                     hundover_40cm = enBestilling.Hundover_40cm,
                     kjaeledyrunder_40cm = enBestilling.Kjaeledyrunder_40cm,
-                    avgangstid = enBestilling.Avgangstid
+                    avgangstid = enBestilling.Avgangstid,
+                    avgangstidRetur = enBestilling.AvgangstidRetur
                 };
                 return hentetBestilling;
             }
@@ -160,6 +162,8 @@ namespace Oblig1WebApp
                     nyBestilling.Kjaeledyrunder_40cm = innBestilling.kjaeledyrunder_40cm;
 
                     nyBestilling.Avgangstid = innBestilling.avgangstid;
+
+                    nyBestilling.AvgangstidRetur = innBestilling.avgangstidRetur;
 
 
                     db.Bestillinger.Add(nyBestilling);
@@ -306,7 +310,8 @@ namespace Oblig1WebApp
                     reiseTid = a.ReiseTid,
                     spor = a.Spor,
                     togNummer = a.TogNummer,
-                    avgangstid = a.Avgangstid
+                    avgangstid = a.Avgangstid,
+                    avgangstidRetur = a.AvgangstidRetur
                 }).ToList();
                 return alleAvganger;
             }
@@ -325,7 +330,8 @@ namespace Oblig1WebApp
                     reiseTid = enAvgang.ReiseTid,
                     spor = enAvgang.Spor,
                     togNummer = enAvgang.TogNummer,
-                    avgangstid = enAvgang.Avgangstid
+                    avgangstid = enAvgang.Avgangstid,
+                    avgangstidRetur = enAvgang.AvgangstidRetur
                 };
                 return hentetAvgang;
             }
@@ -369,6 +375,7 @@ namespace Oblig1WebApp
                     nyAvgang.Spor = innAvgang.spor;
                     nyAvgang.TogNummer = innAvgang.togNummer;
                     nyAvgang.Avgangstid = innAvgang.avgangstid;
+                    nyAvgang.AvgangstidRetur = innAvgang.avgangstidRetur;
 
                     db.visAvganger.Add(nyAvgang);
                     db.SaveChanges();

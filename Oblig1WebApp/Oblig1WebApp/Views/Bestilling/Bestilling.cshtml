@@ -121,6 +121,10 @@
                     var dropForste = document.getElementById('dropForste').value;
                     var dropSiste = document.getElementById('dropSiste').value;
                     var dato = document.getElementById('datoUtreise').value;
+                    var utreiseTid = document.getElementById('utreiseTid').value
+
+                    var returDato = document.getElementById('datoRetur').value;
+                    var returTid = document.getElementById('returTid').value;
 
                     var voksenValidering = document.getElementById('voksen').value;
                     var barn0_5Validering = document.getElementById('barn0_5').value;
@@ -132,23 +136,14 @@
 
                     var today = new Date();
                     var dateSjekk = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
                     datoKonvertert = new Date(dato);
                     var konvertertDato = datoKonvertert.getFullYear() + '-' + (datoKonvertert.getMonth() + 1) + '-' + datoKonvertert.getDate();
-                   // alert(testSjekk);
-                    
-                    /*
-                    var test;
 
-                    if (konvertertDato < dateSjekk) {
-                        test = false;
-                        alert(test);
-                    } else if (datoKonvertert > test) {
-                        test = true;
-                        alert(test);
-                    } */
+                    returDatoKonvertert = new Date(returDato);
+                    var konvertertReturDato = returDatoKonvertert.getFullYear() + '-' + (returDatoKonvertert.getMonth() + 1) + '-' + returDatoKonvertert.getDate();
 
 
-                    
                     if (dropForste.length == 0) {
                         evt.preventDefault()
                         document.getElementById("forsteAvgangValidering").innerHTML = "*Vennligst velg hvor du ønsker å reise fra*";
@@ -178,26 +173,32 @@
                         document.getElementById("datoValidering").style.color = "red";
 
                         $("#datoUtreise").on('change', function () {
-                            if (konvertertDato > dateSjekk) {
-                                var ok = "";
-                                $("#datoValidering").html(ok);
-                            } else if (konvertertDato < dateSjekk) {
+                            //Denne if'en fungerer ikke
+                            if (Date.parse(konvertertDato) < Date.parse(dateSjekk)) {
+                                alert("test");
+                                evt.preventDefault()
                                 document.getElementById("datoValidering").innerHTML = "*Du kan ikke velge dato mindre enn per dags dato*";
                                 document.getElementById("datoValidering").style.color = "red";
+                                
+                            } else {
+                                var ok = "";
+                                $("#datoValidering").html(ok);
                             }
                         });
-                    } else if (konvertertDato >= dateSjekk || konvertertDato <= dateSjekk) {
+                    }  else if (konvertertDato >= dateSjekk || konvertertDato <= dateSjekk) {
                          $("#datoUtreise").on('change', function () {
-                            if (konvertertDato >= dateSjekk) {
-                                var ok = "";
-                                $("#datoValidering").html(ok);
-                            } else if (konvertertDato < dateSjekk) {
-                                document.getElementById("datoValidering").innerHTML = "*Du kan ikke velge dato mindre enn per dags dato*";
-                                document.getElementById("datoValidering").style.color = "red";
+                             if (konvertertDato < dateSjekk) {
+                                 evt.preventDefault()
+                                 document.getElementById("datoValidering").innerHTML = "*Du kan ikke velge dato mindre enn per dags dato*";
+                                 document.getElementById("datoValidering").style.color = "red";
+                             } else {
+                                 var ok = "";
+                                 $("#datoValidering").html(ok);
                             }
                         });
-                    }
+                    } 
 
+                    //Utreise tid validering
                     if ($("#utreiseTid").val() == "00:00") {
                         document.getElementById("tidValidering").innerHTML = "*Obs! Du har ikke endret tid for utreise, sikker på at tiden er korrekt?*";
                         document.getElementById("tidValidering").style.color = "orange";
@@ -216,6 +217,49 @@
                             var ok = "";
                             $("#billettValidering").html(ok);
                         });
+                    }
+
+                    //Validering av returDato og returTid
+                    if (document.getElementById("turRetur").checked == true) {
+
+                        if ($("#returTid").val() == "00:00") {
+                            document.getElementById("returTidValidering").innerHTML = "*Obs! Du har ikke endret tid for retur, sikker på at tiden er korrekt?*";
+                            document.getElementById("returTidValidering").style.color = "orange";
+
+                            $("#returTid").on('change', function () {
+                                var ok = "";
+                                $("#returTidValidering").html(ok);
+                            });
+                        }
+
+
+                        if (returDato.length == 0) {
+                            evt.preventDefault()
+                            document.getElementById("returDatoValidering").innerHTML = "*Vennligst velg hvilke dato du ønsker å returnere*";
+                            document.getElementById("returDatoValidering").style.color = "red";
+
+                            $("#datoUtreise").on('change', function () {
+                                if (returDatoKonvertert > dateSjekk) {
+                                    var ok = "";
+                                    $("#returDatoValidering").html(ok);
+                                } else if (returDatoKonvertert < dateSjekk) {
+                                    evt.preventDefault()
+                                    document.getElementById("returDatoValidering").innerHTML = "*Du kan ikke velge retur dato mindre enn per dags dato*";
+                                    document.getElementById("returDatoValidering").style.color = "red";
+                                }
+                            });
+                        } else if (konvertertReturDato >= dateSjekk || konvertertReturDato <= dateSjekk) {
+                            $("#returDatoValidering").on('change', function () {
+                                 if (konvertertReturDato >= dateSjekk) {
+                                     var ok = "";
+                                     $("#returDatoValidering").html(ok);
+                                 } else if (konvertertReturDato < dateSjekk) {
+                                     evt.preventDefault()
+                                     document.getElementById("returDatoValidering").innerHTML = "*Du kan ikke velge retur dato mindre enn per dags dato*";
+                                     document.getElementById("returDatoValidering").style.color = "red";
+                                 }
+                            });
+                        }
                     }
 
                 });
@@ -301,6 +345,7 @@
                      <b>Retur</b>
                      <br />
                      <input type="date" id="datoRetur" name="returDato" class="form-control">
+                     <span id="returDatoValidering"></span>
                  </td>
                  <td width="20%">
                      <br />
@@ -332,6 +377,7 @@
                          <option value="22:00">22:00</option>
                          <option value="23:00">23:00</option>
                      </select>
+                     <span id="returTidValidering"></span>
                  </td>
              </tr>
 

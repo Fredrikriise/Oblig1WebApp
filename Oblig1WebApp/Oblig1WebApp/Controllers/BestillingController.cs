@@ -74,6 +74,10 @@ namespace Oblig1WebApp.Controllers
             visAvgang enAvgangFra = db.hentVisAvgang(avgangstid);
             Session["avgangstid"] = enAvgangFra.avgangstid;
 
+            var avgangstidRetur = Int32.Parse(innBestilling.avgangstidRetur);
+            visAvgang enAvgangRetur = db.hentVisAvgang(avgangstidRetur);
+            Session["avgangstidRetur"] = enAvgangRetur.avgangstidRetur;
+
             return RedirectToAction("TestView");
         }
 
@@ -121,6 +125,7 @@ namespace Oblig1WebApp.Controllers
             innBestilling.kjaeledyrunder_40cm = (int?)Session["kjaeledyrunder_40cm"];
 
             innBestilling.avgangstid = Session["avgangstid"].ToString();
+            innBestilling.avgangstidRetur = Session["avgangstidRetur"].ToString();
 
             bool OK = db.lagreBestilling(innBestilling);
             if (OK)

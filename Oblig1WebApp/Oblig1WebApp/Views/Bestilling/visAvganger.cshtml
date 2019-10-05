@@ -66,30 +66,33 @@
             var utStrengForste = "";
             var utStrengSiste = "";
             var utStrengTid = "";
+            var utStrengUtDato = "";
             var utStrengSpor = "";
             var utStrengTogNr = "";
-            var utStrengAvgangstid = "";
+            //var utStrengAvgangstid = "";
 
 
             for (var i in jsVisAvgang) {
-       
                 utStrengForste +=  jsVisAvgang[i].forsteAvgang + "<br/>";
                 utStrengSiste +=  jsVisAvgang[i].sisteAvgang + "<br/>";
                 utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
+                
                 utStrengSpor +=  jsVisAvgang[i].spor + "<br/>";
                 utStrengTogNr +=  jsVisAvgang[i].togNummer + "<br/>";
-                utStrengAvgangstid += jsVisAvgang[i].avgangstid + "<br/>";
-
+                //utStrengAvgangstid += jsVisAvgang[i].avgangstid + "<br/>";
             }
+           // var utreise = Session["utreiseDato"].ToString();
 
+            //utStrengUtDato += utreise + "<br/>";
             $("#forste").append(utStrengForste);
             $("#siste").append(utStrengSiste);
             $("#tid").append(utStrengTid);
+            $("#utDato").append(utStrengUtDato);
             $("#spor").append(utStrengSpor);
             $("#nr").append(utStrengTogNr);
-            $("#avgang").append(utStrengAvgangstid);
-
+            //$("#avgang").append(utStrengAvgangstid);
         }
+
 
         function VisDropDown(jsVisAvgang) {
             var utStreng = "";
@@ -100,24 +103,139 @@
         }
 
 
-            function VisInfoAvgang(visAvgang) {
+        function VisInfoAvgang(visAvgang) {
             var utStreng = visAvgang.avgangstid;
             $("#avgangstid").html(utStreng);
         }
 
+        //RETURRRRRRRRRRRRRRRRRR
+
+        $(function () {
+            // Kaller på hentAlleVisAvganger og bygger opp tabellRad når siden lastes
+            $.ajax({
+                url: '/Avgang/hentAlleVisAvganger',
+                type: 'GET',
+                dataType: 'json',
+                success: function (jsVisAvgang) {
+                    VisTabellRadRetur(jsVisAvgang);
+                    VisDropDownRetur(jsVisAvgang);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+
+            // Oppretter en hendelse på tabellraden når siden lastes
+            $("#tabellRadRetur").change(function () {
+                var id = $(this).val();
+                $.ajax({
+                    url: '/Avgang/hentVisAvgangInfo/' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (visAvgang) {
+                        VisInfoAvgang(visAvgang);
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+            });
+
+            $("#dropRetur").change(function () {
+                var id = $(this).val();
+                $.ajax({
+                    url: '/Avgang/hentVisAvgangInfo/' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (visAvgang) {
+                        VisInfoAvgang(visAvgang);
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+            });
+        })
+                // Setter forsteAvgang inn i span
+        function VisTabellRadRetur(jsVisAvgang) {
+            var utStrengSiste = "";
+            var utStrengForste = "";
+            var utStrengTid = "";
+            var utStrengReturDato = "";
+            var utStrengSpor = "";
+            var utStrengTogNr = "";
+            //var utStrengAvgangstidRetur = "";
 
 
+            for (var i in jsVisAvgang) {
+                utStrengSiste +=  jsVisAvgang[i].sisteAvgang + "<br/>";
+                utStrengForste +=  jsVisAvgang[i].forsteAvgang + "<br/>";
+                utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
+                
+                utStrengSpor +=  jsVisAvgang[i].spor + "<br/>";
+                utStrengTogNr +=  jsVisAvgang[i].togNummer + "<br/>";
+                //utStrengAvgangstidRetur += jsVisAvgang[i].avgangstidRetur + "<br/>";
+            }
+            //var retur = Session["returDato"].ToString();
+           // utStrengReturDato += retur + "<br/>";
+            $("#returforste").append(utStrengForste);
+            $("#retursiste").append(utStrengSiste);
+            $("#returtid").append(utStrengTid);
+            $("#returDato").append(utStrengReturDato);
+            $("#returspor").append(utStrengSpor);
+            $("#returnr").append(utStrengTogNr);
+            //$("#returavgangRetur").append(utStrengAvgangstidRetur);
+        }
+
+            function VisDropDownRetur(jsVisAvgang) {
+            var utStreng = "";
+            for (var i in jsVisAvgang) {
+                utStreng += "<option value='" + jsVisAvgang[i].id + "'>" + jsVisAvgang[i].avgangstidRetur + "</option>";
+            }
+            $("#dropRetur").append(utStreng);
+        }
+
+/*
+        function VisInfoAvgangRetur(visAvgang) {
+            var utStreng = visAvgang.avgangstidRetur;
+            $("#avgangstidRetur").html(utStreng);
+        }
+
+
+        $(document).ready(function () {
+            $("#retur").hide();
+            $("#visReturDato").hide();
+            $("#turRetur").click(function () {
+                $("#retur").show();
+                $("#visReturDato").show();
+            });
+
+            $("#enVei").click(function () {
+                $("#retur").hide();
+                $("#visReturDato").hide();
+            });
+        });
+        */
 
     </script>
 </head>
 <body>
-    <h2>Når vil du reise fra    @Session["fraLokasjon"] til  @Session["tilLokasjon"] ?</h2>
+    @{
+        var utreiseDato = Session["utreiseDato"].ToString();
+        
+        var returDato = Session["returDato"].ToString();
+        
+    }
+
+    <h2>Når vil du reise fra  @Session["fraLokasjon"] til  @Session["tilLokasjon"]?</h2>
     <form action="/Bestilling/regBestilling3" method="post">
         <table style="width: 100%">
             <tr>
                 <td><b>Første Avgang</b></td>
                 <td><b>Siste Avgang</b></td>
                 <td><b>Reisetid</b></td>
+                <td><b>Utreise dato</b></td>
+                <td><b>Retur dato</b></td>
                 <td><b>Spor</b></td>
                 <td><b>Tognummer</b></td>
                 <td><b>Avreisetid</b></td>
@@ -127,19 +245,32 @@
                     <td name="fraLokasjon" id="forste"></td>
                     <td name="tilLokasjon" id="siste"></td>
                     <td id="tid"></td>
+                    <td id="utDato">@utreiseDato</td>
+                    <td></td>
                     <td id="spor"></td>
                     <td id="nr"></td>
-                    <td id="avgang"></td>
+                    <td><select name="avgangstid" id="drop" class="form-control"> <option value=""></option></select></td>
                 </tr>
             </tbody>
-        </table>
 
-        <select name="avgangstid" id="drop" class="form-control">
-            <option value=""></option>
-        </select>
+            <tbody id="tabellRadRetur">
+                <tr>
+                    <td name="tilLokasjon" id="retursiste"></td>
+                    <td name="fraLokasjon" id="returforste"></td>
+                    <td id="returtid"></td>
+                    <td></td>
+                    <td id="returDato">@returDato</td>
+                    <td id="returspor"></td>
+                    <td id="returnr"></td>
+                    <td><select name="avgangstidRetur" id="dropRetur" class="form-control"> <option value=""></option></select></td>
+                </tr>
+            </tbody>
+
+        </table>
 
 
         <span id="visValgtAvgang"> <br /> </span><span name="avgangstid" id="avgangstid"></span>
+        <span id="visValgtAvgangRetur"> <br /> </span><span name="avgangstidRetur" id="avgangstidRetur"></span>
 
         <input type="submit" value="Bestill" name="regBestilling3" id="regBestilling3" class="btn btn-success" />
     </form>

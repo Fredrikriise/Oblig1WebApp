@@ -62,6 +62,7 @@ namespace Oblig1WebApp.Controllers
                 enAvgang.spor = a.spor;
                 enAvgang.togNummer = a.togNummer;
                 enAvgang.avgangstid = a.avgangstid;
+                enAvgang.avgangstidRetur = a.avgangstidRetur;
                 alleStrekninger.Add(enAvgang);
             }
 

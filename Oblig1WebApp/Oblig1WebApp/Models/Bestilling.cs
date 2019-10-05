@@ -58,5 +58,6 @@ namespace Oblig1WebApp.Models
         public int? kjaeledyrunder_40cm { get; set; }
 
         public string avgangstid { get; set; }
+        public string avgangstidRetur { get; set; }
     }
 }

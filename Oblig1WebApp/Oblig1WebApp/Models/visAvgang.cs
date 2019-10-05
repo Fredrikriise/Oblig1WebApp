@@ -20,7 +20,9 @@ namespace Oblig1WebApp.Models
         [Display(Name = "Tognummer")]
         public string togNummer { get; set; }
         [Display(Name = "Avgangstid")]
-        public string avgangstid { get; set; } 
+        public string avgangstid { get; set; }
+        [Display(Name = "Avgangstid retur")]
+        public string avgangstidRetur { get; set; }
     }
 
     public class jsVisAvgang
@@ -32,5 +34,6 @@ namespace Oblig1WebApp.Models
         public string spor { get; set; }
         public string togNummer { get; set; }
         public string avgangstid { get; set; }
+        public string avgangstidRetur { get; set; }
     }
 }
