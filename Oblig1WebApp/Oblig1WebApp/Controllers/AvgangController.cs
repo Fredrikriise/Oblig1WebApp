@@ -61,8 +61,8 @@ namespace Oblig1WebApp.Controllers
                 enAvgang.reiseTid = a.reiseTid;
                 enAvgang.spor = a.spor;
                 enAvgang.togNummer = a.togNummer;
-                enAvgang.avgangstid = a.avgangstid;
-                enAvgang.avgangstidRetur = a.avgangstidRetur;
+                enAvgang.sone = a.sone;
+                enAvgang.pris = a.pris;
                 alleStrekninger.Add(enAvgang);
             }
 
@@ -87,6 +87,45 @@ namespace Oblig1WebApp.Controllers
         {
             var db = new DBContext();
             db.lagreVisAvgang(innAvgang);
+            var jsonSerializer = new JavaScriptSerializer();
+            return jsonSerializer.Serialize("OK");
+        }
+
+
+        //Metoder for alleavgangstid
+        public string hentAlleavgangstider()
+        {
+            var db = new DBContext();
+            List<alleavgangstid> alleAvganger = db.alleAlleavgangstid();
+
+            var alleStrekninger = new List<jsAlleavgangstid>();
+            foreach (alleavgangstid a in alleAvganger)
+            {
+                var enAvgang = new jsAlleavgangstid();
+                enAvgang.id = a.id;
+                enAvgang.avgangstid = a.avgangstid;
+                enAvgang.avgangstidRetur = a.avgangstidRetur;
+                alleStrekninger.Add(enAvgang);
+            }
+
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(alleAvganger);
+            return json;
+        }
+
+        public string hentAlleavgangstid(int id)
+        {
+            var db = new DBContext();
+            alleavgangstid enAvgang = db.hentAlleavgangstider(id);
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(enAvgang);
+            return json;
+        }
+
+        public string registrerAlleavgangstid(alleavgangstid innAvgang)
+        {
+            var db = new DBContext();
+            db.lagrealleavgangstid(innAvgang);
             var jsonSerializer = new JavaScriptSerializer();
             return jsonSerializer.Serialize("OK");
         }

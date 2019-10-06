@@ -26,12 +26,6 @@
         <th>
             @Html.DisplayNameFor(model => model.togNummer)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.avgangstid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.avgangstidRetur)
-        </th>
         <th></th>
     </tr>
 
@@ -51,12 +45,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.togNummer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.avgangstid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.avgangstidRetur)
         </td>
         <td>
             @Html.ActionLink("Endre", "endreVisAvgang", new { id=item.id }) |

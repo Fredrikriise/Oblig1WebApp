@@ -223,6 +223,7 @@
     <Content Include="Views\Bestilling\listVisAvganger.cshtml" />
     <Content Include="Views\Bestilling\listBestillinger.cshtml" />
     <Content Include="Views\Bestilling\Betaling.cshtml" />
+    <Content Include="Views\Bestilling\registreralleavgangstid.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
- 
+
     <script type="text/javascript">
         // Ajax
         $(function () {
@@ -20,24 +20,12 @@
                 dataType: 'json',
                 success: function (jsVisAvgang) {
                     VisTabellRad(jsVisAvgang);
-                    VisDropDown(jsVisAvgang);
+                    Pris(jsVisAvgang);
                 }
             });
 
             // Oppretter en hendelse på tabellraden når siden lastes
             $("#tabellRad").change(function () {
-                var id = $(this).val();
-                $.ajax({
-                    url: '/Avgang/hentVisAvgangInfo/' + id,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (visAvgang) {
-                        VisInfoAvgang(visAvgang);
-                    }
-                });
-            });
-
-            $("#drop").change(function () {
                 var id = $(this).val();
                 $.ajax({
                     url: '/Avgang/hentVisAvgangInfo/' + id,
@@ -57,6 +45,8 @@
             var utStrengTid = "";
             var utStrengSpor = "";
             var utStrengTogNr = "";
+            var utStrengSone = "";
+            var utStrengPris = "";
 
             for (var i in jsVisAvgang) {
                 utStrengForste += jsVisAvgang[i].forsteAvgang + "<br/>";
@@ -64,6 +54,8 @@
                 utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
                 utStrengSpor += jsVisAvgang[i].spor + "<br/>";
                 utStrengTogNr += jsVisAvgang[i].togNummer + "<br/>";
+                utStrengSone += jsVisAvgang[i].sone + "<br/>";
+                utStrengPris += jsVisAvgang[i].pris + "<br/>";
             }
 
             $("#forste").append(utStrengForste);
@@ -71,19 +63,8 @@
             $("#tid").append(utStrengTid);
             $("#spor").append(utStrengSpor);
             $("#nr").append(utStrengTogNr);
-        }
-
-        function VisDropDown(jsVisAvgang) {
-            var utStreng = "";
-            for (var i in jsVisAvgang) {
-                utStreng += "<option value='" + jsVisAvgang[i].id + "'>" + jsVisAvgang[i].avgangstid + "</option>";
-            }
-            $("#drop").append(utStreng);
-        }
-
-        function VisInfoAvgang(visAvgang) {
-            var utStreng = visAvgang.avgangstid;
-            $("#avgangstid").html(utStreng);
+            $("#sone").append(utStrengSone);
+            $("#pris").append(utStrengPris);
         }
 
         $(function () {
@@ -94,24 +75,11 @@
                 dataType: 'json',
                 success: function (jsVisAvgang) {
                     VisTabellRadRetur(jsVisAvgang);
-                    VisDropDownRetur(jsVisAvgang);
                 }
             });
 
             // Oppretter en hendelse på tabellraden når siden lastes
             $("#tabellRadRetur").change(function () {
-                var id = $(this).val();
-                $.ajax({
-                    url: '/Avgang/hentVisAvgangInfo/' + id,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (visAvgang) {
-                        VisInfoAvgang(visAvgang);
-                    }
-                });
-            });
-
-            $("#dropRetur").change(function () {
                 var id = $(this).val();
                 $.ajax({
                     url: '/Avgang/hentVisAvgangInfo/' + id,
@@ -131,6 +99,8 @@
             var utStrengTid = "";
             var utStrengSpor = "";
             var utStrengTogNr = "";
+            var utStrengSone = "";
+            var utStrengPris = "";
 
             for (var i in jsVisAvgang) {
                 utStrengSiste += jsVisAvgang[i].sisteAvgang + "<br/>";
@@ -138,23 +108,92 @@
                 utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
                 utStrengSpor += jsVisAvgang[i].spor + "<br/>";
                 utStrengTogNr += jsVisAvgang[i].togNummer + "<br/>";
+                utStrengSone += jsVisAvgang[i].sone + "<br/>";
+                utStrengPris += jsVisAvgang[i].pris + "<br/>";
             }
-            
+
             $("#returforste").append(utStrengForste);
             $("#retursiste").append(utStrengSiste);
             $("#returtid").append(utStrengTid);
             $("#returspor").append(utStrengSpor);
             $("#returnr").append(utStrengTogNr);
+            $("#retursone").append(utStrengSone);
+            $("#returpris").append(utStrengPris);
+        }
+    </script>
+
+    <script type="text/javascript">
+        //Henting av avgangsdato
+        $(function () {
+            // Kaller på hentAlleVisAvganger og bygger opp tabellRad når siden lastes
+            $.ajax({
+                url: '/Avgang/hentAlleavgangstider',
+                type: 'GET',
+                dataType: 'json',
+                success: function (jsAlleavgangstid) {
+                    VisDropDown(jsAlleavgangstid);
+                    VisDropDownRetur(jsAlleavgangstid);
+                }
+            });
+
+            $("#drop").change(function () {
+                var id = $(this).val();
+                $.ajax({
+                    url: '/Avgang/hentAlleavgangstid/' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (alleavgangstid) {
+                        VisDropDown(alleavgangstid);
+                    }
+                });
+            });
+        })
+
+        function VisDropDown(jsAlleavgangstid) {
+            var utStreng = "";
+            for (var i in jsAlleavgangstid) {
+                utStreng += "<option value='" + jsAlleavgangstid[i].id + "'>" + jsAlleavgangstid[i].avgangstid + "</option>";
+            }
+            $("#drop").append(utStreng);
         }
 
-        function VisDropDownRetur(jsVisAvgang) {
+        $("#dropRetur").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: '/Avgang/hentAlleavgangstid/' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (alleavgangstid) {
+                    VisDropDownRetur(alleavgangstid);
+                }
+            });
+        });
+
+        function VisDropDownRetur(jsAlleavgangstid) {
             var utStreng = "";
-            for (var i in jsVisAvgang) {
-                utStreng += "<option value='" + jsVisAvgang[i].id + "'>" + jsVisAvgang[i].avgangstidRetur + "</option>";
+            for (var i in jsAlleavgangstid) {
+                utStreng += "<option value='" + jsAlleavgangstid[i].id + "'>" + jsAlleavgangstid[i].avgangstidRetur + "</option>";
             }
             $("#dropRetur").append(utStreng);
         }
+
+        // For totalpris
+        function Pris(jsVisAvgang) {
+            var utPris = 0;
+ 
+            for (var i in jsVisAvgang) {
+                utPris += jsVisAvgang[i].pris;
+            }
+ 
+            var antallReisende = (parseInt(@Session["voksen"]) + parseInt(@Session["barn0_5"]) + parseInt(@Session["student"]) + parseInt(@Session["honnoer"]) + parseInt(@Session["vernepliktig"]) + parseInt(@Session["barn6_17"]));
+            var totalPris = antallReisende * (parseInt(utPris));
+           
+            var utStrengTotal = "Totalpris for " + antallReisende + " reisende er " + totalPris + "kr.";
+            $("#totalPris").html(utStrengTotal);
+        }
     </script>
+
+
     <script>
         //Validering av valg avgangstid
         $(document).ready(function () {
@@ -193,11 +232,11 @@
 </head>
 <body>
     @{
-        var utreiseDato =  Session["utreiseDato"] == null? "" : Session["utreiseDato"].ToString();
+        var utreiseDato = Session["utreiseDato"] == null ? "" : Session["utreiseDato"].ToString();
         string fjern = "12:00:00 AM";
         string resultatUt = string.Empty;
         int i = utreiseDato.IndexOf(fjern);
-        if(i >= 0)
+        if (i >= 0)
         {
             resultatUt = utreiseDato.Remove(i, fjern.Length);
         }
@@ -208,7 +247,7 @@
         {
             returDato += Session["returDato"] == null ? "" : Session["returDato"].ToString();
             i = returDato.IndexOf(fjern);
-            if(i >= 0)
+            if (i >= 0)
             {
                 resultatRetur = returDato.Remove(i, fjern.Length);
             }
@@ -216,62 +255,64 @@
     }
 
     <h2>Når vil du reise fra  @Session["fraLokasjon"] til  @Session["tilLokasjon"]?</h2><br />
-    <form action="/Bestilling/regBestilling3" method="post">
-        <table style="width: 100%">
-            <tr>
-                <td><b>Første Avgang</b></td>
-                <td><b>Siste Avgang</b></td>
-                <td><b>Reisetid</b></td>
-                <td><b>Utreise dato</b></td>
-                <td><b>Retur dato</b></td>
-                <td><b>Spor</b></td>
-                <td><b>Tognummer</b></td>
-                <td><b>Avreisetid</b></td>
-            </tr>
-            <tbody id="tabellRad">
-                <tr>
-                    <td name="fraLokasjon" id="forste"></td>
-                    <td name="tilLokasjon" id="siste"></td>
-                    <td id="tid"></td>
-                    <td >@resultatUt</td>
-                    <td></td>
-                    <td id="spor"></td>
-                    <td id="nr"></td>
-                    <td>
-                        <select name="avgangstid" id="drop" class="form-control">
-                            <option value="" disabled selected>-- Velg avgangstid --</option>
-                        </select>
-                        <span id="avgangValidering"></span>
-                    </td>
-                </tr>
-            </tbody>
+                                                                                        <form action="/Bestilling/regBestilling3" method="post">
+                                                                                            <table style="width: 100%">
+                                                                                                <tr>
+                                                                                                    <td><b>Første Avgang</b></td>
+                                                                                                    <td><b>Siste Avgang</b></td>
+                                                                                                    <td><b>Reisetid</b></td>
+                                                                                                    <td><b>Utreise dato</b></td>
+                                                                                                    <td><b>Retur dato</b></td>
+                                                                                                    <td><b>Spor</b></td>
+                                                                                                    <td><b>Tognummer</b></td>
+                                                                                                    <td><b>Sone</b></td>
+                                                                                                    <td><b>Pris per billett</b></td>
+                                                                                                    <td><b>Avreisetid</b></td>
+                                                                                                </tr>
+                                                                                                <tbody id="tabellRad">
+                                                                                                    <tr>
+                                                                                                        <td name="fraLokasjon" id="forste"></td>
+                                                                                                        <td name="tilLokasjon" id="siste"></td>
+                                                                                                        <td id="tid"></td>
+                                                                                                        <td>@resultatUt</td>
+                                                                                                        <td></td>
+                                                                                                        <td id="spor"></td>
+                                                                                                        <td id="nr"></td>
+                                                                                                        <td id="sone"></td>
+                                                                                                        <td id="pris"></td>
+                                                                                                        <td>
+                                                                                                            <select name="avgangstid" id="drop" class="form-control">
+                                                                                                                <option value="" disabled selected>-- Velg avgangstid --</option>
+                                                                                                            </select>
+                                                                                                            <span id="avgangValidering"></span>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </tbody>
 
-            <tbody id="tabellRadRetur">
-                <tr>
-                    <td name="tilLokasjon" id="retursiste"></td>
-                    <td name="fraLokasjon" id="returforste"></td>
-                    <td id="returtid"></td>
-                    <td></td>
-                    <td id="returDato">@resultatRetur</td>
-                    <td id="returspor"></td>
-                    <td id="returnr"></td>
-                    <td id="dropDownR">
-                        <select name="avgangstidRetur" id="dropRetur" class="form-control">
-                            <option value="" disabled selected>-- Velg retur avgangstid --</option>
-                        </select>
-                        <span id="avgangValideringRetur"></span>
-                    </td>
-                </tr>
-            </tbody>
+                                                                                                <tbody id="tabellRadRetur">
+                                                                                                    <tr>
+                                                                                                        <td name="tilLokasjon" id="retursiste"></td>
+                                                                                                        <td name="fraLokasjon" id="returforste"></td>
+                                                                                                        <td id="returtid"></td>
+                                                                                                        <td></td>
+                                                                                                        <td id="returDato">@resultatRetur</td>
+                                                                                                        <td id="returspor"></td>
+                                                                                                        <td id="returnr"></td>
+                                                                                                        <td id="retursone"></td>
+                                                                                                        <td id="returpris"></td>
+                                                                                                        <td id="dropDownR">
+                                                                                                            <select name="avgangstidRetur" id="dropRetur" class="form-control">
+                                                                                                                <option value="" disabled selected>-- Velg retur avgangstid --</option>
+                                                                                                            </select>
+                                                                                                            <span id="avgangValideringRetur"></span>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
 
-        </table>
-
-
-        <span id="visValgtAvgang"> <br /> </span><span name="avgangstid" id="avgangstid"></span>
-        <span id="visValgtAvgangRetur"> <br /> </span><span name="avgangstidRetur" id="avgangstidRetur"></span>
-        <span id="test"></span>
-        <input type="submit" value="Bekreft og gå videre til betaling" name="regBestilling3" id="regBestilling3" class="btn btn-success" />
-    </form>
+                                                                                            <span id="totalPris"></span> <br />
+                                                                                            <input type="submit" value="Bekreft og gå videre til betaling" name="regBestilling3" id="regBestilling3" class="btn btn-success" />
+                                                                                        </form>
 </body>
 
 <script>
@@ -283,6 +324,6 @@
         } else {
             $("#dropDownR").hide();
             $("#tabellRadRetur").hide();
-        } 
+        }
     });
 </script>

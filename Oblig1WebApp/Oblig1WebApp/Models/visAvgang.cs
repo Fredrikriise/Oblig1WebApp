@@ -15,16 +15,15 @@ namespace Oblig1WebApp.Models
         public string spor { get; set; }
         [Display(Name = "Tognummer")]
         public string togNummer { get; set; }
-        /*
-        [Display(Name = "Avgangstid")]
-        public string avgangstid { get; set; }
-        [Display(Name = "Avgangstid retur")]
-        public string avgangstidRetur { get; set; }
-        */
+        [Display(Name = "Sone")]
+        public int sone { get; set; }
+        [Display(Name = "Pris")]
+        public int pris { get; set; }
     }
 
     public class alleavgangstid
     {
+        public int id { get; set; }
         [Display(Name = "Avgangstid")]
         public string avgangstid { get; set; }
         [Display(Name = "Avgangstid retur")]
@@ -39,6 +38,13 @@ namespace Oblig1WebApp.Models
         public string reiseTid { get; set; }
         public string spor { get; set; }
         public string togNummer { get; set; }
+        public int sone { get; set; }
+        public int pris { get; set; }
+    }
+
+    public class jsAlleavgangstid
+    {
+        public int id { get; set; }
         public string avgangstid { get; set; }
         public string avgangstidRetur { get; set; }
     }

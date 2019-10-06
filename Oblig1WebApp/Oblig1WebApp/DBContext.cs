@@ -154,7 +154,6 @@ namespace Oblig1WebApp
                 }
             }
         }
-
         public bool slettBestilling(int id)
         {
             using (var db = new BestillingContext())
@@ -173,7 +172,6 @@ namespace Oblig1WebApp
                         "Feil ved sletting av data i databasen", innsettingsFeil);
                 }
             }
-
         }
 
         // Avganger
@@ -285,8 +283,8 @@ namespace Oblig1WebApp
                     reiseTid = a.ReiseTid,
                     spor = a.Spor,
                     togNummer = a.TogNummer,
-                    avgangstid = a.Avgangstid,
-                    avgangstidRetur = a.AvgangstidRetur
+                    sone = a.Sone,
+                    pris = a.Pris
                 }).ToList();
                 return alleAvganger;
             }
@@ -305,8 +303,8 @@ namespace Oblig1WebApp
                     reiseTid = enAvgang.ReiseTid,
                     spor = enAvgang.Spor,
                     togNummer = enAvgang.TogNummer,
-                    avgangstid = enAvgang.Avgangstid,
-                    avgangstidRetur = enAvgang.AvgangstidRetur
+                    sone = enAvgang.Sone,
+                    pris = enAvgang.Pris
                 };
                 return hentetAvgang;
             }
@@ -325,6 +323,8 @@ namespace Oblig1WebApp
                     endreObjekt.ReiseTid = innAvgang.reiseTid;
                     endreObjekt.Spor = innAvgang.spor;
                     endreObjekt.TogNummer = innAvgang.togNummer;
+                    endreObjekt.Sone = innAvgang.sone;
+                    endreObjekt.Pris = innAvgang.pris;
                     db.SaveChanges();
                 }
                 catch (Exception innsettingsFeil)
@@ -349,8 +349,8 @@ namespace Oblig1WebApp
                     nyAvgang.ReiseTid = innAvgang.reiseTid;
                     nyAvgang.Spor = innAvgang.spor;
                     nyAvgang.TogNummer = innAvgang.togNummer;
-                    nyAvgang.Avgangstid = innAvgang.avgangstid;
-                    nyAvgang.AvgangstidRetur = innAvgang.avgangstidRetur;
+                    nyAvgang.Sone = innAvgang.sone;
+                    nyAvgang.Pris = innAvgang.pris;
 
                     db.visAvganger.Add(nyAvgang);
                     db.SaveChanges();
@@ -373,6 +373,101 @@ namespace Oblig1WebApp
                 {
                     var slettObjekt = db.visAvganger.Find(id);
                     db.visAvganger.Remove(slettObjekt);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved sletting av data i databasen", innsettingsFeil);
+                }
+            }
+        }
+
+        //Alleavgangstid
+        public List<alleavgangstid> alleAlleavgangstid()
+        {
+            using (var db = new AvgangContext())
+            {
+                List<alleavgangstid> alleAvganger = db.alleavgangstider.Select(a => new alleavgangstid
+                {
+                    id = a.Id,
+                    avgangstid = a.Avgangstid,
+                    avgangstidRetur = a.AvgangstidRetur
+                }).ToList();
+                return alleAvganger;
+            }
+        }
+
+        public alleavgangstid hentAlleavgangstider(int id)
+        {
+            using (var db = new AvgangContext())
+            {
+                alleavgangstider enAvgang = db.alleavgangstider.Find(id);
+                var hentetAvgang = new alleavgangstid()
+                {
+                    id = enAvgang.Id,
+                    avgangstid = enAvgang.Avgangstid,
+                    avgangstidRetur = enAvgang.AvgangstidRetur
+                };
+                return hentetAvgang;
+            }
+        }
+        
+        public bool endreAlleavgangstider(alleavgangstid innAvgang)
+        {
+            using (var db = new AvgangContext())
+            {
+                try
+                {
+                    var endreObjekt = db.alleavgangstider.Find(innAvgang.id);
+                    endreObjekt.Id = innAvgang.id;
+                    endreObjekt.Avgangstid = innAvgang.avgangstid;
+                    endreObjekt.AvgangstidRetur = innAvgang.avgangstidRetur;
+                    db.SaveChanges();
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved endring av data i databasen", innsettingsFeil);
+                }
+                return true;
+            }
+        }
+
+        public bool lagrealleavgangstid(alleavgangstid innAvgang)
+        {
+            using (var db = new AvgangContext())
+            {
+                try
+                {
+                    var nyAvgang = new alleavgangstider();
+                    nyAvgang.Avgangstid = innAvgang.avgangstid;
+                    nyAvgang.AvgangstidRetur = innAvgang.avgangstidRetur;
+
+                    db.alleavgangstider.Add(nyAvgang);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved insetting av data i databasen", innsettingsFeil);
+                }
+            }
+        }
+
+        public bool slettalleavgangstid(int id)
+        {
+            using (var db = new AvgangContext())
+            {
+                try
+                {
+                    var slettObjekt = db.alleavgangstider.Find(id);
+                    db.alleavgangstider.Remove(slettObjekt);
                     db.SaveChanges();
                     return true;
                 }

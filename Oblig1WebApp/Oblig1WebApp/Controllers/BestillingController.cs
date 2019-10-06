@@ -106,16 +106,20 @@ namespace Oblig1WebApp.Controllers
 
             if (innBestilling.avgangstid != null)
             {
-                var avgangstid = Int32.Parse(innBestilling.avgangstid);
-                visAvgang enAvgangFra = db.hentVisAvgang(avgangstid);
-                Session["avgangstid"] = enAvgangFra.avgangstid;
+               // var avgangstid = Int32.Parse(innBestilling.avgangstid);
+                //visAvgang enAvgangFra = db.hentVisAvgang(avgangstid);
+                //Session["avgangstid"] = enAvgangFra.avgangstid;
+                //alleavgangstid enAvgangFra = db.hentAlleavgangstider(avgangstid);
+                Session["avgangstid"] = innBestilling.avgangstid;
             }
 
             if (innBestilling.avgangstidRetur != null)
             {
-                var avgangstidRetur = Int32.Parse(innBestilling.avgangstidRetur);
-                visAvgang enAvgangRetur = db.hentVisAvgang(avgangstidRetur);
-                Session["avgangstidRetur"] = enAvgangRetur.avgangstidRetur;
+                //var avgangstidRetur = Int32.Parse(innBestilling.avgangstidRetur);
+                //visAvgang enAvgangRetur = db.hentVisAvgang(avgangstidRetur);
+                //Session["avgangstidRetur"] = enAvgangRetur.avgangstidRetur;
+                //alleavgangstid enAvgangRetur = db.hentAlleavgangstider(avgangstidRetur);
+                Session["avgangstidRetur"] = innBestilling.avgangstidRetur;
             }
             return RedirectToAction("Betaling");
         }
@@ -139,7 +143,6 @@ namespace Oblig1WebApp.Controllers
             DateTime? dtTur = string.IsNullOrEmpty(inputUt) ? (DateTime?)null : DateTime.Parse(inputUt);
             innBestilling.utreiseDato = dtTur;
             innBestilling.avgangstid = Session["avgangstid"].ToString();
-            //innBestilling.utreiseTid = (Session["utreiseTid"]).ToString();
 
             if (Session["returDato"] != null)
             {
@@ -153,7 +156,6 @@ namespace Oblig1WebApp.Controllers
                 innBestilling.avgangstidRetur = Session["avgangstidRetur"].ToString();
             }
 
-            //innBestilling.returTid = (Session["returTid"]).ToString();
             innBestilling.voksen = (int?)Session["voksen"];
             innBestilling.barn0_5 = (int?)Session["barn0_5"];
             innBestilling.student = (int?)Session["student"];
@@ -251,10 +253,10 @@ namespace Oblig1WebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult endreVisAvgang(visAvgang innAvgang)
+        public ActionResult endreVisAvgang(visAvgang innAvgangtid)
         {
             var db = new DBContext();
-            bool OK = db.endreVisAvgang(innAvgang);
+            bool OK = db.endreVisAvgang(innAvgangtid);
             if (OK)
             {
                 RedirectToAction("listVisAvganger");
@@ -279,16 +281,77 @@ namespace Oblig1WebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult registrerVisAvgang(visAvgang innAvgang)
+        public ActionResult registrerVisAvgang(visAvgang innAvgangtid)
         {
             var db = new DBContext();
-            bool OK = db.lagreVisAvgang(innAvgang);
+            bool OK = db.lagreVisAvgang(innAvgangtid);
             if (OK)
             {
                 return RedirectToAction("listAvganger");
             }
             return View();
         }
+
+        // Metoder for alleavgangstider
+        public ActionResult visAlleavgangstider()
+        {
+            return View();
+        }
+
+        public ActionResult listAlleavgangstider()
+        {
+            var db = new DBContext();
+            List<alleavgangstid> alleAvgangTider = db.alleAlleavgangstid();
+            return View(alleAvgangTider);
+        }
+
+        public ActionResult endreAlleavgangstider(int id)
+        {
+            var db = new DBContext();
+            alleavgangstid enAvgangTid = db.hentAlleavgangstider(id);
+            return View(enAvgangTid);
+        }
+
+        [HttpPost]
+        public ActionResult endreAlleavgangstider(alleavgangstid innAvgangtid)
+        {
+            var db = new DBContext();
+            bool OK = db.endreAlleavgangstider(innAvgangtid);
+            if (OK)
+            {
+                RedirectToAction("listVisAvganger");
+            }
+            return View();
+        }
+
+        public ActionResult slettalleavgangstid(int id)
+        {
+            var db = new DBContext();
+            bool OK = db.slettalleavgangstid(id);
+            if (OK)
+            {
+                RedirectToAction("listVisAvganger");
+            }
+            return View();
+        }
+
+        public ActionResult registreralleavgangstid()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult registreralleavgangstid(alleavgangstid innAvgangtid)
+        {
+            var db = new DBContext();
+            bool OK = db.lagrealleavgangstid(innAvgangtid);
+            if (OK)
+            {
+                return RedirectToAction("listAvganger");
+            }
+            return View();
+        }
+
 
         //Metoder for betaling
         public ActionResult Betaling()
