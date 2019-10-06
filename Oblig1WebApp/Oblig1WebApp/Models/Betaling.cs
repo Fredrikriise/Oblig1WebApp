@@ -22,15 +22,14 @@ namespace Oblig1WebApp.Models
 
         [Display(Name = "Kortnummer")]
         [Required(ErrorMessage = "Kortnummeret må oppis")]
-        //[RegularExpression(@"[0-9]{3}", ErrorMessage = "Kortnummer må være 12 siffer")]
-        [CreditCard(ErrorMessage = "Kortnummeret må være 12 siffer")]
+        [RegularExpression(@"[0-9]{12}", ErrorMessage = "Kortnummer må være 12 siffer, uten mellomrom!")]
         public string kortnummer { get; set; }
 
         [Display(Name = "Utløpsdato (Måned/år)")]
         [Required(ErrorMessage = "Utløpsdato må oppis")]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-yy}")]
-        [RegularExpression(@"[0-9]{2}\/\[0-9]{2}", ErrorMessage = "Utløpsdato må ha format mm/yy")]
-        public DateTime utløpsDato { get; set; }
+        [RegularExpression(@"[0-9]{2}[/][0-9]{2}", ErrorMessage = "Utløpsdato må ha format mm/yy")]
+        public string utløpsDato { get; set; }
 
         [Display(Name = "CVC/CVC2/CVV2")]
         [Required(ErrorMessage = "CVC/CVC2/CVV2 kode må oppis")]

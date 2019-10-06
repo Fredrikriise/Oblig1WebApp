@@ -25,39 +25,77 @@ namespace Oblig1WebApp.Controllers
         {
             var db = new DBContext();
 
-            var idFra = Int32.Parse(innBestilling.fraLokasjon);
-            visAvgang enAvgangFra = db.hentVisAvgang(idFra);
-            Session["fraLokasjon"] = enAvgangFra.forsteAvgang;
+            if(innBestilling.fraLokasjon == null)
+            {
+                ModelState.AddModelError("", "Du er nødt til å velge hvor du ønsker å reise fra");
+            } else {
+                var idFra = Int32.Parse(innBestilling.fraLokasjon);
+                visAvgang enAvgangFra = db.hentVisAvgang(idFra);
+                Session["fraLokasjon"] = enAvgangFra.forsteAvgang;
+            }
 
-            var idTil = Int32.Parse(innBestilling.tilLokasjon);
-            visAvgang enAvgangTil = db.hentVisAvgang(idTil);
-            Session["tilLokasjon"] = enAvgangTil.sisteAvgang;
+
+            if (innBestilling.fraLokasjon == null)
+            {
+                ModelState.AddModelError("", "Du er nødt til å velge hvor du ønsker å reise til");
+            } else {
+                var idTil = Int32.Parse(innBestilling.tilLokasjon);
+                visAvgang enAvgangTil = db.hentVisAvgang(idTil);
+                Session["tilLokasjon"] = enAvgangTil.sisteAvgang;
+            }
 
             Session["billettType"] = innBestilling.billettType;
-            Session["utreiseDato"] = innBestilling.utreiseDato;
+
+            if(innBestilling.utreiseDato == null)
+            {
+                ModelState.AddModelError("", "Du er nødt til å velge hvilke dato du ønsker å reise");
+                
+            } else
+            {
+                Session["utreiseDato"] = innBestilling.utreiseDato;
+            }
+            
             //Session["utreiseTid"] = innBestilling.utreiseTid;
 
-            if (innBestilling.returDato != null)
+            
+            if (innBestilling.billettType == "Tur retur")
             {
-                Session["returDato"] = innBestilling.returDato;
+                if(innBestilling.returDato == null)
+                {
+                    ModelState.AddModelError("", "Du er nødt til å velge hvilken dato du ønsker å returnere");
+                } else
+                {
+                    Session["returDato"] = innBestilling.returDato;
+                }
             }
             else
             {
                 Session["returDato"] = null;
             }
-
             //Session["returTid"] = innBestilling.returTid;
-            Session["voksen"] = innBestilling.voksen;
-            Session["barn0_5"] = innBestilling.barn0_5;
-            Session["student"] = innBestilling.student;
-            Session["honnoer"] = innBestilling.honnoer;
-            Session["vernepliktig"] = innBestilling.vernepliktig;
-            Session["barn6_17"] = innBestilling.barn6_17;
-            Session["barnevogn"] = innBestilling.barnevogn;
-            Session["sykkel"] = innBestilling.sykkel;
-            Session["hundover_40cm"] = innBestilling.hundover_40cm;
-            Session["kjaeledyrunder_40cm"] = innBestilling.kjaeledyrunder_40cm;
 
+            if (innBestilling.voksen < 0 && innBestilling.barn0_5 < 0 && innBestilling.student < 0 && innBestilling.honnoer < 0 && innBestilling.vernepliktig < 0 && innBestilling.barn6_17 < 0)
+            {
+                ModelState.AddModelError("", "Du er nødt til å velge hvor du ønsker å reise fra");
+            }
+            else
+            {
+                Session["voksen"] = innBestilling.voksen;
+                Session["barn0_5"] = innBestilling.barn0_5;
+                Session["student"] = innBestilling.student;
+                Session["honnoer"] = innBestilling.honnoer;
+                Session["vernepliktig"] = innBestilling.vernepliktig;
+                Session["barn6_17"] = innBestilling.barn6_17;
+                Session["barnevogn"] = innBestilling.barnevogn;
+                Session["sykkel"] = innBestilling.sykkel;
+                Session["hundover_40cm"] = innBestilling.hundover_40cm;
+                Session["kjaeledyrunder_40cm"] = innBestilling.kjaeledyrunder_40cm;
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Bestilling");
+            }
             return RedirectToAction("visAvganger");
         }
 
@@ -79,7 +117,6 @@ namespace Oblig1WebApp.Controllers
                 visAvgang enAvgangRetur = db.hentVisAvgang(avgangstidRetur);
                 Session["avgangstidRetur"] = enAvgangRetur.avgangstidRetur;
             }
-
             return RedirectToAction("Betaling");
         }
 
@@ -91,14 +128,13 @@ namespace Oblig1WebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult regBestilling2(Bestilling innBestilling)
+        public ActionResult regBestilling2(Bestilling innBestilling, Betaling innBetaling)
         {
             var db = new DBContext();
 
             innBestilling.fraLokasjon = (Session["fraLokasjon"]).ToString();
             innBestilling.tilLokasjon = (Session["tilLokasjon"]).ToString();
             innBestilling.billettType = (Session["billettType"]).ToString();
-
             var inputUt = Session["utreiseDato"].ToString(); // dd-MM-yyyy   
             DateTime? dtTur = string.IsNullOrEmpty(inputUt) ? (DateTime?)null : DateTime.Parse(inputUt);
             innBestilling.utreiseDato = dtTur;
@@ -130,15 +166,13 @@ namespace Oblig1WebApp.Controllers
             innBestilling.kjaeledyrunder_40cm = (int?)Session["kjaeledyrunder_40cm"];
 
             bool OK = db.lagreBestilling(innBestilling);
-            if (OK)
-            {
-                return RedirectToAction("Betaling");
-            }
-            else
-            {
-                return RedirectToAction("Bestilling");
-            }
+            bool OKBetaling = db.lagreBetaling(innBetaling);
 
+            if (OK && OKBetaling) {
+                return RedirectToAction("Bestilling");
+            } else {
+                return View();
+            }
         }
 
         // Metoder for Avgang
@@ -295,23 +329,6 @@ namespace Oblig1WebApp.Controllers
             if (OK)
             {
                 RedirectToAction("listBetaling");
-            }
-            return View();
-        }
-
-        public ActionResult registrerBetaling()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult registrerBetaling(Betaling innBetaling)
-        {
-            var db = new DBContext();
-            bool OK = db.lagreBetaling(innBetaling);
-            if (OK)
-            {
-                return RedirectToAction("listBetaling");
             }
             return View();
         }

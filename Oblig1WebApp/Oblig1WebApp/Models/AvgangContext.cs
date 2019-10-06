@@ -22,6 +22,8 @@ namespace Oblig1WebApp.Models
         public string AvgangstidRetur { get; set; }
     }
 
+
+
     public class AvgangContext : DbContext
     {
         public AvgangContext() : base("name=Avganger")
@@ -32,6 +34,7 @@ namespace Oblig1WebApp.Models
         public DbSet<Avganger> Avganger { get; set; }
 
         public DbSet<visAvganger> visAvganger { get; set; }
+        public DbSet<alleavgangstid> alleAvgangsTider { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

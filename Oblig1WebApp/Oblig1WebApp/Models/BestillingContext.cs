@@ -33,7 +33,7 @@ namespace Oblig1WebApp.Models
         public string Etternavn { get; set; }
         public string Email { get; set; }
         public string Kortnummer { get; set; }
-        public DateTime UtløpsDato { get; set; }
+        public string UtløpsDato { get; set; }
         public string CvC { get; set; }
     }
 

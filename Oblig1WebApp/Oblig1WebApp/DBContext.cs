@@ -383,7 +383,6 @@ namespace Oblig1WebApp
                         "Feil ved sletting av data i databasen", innsettingsFeil);
                 }
             }
-
         }
 
         // Betaling

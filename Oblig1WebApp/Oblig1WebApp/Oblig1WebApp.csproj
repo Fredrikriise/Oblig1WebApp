@@ -200,7 +200,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Models\Betaling.cs" />
     <Compile Include="Models\visAvgang.cs" />
-    <Compile Include="Models\visAvgangContext.cs" />
     <Compile Include="Models\AvgangContext.cs" />
     <Compile Include="Models\Bestilling.cs" />
     <Compile Include="Models\BestillingContext.cs" />
