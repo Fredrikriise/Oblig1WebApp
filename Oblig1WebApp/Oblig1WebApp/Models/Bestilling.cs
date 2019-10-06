@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
 namespace Oblig1WebApp.Models
 {
     public class Bestilling
@@ -24,16 +23,13 @@ namespace Oblig1WebApp.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? utreiseDato { get; set; }
 
-        [Display(Name = "Klokkeslett utreise")]
-        [Required(ErrorMessage = "Tid må oppgis")]
-        public string utreiseTid { get; set; }
+        public string avgangstid { get; set; }
 
         [Display(Name = "Dato retur")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? returDato { get; set; }
 
-        [Display(Name = "Klokkeslett retur")]
-        public string returTid { get; set; }
+        public string avgangstidRetur { get; set; }
 
         [Display(Name = "Antall voksenbilletter")]
         public int? voksen { get; set; }
@@ -56,8 +52,5 @@ namespace Oblig1WebApp.Models
         public int? hundover_40cm { get; set; }
         [Display(Name = "Kjæledyr under 40cm")]
         public int? kjaeledyrunder_40cm { get; set; }
-
-        public string avgangstid { get; set; }
-        public string avgangstidRetur { get; set; }
     }
 }

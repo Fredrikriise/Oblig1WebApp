@@ -23,9 +23,6 @@
                 success: function (jsVisAvgang) {
                     VisTabellRad(jsVisAvgang);
                     VisDropDown(jsVisAvgang);
-                },
-                error: function (x, y, z) {
-                    alert(x + '\n' + y + '\n' + z);
                 }
             });
 
@@ -38,14 +35,11 @@
                     dataType: 'json',
                     success: function (visAvgang) {
                         VisInfoAvgang(visAvgang);
-                    },
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
                     }
                 });
             });
 
-               $("#drop").change(function () {
+            $("#drop").change(function () {
                 var id = $(this).val();
                 $.ajax({
                     url: '/Avgang/hentVisAvgangInfo/' + id,
@@ -53,9 +47,6 @@
                     dataType: 'json',
                     success: function (visAvgang) {
                         VisInfoAvgang(visAvgang);
-                    },
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
                     }
                 });
             });
@@ -69,28 +60,23 @@
             var utStrengUtDato = "";
             var utStrengSpor = "";
             var utStrengTogNr = "";
-            //var utStrengAvgangstid = "";
 
 
             for (var i in jsVisAvgang) {
-                utStrengForste +=  jsVisAvgang[i].forsteAvgang + "<br/>";
-                utStrengSiste +=  jsVisAvgang[i].sisteAvgang + "<br/>";
+                utStrengForste += jsVisAvgang[i].forsteAvgang + "<br/>";
+                utStrengSiste += jsVisAvgang[i].sisteAvgang + "<br/>";
                 utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
-                
-                utStrengSpor +=  jsVisAvgang[i].spor + "<br/>";
-                utStrengTogNr +=  jsVisAvgang[i].togNummer + "<br/>";
-                //utStrengAvgangstid += jsVisAvgang[i].avgangstid + "<br/>";
-            }
-           // var utreise = Session["utreiseDato"].ToString();
 
-            //utStrengUtDato += utreise + "<br/>";
+                utStrengSpor += jsVisAvgang[i].spor + "<br/>";
+                utStrengTogNr += jsVisAvgang[i].togNummer + "<br/>";
+            }
+
             $("#forste").append(utStrengForste);
             $("#siste").append(utStrengSiste);
             $("#tid").append(utStrengTid);
             $("#utDato").append(utStrengUtDato);
             $("#spor").append(utStrengSpor);
             $("#nr").append(utStrengTogNr);
-            //$("#avgang").append(utStrengAvgangstid);
         }
 
 
@@ -109,7 +95,6 @@
         }
 
         //RETURRRRRRRRRRRRRRRRRR
-
         $(function () {
             // Kaller på hentAlleVisAvganger og bygger opp tabellRad når siden lastes
             $.ajax({
@@ -119,9 +104,6 @@
                 success: function (jsVisAvgang) {
                     VisTabellRadRetur(jsVisAvgang);
                     VisDropDownRetur(jsVisAvgang);
-                },
-                error: function (x, y, z) {
-                    alert(x + '\n' + y + '\n' + z);
                 }
             });
 
@@ -134,9 +116,6 @@
                     dataType: 'json',
                     success: function (visAvgang) {
                         VisInfoAvgang(visAvgang);
-                    },
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
                     }
                 });
             });
@@ -149,14 +128,12 @@
                     dataType: 'json',
                     success: function (visAvgang) {
                         VisInfoAvgang(visAvgang);
-                    },
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
                     }
                 });
             });
         })
-                // Setter forsteAvgang inn i span
+
+        // Setter forsteAvgang inn i span
         function VisTabellRadRetur(jsVisAvgang) {
             var utStrengSiste = "";
             var utStrengForste = "";
@@ -164,70 +141,94 @@
             var utStrengReturDato = "";
             var utStrengSpor = "";
             var utStrengTogNr = "";
-            //var utStrengAvgangstidRetur = "";
-
 
             for (var i in jsVisAvgang) {
-                utStrengSiste +=  jsVisAvgang[i].sisteAvgang + "<br/>";
-                utStrengForste +=  jsVisAvgang[i].forsteAvgang + "<br/>";
+                utStrengSiste += jsVisAvgang[i].sisteAvgang + "<br/>";
+                utStrengForste += jsVisAvgang[i].forsteAvgang + "<br/>";
                 utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
-                
-                utStrengSpor +=  jsVisAvgang[i].spor + "<br/>";
-                utStrengTogNr +=  jsVisAvgang[i].togNummer + "<br/>";
-                //utStrengAvgangstidRetur += jsVisAvgang[i].avgangstidRetur + "<br/>";
+
+                utStrengSpor += jsVisAvgang[i].spor + "<br/>";
+                utStrengTogNr += jsVisAvgang[i].togNummer + "<br/>";
             }
-            //var retur = Session["returDato"].ToString();
-           // utStrengReturDato += retur + "<br/>";
+            
             $("#returforste").append(utStrengForste);
             $("#retursiste").append(utStrengSiste);
             $("#returtid").append(utStrengTid);
             $("#returDato").append(utStrengReturDato);
             $("#returspor").append(utStrengSpor);
             $("#returnr").append(utStrengTogNr);
-            //$("#returavgangRetur").append(utStrengAvgangstidRetur);
         }
 
-            function VisDropDownRetur(jsVisAvgang) {
+        function VisDropDownRetur(jsVisAvgang) {
             var utStreng = "";
             for (var i in jsVisAvgang) {
                 utStreng += "<option value='" + jsVisAvgang[i].id + "'>" + jsVisAvgang[i].avgangstidRetur + "</option>";
             }
             $("#dropRetur").append(utStreng);
         }
+    </script>
 
-/*
-        function VisInfoAvgangRetur(visAvgang) {
-            var utStreng = visAvgang.avgangstidRetur;
-            $("#avgangstidRetur").html(utStreng);
-        }
-
-
+    <script>
         $(document).ready(function () {
-            $("#retur").hide();
-            $("#visReturDato").hide();
-            $("#turRetur").click(function () {
-                $("#retur").show();
-                $("#visReturDato").show();
-            });
+            $("#regBestilling3").click(function (evt) {
+                var dropAvgang = document.getElementById('drop').value;
+                var dropAvgangRetur = document.getElementById('dropRetur').value;
 
-            $("#enVei").click(function () {
-                $("#retur").hide();
-                $("#visReturDato").hide();
+                if (dropAvgang.length == 0) {
+                    evt.preventDefault()
+                    document.getElementById("avgangValidering").innerHTML = "*Vennligst velg en avgangstid*";
+                    document.getElementById("avgangValidering").style.color = "red";
+
+                    $("#drop").on('change', function () {
+                        var ok = "";
+                        $("#avgangValidering").html(ok);
+                    });
+                }
+
+                var sessionRetur = "@Session["returDato"]";
+                if (sessionRetur != "") {
+                    if (dropAvgangRetur.length == 0) {
+                        evt.preventDefault()
+                        document.getElementById("avgangValideringRetur").innerHTML = "*Vennligst velg retur avgangstid*";
+                        document.getElementById("avgangValideringRetur").style.color = "red";
+
+                        $("#dropRetur").on('change', function () {
+                            var ok = "";
+                            $("#avgangValideringRetur").html(ok);
+                        });
+                    }
+                }
             });
         });
-        */
-
     </script>
+
 </head>
 <body>
     @{
-        var utreiseDato = Session["utreiseDato"].ToString();
-        
-        var returDato = Session["returDato"].ToString();
-        
+        var utreiseDato =  Session["utreiseDato"] == null? "" : Session["utreiseDato"].ToString();
+        string fjern = "12:00:00 AM";
+        string resultatUt = string.Empty;
+        int i = utreiseDato.IndexOf(fjern);
+        if(i >= 0)
+        {
+            resultatUt = utreiseDato.Remove(i, fjern.Length);
+        }
+
+        var returDato = "";
+        string resultatRetur = string.Empty;
+        if (Session["returDato"] != null)
+        {
+            returDato += Session["returDato"] == null ? "" : Session["returDato"].ToString();
+            i = returDato.IndexOf(fjern);
+            if(i >= 0)
+            {
+                resultatRetur = returDato.Remove(i, fjern.Length);
+            }
+
+        }
     }
 
-    <h2>Når vil du reise fra  @Session["fraLokasjon"] til  @Session["tilLokasjon"]?</h2>
+    <h2>Når vil du reise fra  @Session["fraLokasjon"] til  @Session["tilLokasjon"]?</h2><br />
     <form action="/Bestilling/regBestilling3" method="post">
         <table style="width: 100%">
             <tr>
@@ -245,11 +246,16 @@
                     <td name="fraLokasjon" id="forste"></td>
                     <td name="tilLokasjon" id="siste"></td>
                     <td id="tid"></td>
-                    <td id="utDato">@utreiseDato</td>
+                    <td >@resultatUt</td>
                     <td></td>
                     <td id="spor"></td>
                     <td id="nr"></td>
-                    <td><select name="avgangstid" id="drop" class="form-control"> <option value=""></option></select></td>
+                    <td>
+                        <select name="avgangstid" id="drop" class="form-control">
+                            <option value="" disabled selected>-- Velg avgangstid --</option>
+                        </select>
+                        <span id="avgangValidering"></span>
+                    </td>
                 </tr>
             </tbody>
 
@@ -259,10 +265,15 @@
                     <td name="fraLokasjon" id="returforste"></td>
                     <td id="returtid"></td>
                     <td></td>
-                    <td id="returDato">@returDato</td>
+                    <td id="returDato">@resultatRetur</td>
                     <td id="returspor"></td>
                     <td id="returnr"></td>
-                    <td><select name="avgangstidRetur" id="dropRetur" class="form-control"> <option value=""></option></select></td>
+                    <td id="dropDownR">
+                        <select name="avgangstidRetur" id="dropRetur" class="form-control">
+                            <option value="" disabled selected>-- Velg retur avgangstid --</option>
+                        </select>
+                        <span id="avgangValideringRetur"></span>
+                    </td>
                 </tr>
             </tbody>
 
@@ -271,7 +282,20 @@
 
         <span id="visValgtAvgang"> <br /> </span><span name="avgangstid" id="avgangstid"></span>
         <span id="visValgtAvgangRetur"> <br /> </span><span name="avgangstidRetur" id="avgangstidRetur"></span>
-
-        <input type="submit" value="Bestill" name="regBestilling3" id="regBestilling3" class="btn btn-success" />
+        <span id="test"></span>
+        <input type="submit" value="Bekreft og gå videre til betaling" name="regBestilling3" id="regBestilling3" class="btn btn-success" />
     </form>
 </body>
+
+<script>
+    $(document).ready(function () {
+        var sessionRetur = "@Session["returDato"]";
+        if (sessionRetur != "") {
+            $("#dropDownR").show();
+            $("#tabellRadRetur").show();
+        } else {
+            $("#dropDownR").hide();
+            $("#tabellRadRetur").hide();
+        } 
+    });
+</script>

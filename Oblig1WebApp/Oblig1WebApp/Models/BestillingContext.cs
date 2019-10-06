@@ -12,10 +12,10 @@ namespace Oblig1WebApp.Models
         public string BillettType { get; set; }
 
         public DateTime? UtreiseDato { get; set; }
-        public string UtreiseTid { get; set; }
+        public string Avgangstid { get; set; }
         public DateTime? ReturDato { get; set; }
-        public string ReturTid { get; set; }
 
+        public string AvgangstidRetur { get; set; }
         public int? Voksen { get; set; }
         public int? Barn0_5 { get; set; }
         public int? Student { get; set; }
@@ -26,9 +26,6 @@ namespace Oblig1WebApp.Models
         public int? Sykkel { get; set; }
         public int? Hundover_40cm { get; set; }
         public int? Kjaeledyrunder_40cm { get; set; }
-
-        public string Avgangstid { get; set; }
-        public string AvgangstidRetur { get; set; }
     }
 
     public class Betalinger

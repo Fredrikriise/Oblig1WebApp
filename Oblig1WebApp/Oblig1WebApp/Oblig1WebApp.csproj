@@ -57,6 +57,12 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -214,11 +220,10 @@
     <Content Include="Views\Bestilling\listAvganger.cshtml" />
     <Content Include="Views\Bestilling\endreAvgang.cshtml" />
     <Content Include="Views\Bestilling\visAvganger.cshtml" />
-    <Content Include="Views\Bestilling\listBestillinger.cshtml" />
     <Content Include="Views\Bestilling\Betaling.cshtml" />
-    <Content Include="Views\Bestilling\TestView.cshtml" />
     <Content Include="Views\Bestilling\registrerVisAvgang.cshtml" />
     <Content Include="Views\Bestilling\listVisAvganger.cshtml" />
+    <Content Include="Views\Bestilling\listBestillinger.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

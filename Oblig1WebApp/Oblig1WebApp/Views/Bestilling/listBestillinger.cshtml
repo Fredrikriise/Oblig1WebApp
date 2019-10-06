@@ -24,13 +24,13 @@
             @Html.DisplayNameFor(model => model.utreiseDato)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.utreiseTid)
+            @Html.DisplayNameFor(model => model.avgangstid)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.returDato)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.returTid)
+            @Html.DisplayNameFor(model => model.avgangstidRetur)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.voksen)
@@ -62,9 +62,6 @@
         <th>
             @Html.DisplayNameFor(model => model.kjaeledyrunder_40cm)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.avgangstid)
-        </th>
         <th></th>
     </tr>
 
@@ -83,13 +80,13 @@
             @Html.DisplayFor(modelItem => item.utreiseDato)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.utreiseTid)
+            @Html.DisplayFor(modelItem => item.avgangstid)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.returDato)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.returTid)
+            @Html.DisplayFor(modelItem => item.avgangstidRetur)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.voksen)
@@ -122,11 +119,8 @@
             @Html.DisplayFor(modelItem => item.kjaeledyrunder_40cm)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.avgangstid)
-        </td>
-        <td>
-            @Html.ActionLink("Endre", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Slett", "slettBestilling", new { id=item.id })
+            @Html.ActionLink("Endre bestilling", "endreBestilling", new { id=item.id }) |
+            @Html.ActionLink("Slett bestilling", "slettBestilling", new { id=item.id })
         </td>
     </tr>
 }

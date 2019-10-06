@@ -15,11 +15,6 @@ namespace Oblig1WebApp.Controllers
             return View();
         }
 
-        public ActionResult TestView()
-        {
-            return View();
-        }
-
         public ActionResult listBestillinger()
         {
             var db = new DBContext();
@@ -43,14 +38,17 @@ namespace Oblig1WebApp.Controllers
 
             Session["billettType"] = innBestilling.billettType;
             Session["utreiseDato"] = innBestilling.utreiseDato;
-            Session["utreiseTid"] = innBestilling.utreiseTid;
+            //Session["utreiseTid"] = innBestilling.utreiseTid;
 
             if(innBestilling.returDato != null)
             {
                 Session["returDato"] = innBestilling.returDato;
+            } else
+            {
+                Session["returDato"] = null;
             }
 
-            Session["returTid"] = innBestilling.returTid;
+            //Session["returTid"] = innBestilling.returTid;
             Session["voksen"] = innBestilling.voksen;
             Session["barn0_5"] = innBestilling.barn0_5;
             Session["student"] = innBestilling.student;
@@ -70,15 +68,21 @@ namespace Oblig1WebApp.Controllers
         {
             var db = new DBContext();
 
-            var avgangstid = Int32.Parse(innBestilling.avgangstid);
-            visAvgang enAvgangFra = db.hentVisAvgang(avgangstid);
-            Session["avgangstid"] = enAvgangFra.avgangstid;
+            if (innBestilling.avgangstid != null)
+            {
+                var avgangstid = Int32.Parse(innBestilling.avgangstid);
+                visAvgang enAvgangFra = db.hentVisAvgang(avgangstid);
+                Session["avgangstid"] = enAvgangFra.avgangstid;
+            }
 
-            var avgangstidRetur = Int32.Parse(innBestilling.avgangstidRetur);
-            visAvgang enAvgangRetur = db.hentVisAvgang(avgangstidRetur);
-            Session["avgangstidRetur"] = enAvgangRetur.avgangstidRetur;
-
-            return RedirectToAction("TestView");
+            if (innBestilling.avgangstidRetur != null)
+            {
+                var avgangstidRetur = Int32.Parse(innBestilling.avgangstidRetur);
+                visAvgang enAvgangRetur = db.hentVisAvgang(avgangstidRetur);
+                Session["avgangstidRetur"] = enAvgangRetur.avgangstidRetur;
+            }
+             
+            return RedirectToAction("Betaling");
         }
 
 
@@ -89,7 +93,6 @@ namespace Oblig1WebApp.Controllers
             return View(enBestilling);
         }
 
-        //TEST
         [HttpPost]
         public ActionResult regBestilling2(Bestilling innBestilling)
         {
@@ -102,17 +105,22 @@ namespace Oblig1WebApp.Controllers
             var inputUt = Session["utreiseDato"].ToString(); // dd-MM-yyyy   
             DateTime? dtTur = string.IsNullOrEmpty(inputUt) ? (DateTime?)null : DateTime.Parse(inputUt);
             innBestilling.utreiseDato = dtTur;
-           
-            innBestilling.utreiseTid = (Session["utreiseTid"]).ToString();
+            innBestilling.avgangstid = Session["avgangstid"].ToString();
+            //innBestilling.utreiseTid = (Session["utreiseTid"]).ToString();
 
-            if(Session["returDato"] != null)
+            if (Session["returDato"] != null)
             {
                 var inputRetur = Session["returDato"].ToString(); // dd-MM-yyyy    
                 DateTime? dtRetur = string.IsNullOrEmpty(inputRetur) ? (DateTime?)null : DateTime.Parse(inputRetur);
                 innBestilling.returDato = dtRetur;
             }
 
-            innBestilling.returTid = (Session["returTid"]).ToString();
+            if (Session["avgangstidRetur"] != null)
+            {
+                innBestilling.avgangstidRetur = Session["avgangstidRetur"].ToString();
+            }
+
+            //innBestilling.returTid = (Session["returTid"]).ToString();
             innBestilling.voksen = (int?)Session["voksen"];
             innBestilling.barn0_5 = (int?)Session["barn0_5"];
             innBestilling.student = (int?)Session["student"];
@@ -123,9 +131,6 @@ namespace Oblig1WebApp.Controllers
             innBestilling.sykkel = (int?)Session["sykkel"];
             innBestilling.hundover_40cm = (int?)Session["hundover_40cm"];
             innBestilling.kjaeledyrunder_40cm = (int?)Session["kjaeledyrunder_40cm"];
-
-            innBestilling.avgangstid = Session["avgangstid"].ToString();
-            innBestilling.avgangstidRetur = Session["avgangstidRetur"].ToString();
 
             bool OK = db.lagreBestilling(innBestilling);
             if (OK)

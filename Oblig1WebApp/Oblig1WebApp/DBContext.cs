@@ -20,9 +20,9 @@ namespace Oblig1WebApp
                     tilLokasjon = b.TilLokasjon,
                     billettType = b.BillettType,
                     utreiseDato = b.UtreiseDato,
-                    utreiseTid = b.UtreiseTid,
+                    avgangstid = b.Avgangstid,
                     returDato = b.ReturDato,
-                    returTid = b.ReturTid,
+                    avgangstidRetur = b.AvgangstidRetur,
                     voksen = b.Voksen,
                     barn0_5 = b.Barn0_5,
                     student = b.Student,
@@ -32,9 +32,7 @@ namespace Oblig1WebApp
                     barnevogn = b.Barnevogn,
                     sykkel = b.Sykkel,
                     hundover_40cm = b.Hundover_40cm,
-                    kjaeledyrunder_40cm = b.Kjaeledyrunder_40cm,
-                    avgangstid = b.Avgangstid,
-                    avgangstidRetur = b.AvgangstidRetur
+                    kjaeledyrunder_40cm = b.Kjaeledyrunder_40cm
                 }).ToList();
                 return alleBestillinger;
             }
@@ -52,9 +50,9 @@ namespace Oblig1WebApp
                     tilLokasjon = enBestilling.TilLokasjon,
                     billettType = enBestilling.BillettType,
                     utreiseDato = enBestilling.UtreiseDato,
-                    utreiseTid = enBestilling.UtreiseTid,
+                    avgangstid = enBestilling.Avgangstid,
                     returDato = enBestilling.ReturDato,
-                    returTid = enBestilling.ReturTid,
+                    avgangstidRetur = enBestilling.AvgangstidRetur,
                     voksen = enBestilling.Voksen,
                     barn0_5 = enBestilling.Barn0_5,
                     student = enBestilling.Student,
@@ -65,8 +63,6 @@ namespace Oblig1WebApp
                     sykkel = enBestilling.Sykkel,
                     hundover_40cm = enBestilling.Hundover_40cm,
                     kjaeledyrunder_40cm = enBestilling.Kjaeledyrunder_40cm,
-                    avgangstid = enBestilling.Avgangstid,
-                    avgangstidRetur = enBestilling.AvgangstidRetur
                 };
                 return hentetBestilling;
             }
@@ -81,25 +77,11 @@ namespace Oblig1WebApp
                     var nyBestilling = new Bestillinger();
                     nyBestilling.FraLokasjon = innBestilling.fraLokasjon;
                     nyBestilling.TilLokasjon = innBestilling.tilLokasjon;
-
                     nyBestilling.BillettType = innBestilling.billettType;
-
                     nyBestilling.UtreiseDato = innBestilling.utreiseDato;
-
-                    if (nyBestilling.UtreiseDato == null)
-                    {
-                        innBestilling.utreiseTid = null;
-                    }
-
-                    nyBestilling.UtreiseTid = innBestilling.utreiseTid;
+                    nyBestilling.Avgangstid = innBestilling.avgangstid;
                     nyBestilling.ReturDato = innBestilling.returDato;
-
-                    if (innBestilling.returDato == null)
-                    {
-                        innBestilling.returTid = null;
-                    }
-
-                    nyBestilling.ReturTid = innBestilling.returTid;
+                    nyBestilling.AvgangstidRetur = innBestilling.avgangstidRetur;
 
                     if (innBestilling.voksen == 0)
                     {
@@ -160,11 +142,6 @@ namespace Oblig1WebApp
                         innBestilling.kjaeledyrunder_40cm = null;
                     }
                     nyBestilling.Kjaeledyrunder_40cm = innBestilling.kjaeledyrunder_40cm;
-
-                    nyBestilling.Avgangstid = innBestilling.avgangstid;
-
-                    nyBestilling.AvgangstidRetur = innBestilling.avgangstidRetur;
-
 
                     db.Bestillinger.Add(nyBestilling);
                     db.SaveChanges();

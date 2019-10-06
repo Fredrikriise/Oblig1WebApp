@@ -121,18 +121,13 @@
                     var dropForste = document.getElementById('dropForste').value;
                     var dropSiste = document.getElementById('dropSiste').value;
                     var dato = document.getElementById('datoUtreise').value;
-                    var utreiseTid = document.getElementById('utreiseTid').value
-
                     var returDato = document.getElementById('datoRetur').value;
-                    var returTid = document.getElementById('returTid').value;
-
                     var voksenValidering = document.getElementById('voksen').value;
                     var barn0_5Validering = document.getElementById('barn0_5').value;
                     var studentValidering = document.getElementById('student').value;
                     var honnoerValidering = document.getElementById('honnoer').value;
                     var vernepliktigValidering = document.getElementById('vernepliktig').value;
                     var barn6_17Validering = document.getElementById('barn6_17').value;
-
 
                     var today = new Date();
                     var dateSjekk = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -232,7 +227,6 @@
                             });
                         }
 
-
                         if (returDato.length == 0) {
                             evt.preventDefault()
                             document.getElementById("returDatoValidering").innerHTML = "*Vennligst velg hvilke dato du ønsker å returnere*";
@@ -270,7 +264,6 @@
  <body>
      <h1 style="padding-top: 15px;">Hei, hvor har du lyst til å reise?</h1>
      <br />
-
 
      <form id="bestillingsSkjema" action="/Bestilling/regBestilling" method="post" onsubmit="return validering()">
          <table class="borderless">
@@ -400,11 +393,10 @@
 
          <a id="visSpesielleBehov" style="color: #5cb85c;"> <b> Spesielle behov</b>  <img src="~/Content/Images/spesiellebehov.png" /></a> <br />
          <span id="visInputboxer">
-             <input type="number" id="barnevogn" name="barnevogn" class="uncheckBarnevogn" style="border: 0px; width: 2em" value="0" min="0" max="9"> Barnevogn <a href="#" data-toggle="popover" data-content="Det er gratis å ta med barnevogn på tog og buss, forutsatt at det er nok plass. Det er barnevognplasser i alle tog. For tog med plassreservering, må du bestille plass på forhånd. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br>
-             <input type="number" id="sykkel" name="sykkel" class="uncheckSykkel" style="border: 0px; width: 2em" value="0" min="0" max="9"> Sykkel <a href="#" data-toggle="popover" data-content="Du må reservere plass til sykkel på alle lange regionstrekninger og på Gjøvikbanen. Skal du ha med sykkelvogn på toget, må du bestille plass via kundesenteret. Sykkelplass på buss må du forhåndsbestille når du kjøper billett på nettbuss.no. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br />
-             <input type="number" id="hundover_40cm" class="uncheckHund" name="hundover_40cm" style="border: 0px; width: 2em" value="0" min="0" max="9"> Hund over 40cm <a href="#" data-toggle="popover" data-content="Hunder med skulderhøyde over 40 cm får 50 prosent rabatt på togbilletter. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
-             <input type="number" id="kjaeledyrunder_40cm" class="uncheckKjaele" name="kjaeledyrunder_40cm" style="border: 0px; width: 2em" value="0" min="0" max="9"> Kjæledyr under 40 cm <a href="#" data-toggle="popover" data-content="Kjæledyr med skulderhøyde under 40 cm reiser gratis med toget. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
-             <input type="checkbox" name="ingenSpesialBehov" class="uncheck"> Ingen spesielle behov <br>
+             <input type="number" id="barnevogn" name="barnevogn" style="border: 0px; width: 2em" value="0" min="0" max="9"> Barnevogn <a href="#" data-toggle="popover" data-content="Det er gratis å ta med barnevogn på tog og buss, forutsatt at det er nok plass. Det er barnevognplasser i alle tog. For tog med plassreservering, må du bestille plass på forhånd. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br>
+             <input type="number" id="sykkel" name="sykkel" style="border: 0px; width: 2em" value="0" min="0" max="9"> Sykkel <a href="#" data-toggle="popover" data-content="Du må reservere plass til sykkel på alle lange regionstrekninger og på Gjøvikbanen. Skal du ha med sykkelvogn på toget, må du bestille plass via kundesenteret. Sykkelplass på buss må du forhåndsbestille når du kjøper billett på nettbuss.no. <a href='https://www.vy.no/alt-om-reisen/tog/praktisk-informasjon/sykkel-pa-toget'>Les mer her</a>">&#9432;</a><br />
+             <input type="number" id="hundover_40cm" name="hundover_40cm" style="border: 0px; width: 2em" value="0" min="0" max="9"> Hund over 40cm <a href="#" data-toggle="popover" data-content="Hunder med skulderhøyde over 40 cm får 50 prosent rabatt på togbilletter. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
+             <input type="number" id="kjaeledyrunder_40cm" name="kjaeledyrunder_40cm" style="border: 0px; width: 2em" value="0" min="0" max="9"> Kjæledyr under 40 cm <a href="#" data-toggle="popover" data-content="Kjæledyr med skulderhøyde under 40 cm reiser gratis med toget. På buss er dyr kun tillatt på strekningene NX1 Notodden-Oslo, NX3 Sarpsborg-Oslo og NX6 Hvaler-Oslo. <a href='https://www.vy.no/kundeservice/sporsmal-og-svar/bagasje-og-spesielle-behov'>Les mer her</a>">&#9432;</a><br>
              <br />
              <span><b>Rullestol på tog - </b>Alle nyere tog er tilrettelagt for rullestolbrukere. Vennligst kjøp billett via kundesenteret.</span> <br />
              <span><b>Rullestol på buss - </b>Reisende med nedsatt funksjonsevne har rett til å reise med Nettbuss så langt det er praktisk mulig. Vennligst kjøp billett på bussen.</span>
@@ -427,16 +419,6 @@
 
 <!-- Javascript -->
 <script>
-   
-    /*
-    // Vise/skjule resielokasjoner
-    $(document).ready(function () {
-        $("#visLokasjoner").hide();
-        if ($("#dropForste").val() != "-- Velg Utreise --" && $("#dropSiste").val() != "-- Velg Retur --") {
-            $("#visLokasjoner").show();
-        }
-    });
-    */
 
     // For en vei- og returdatoer (vise/skjule)
     $(document).ready(function () {
