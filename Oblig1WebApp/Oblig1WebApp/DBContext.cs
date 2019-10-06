@@ -1,7 +1,6 @@
 ﻿using Oblig1WebApp.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace Oblig1WebApp
@@ -271,7 +270,6 @@ namespace Oblig1WebApp
                         "Feil ved sletting av data i databasen", innsettingsFeil);
                 }
             }
-
         }
 
         // visAvganger

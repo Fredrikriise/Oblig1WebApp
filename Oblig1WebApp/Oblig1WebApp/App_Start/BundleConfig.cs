@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Oblig1WebApp.Models
 {
-    public class BundleConfig 
+    public class BundleConfig
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
@@ -25,7 +21,7 @@ namespace Oblig1WebApp.Models
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
-            
+
             // JQuery validator.   
             bundles.Add(new ScriptBundle("~/bundles/custom-validator").Include(
                                   "~/Scripts/script-custom-validator.js"));

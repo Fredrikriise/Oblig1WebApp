@@ -1,8 +1,6 @@
 ﻿using Oblig1WebApp.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace Oblig1WebApp.Controllers
@@ -22,7 +20,6 @@ namespace Oblig1WebApp.Controllers
             return View(alleBestillinger);
         }
 
-
         [HttpPost]
         public ActionResult regBestilling(Bestilling innBestilling)
         {
@@ -40,10 +37,11 @@ namespace Oblig1WebApp.Controllers
             Session["utreiseDato"] = innBestilling.utreiseDato;
             //Session["utreiseTid"] = innBestilling.utreiseTid;
 
-            if(innBestilling.returDato != null)
+            if (innBestilling.returDato != null)
             {
                 Session["returDato"] = innBestilling.returDato;
-            } else
+            }
+            else
             {
                 Session["returDato"] = null;
             }
@@ -60,7 +58,7 @@ namespace Oblig1WebApp.Controllers
             Session["hundover_40cm"] = innBestilling.hundover_40cm;
             Session["kjaeledyrunder_40cm"] = innBestilling.kjaeledyrunder_40cm;
 
-            return RedirectToAction("visAvganger"); 
+            return RedirectToAction("visAvganger");
         }
 
         [HttpPost]
@@ -81,10 +79,9 @@ namespace Oblig1WebApp.Controllers
                 visAvgang enAvgangRetur = db.hentVisAvgang(avgangstidRetur);
                 Session["avgangstidRetur"] = enAvgangRetur.avgangstidRetur;
             }
-             
+
             return RedirectToAction("Betaling");
         }
-
 
         public ActionResult hentBestilling(int id)
         {
@@ -246,7 +243,7 @@ namespace Oblig1WebApp.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult registrerVisAvgang(visAvgang innAvgang)
         {

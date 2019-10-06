@@ -4,17 +4,12 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
         <link rel="icon" href="favicon.ico" type="image/ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="~/Scripts/jquery-1.8.0.js"></script>
-        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-        <!-- Ajax script -->
         <script type="text/javascript">
             // Ajax for første avgang
             $(function () {
@@ -111,10 +106,10 @@
                 $("#visInfoSiste").html(utStreng);
             }
 
-        </script> 
+        </script>
 
         <script>
-            
+
             //Validering - klient
             $(document).ready(function () {
                 $("#regBestilling").click(function (evt) {
@@ -148,7 +143,7 @@
                             var ok = "";
                             $("#forsteAvgangValidering").html(ok);
                         });
-                    } 
+                    }
 
                     if (dropSiste.length == 0) {
                         evt.preventDefault()
@@ -159,7 +154,7 @@
                             var ok = "";
                             $("#sisteAvgangValidering").html(ok);
                         });
-                    } 
+                    }
 
                     //Datovalidering, fungerer ikke 100%
                     if (dato.length == 0) {
@@ -174,24 +169,24 @@
                                 evt.preventDefault()
                                 document.getElementById("datoValidering").innerHTML = "*Du kan ikke velge dato mindre enn per dags dato*";
                                 document.getElementById("datoValidering").style.color = "red";
-                                
+
                             } else {
                                 var ok = "";
                                 $("#datoValidering").html(ok);
                             }
                         });
-                    }  else if (konvertertDato >= dateSjekk || konvertertDato <= dateSjekk) {
-                         $("#datoUtreise").on('change', function () {
-                             if (konvertertDato < dateSjekk) {
-                                 evt.preventDefault()
-                                 document.getElementById("datoValidering").innerHTML = "*Du kan ikke velge dato mindre enn per dags dato*";
-                                 document.getElementById("datoValidering").style.color = "red";
-                             } else {
-                                 var ok = "";
-                                 $("#datoValidering").html(ok);
+                    } else if (konvertertDato >= dateSjekk || konvertertDato <= dateSjekk) {
+                        $("#datoUtreise").on('change', function () {
+                            if (konvertertDato < dateSjekk) {
+                                evt.preventDefault()
+                                document.getElementById("datoValidering").innerHTML = "*Du kan ikke velge dato mindre enn per dags dato*";
+                                document.getElementById("datoValidering").style.color = "red";
+                            } else {
+                                var ok = "";
+                                $("#datoValidering").html(ok);
                             }
                         });
-                    } 
+                    }
 
                     //Utreise tid validering
                     if ($("#utreiseTid").val() == "00:00") {
@@ -244,14 +239,14 @@
                             });
                         } else if (konvertertReturDato >= dateSjekk || konvertertReturDato <= dateSjekk) {
                             $("#returDatoValidering").on('change', function () {
-                                 if (konvertertReturDato >= dateSjekk) {
-                                     var ok = "";
-                                     $("#returDatoValidering").html(ok);
-                                 } else if (konvertertReturDato < dateSjekk) {
-                                     evt.preventDefault()
-                                     document.getElementById("returDatoValidering").innerHTML = "*Du kan ikke velge retur dato mindre enn per dags dato*";
-                                     document.getElementById("returDatoValidering").style.color = "red";
-                                 }
+                                if (konvertertReturDato >= dateSjekk) {
+                                    var ok = "";
+                                    $("#returDatoValidering").html(ok);
+                                } else if (konvertertReturDato < dateSjekk) {
+                                    evt.preventDefault()
+                                    document.getElementById("returDatoValidering").innerHTML = "*Du kan ikke velge retur dato mindre enn per dags dato*";
+                                    document.getElementById("returDatoValidering").style.color = "red";
+                                }
                             });
                         }
                     }
@@ -417,9 +412,7 @@
      </form>
  </body>
 
-<!-- Javascript -->
 <script>
-
     // For en vei- og returdatoer (vise/skjule)
     $(document).ready(function () {
         $("#retur").hide();
@@ -608,14 +601,13 @@
             }
         }
 
-        var utStrengTotaltReisende = utStrengTotalt; //+ " -> ";
+        var utStrengTotaltReisende = utStrengTotalt;
         if (utStrengTotalt == 0) {
             utStrengTotaltReisende.hide();
         }
         $("#numberTotaltReisende").text(utStrengTotaltReisende + "->");
     }).trigger('mouseup');
 
-   
     // Script for å vise / skjule spesielleBehov ved klikk (funker å vise, men ikke skjule dersom verdiene settes til 0 igjen)
     $("#visInputboxer").hide();
     var inputbox = document.getElementById('visInputboxer');

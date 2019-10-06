@@ -5,13 +5,11 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="icon" href="favicon.ico" type="image/ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="~/Scripts/jquery-1.8.0.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+ 
     <script type="text/javascript">
         // Ajax
         $(function () {
@@ -57,16 +55,13 @@
             var utStrengForste = "";
             var utStrengSiste = "";
             var utStrengTid = "";
-            var utStrengUtDato = "";
             var utStrengSpor = "";
             var utStrengTogNr = "";
-
 
             for (var i in jsVisAvgang) {
                 utStrengForste += jsVisAvgang[i].forsteAvgang + "<br/>";
                 utStrengSiste += jsVisAvgang[i].sisteAvgang + "<br/>";
                 utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
-
                 utStrengSpor += jsVisAvgang[i].spor + "<br/>";
                 utStrengTogNr += jsVisAvgang[i].togNummer + "<br/>";
             }
@@ -74,11 +69,9 @@
             $("#forste").append(utStrengForste);
             $("#siste").append(utStrengSiste);
             $("#tid").append(utStrengTid);
-            $("#utDato").append(utStrengUtDato);
             $("#spor").append(utStrengSpor);
             $("#nr").append(utStrengTogNr);
         }
-
 
         function VisDropDown(jsVisAvgang) {
             var utStreng = "";
@@ -88,13 +81,11 @@
             $("#drop").append(utStreng);
         }
 
-
         function VisInfoAvgang(visAvgang) {
             var utStreng = visAvgang.avgangstid;
             $("#avgangstid").html(utStreng);
         }
 
-        //RETURRRRRRRRRRRRRRRRRR
         $(function () {
             // Kaller på hentAlleVisAvganger og bygger opp tabellRad når siden lastes
             $.ajax({
@@ -138,7 +129,6 @@
             var utStrengSiste = "";
             var utStrengForste = "";
             var utStrengTid = "";
-            var utStrengReturDato = "";
             var utStrengSpor = "";
             var utStrengTogNr = "";
 
@@ -146,7 +136,6 @@
                 utStrengSiste += jsVisAvgang[i].sisteAvgang + "<br/>";
                 utStrengForste += jsVisAvgang[i].forsteAvgang + "<br/>";
                 utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
-
                 utStrengSpor += jsVisAvgang[i].spor + "<br/>";
                 utStrengTogNr += jsVisAvgang[i].togNummer + "<br/>";
             }
@@ -154,7 +143,6 @@
             $("#returforste").append(utStrengForste);
             $("#retursiste").append(utStrengSiste);
             $("#returtid").append(utStrengTid);
-            $("#returDato").append(utStrengReturDato);
             $("#returspor").append(utStrengSpor);
             $("#returnr").append(utStrengTogNr);
         }
@@ -167,8 +155,8 @@
             $("#dropRetur").append(utStreng);
         }
     </script>
-
     <script>
+        //Validering av valg avgangstid
         $(document).ready(function () {
             $("#regBestilling3").click(function (evt) {
                 var dropAvgang = document.getElementById('drop').value;
@@ -224,7 +212,6 @@
             {
                 resultatRetur = returDato.Remove(i, fjern.Length);
             }
-
         }
     }
 

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Oblig1WebApp.Models
 {
@@ -18,21 +15,21 @@ namespace Oblig1WebApp.Models
         [Required(ErrorMessage = "Etternavn må oppis")]
         public string etternavn { get; set; }
 
-        [Display(Name = "Email")]
+        [Display(Name = "Epostadresse")]
         [Required(ErrorMessage = "Emailadresse må oppgis")]
-        [EmailAddress(ErrorMessage = "Feil format ved epost, prøv igjen")]
+        [EmailAddress(ErrorMessage = "Feil epostadresseformat, prøv igjen")]
         public string email { get; set; }
 
         [Display(Name = "Kortnummer")]
         [Required(ErrorMessage = "Kortnummeret må oppis")]
-        //[RegularExpression(@"[0-9]{3}", ErrorMessage = "Kortnummeret må være 12 siffer")]
+        //[RegularExpression(@"[0-9]{3}", ErrorMessage = "Kortnummer må være 12 siffer")]
         [CreditCard(ErrorMessage = "Kortnummeret må være 12 siffer")]
         public string kortnummer { get; set; }
 
         [Display(Name = "Utløpsdato (Måned/år)")]
         [Required(ErrorMessage = "Utløpsdato må oppis")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-yy}")]
-        [RegularExpression(@"[0-9}{2}[2-3]{1}[0-9]{3}", ErrorMessage = "Utløpsdato må ha format mm/yyyy")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-yy}")]
+        [RegularExpression(@"[0-9]{2}\/\[0-9]{2}", ErrorMessage = "Utløpsdato må ha format mm/yy")]
         public DateTime utløpsDato { get; set; }
 
         [Display(Name = "CVC/CVC2/CVV2")]
