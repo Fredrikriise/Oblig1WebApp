@@ -44,7 +44,6 @@ namespace Oblig1WebApp.Controllers
             return jsonSerializer.Serialize("OK");
         }
 
-
         // Metoder for visAvganger
         public string hentAlleVisAvganger()
         {

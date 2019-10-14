@@ -187,6 +187,15 @@
  
             var antallReisende = (parseInt(@Session["voksen"]) + parseInt(@Session["barn0_5"]) + parseInt(@Session["student"]) + parseInt(@Session["honnoer"]) + parseInt(@Session["vernepliktig"]) + parseInt(@Session["barn6_17"]));
             var totalPris = antallReisende * (parseInt(utPris));
+            $(document).ready(function () {
+                var sessionRetur = "@Session["returDato"]";
+                if (sessionRetur != "") {
+                    var i = 2;
+                    totalPris *= i;
+                    var utStrengTotal = "Totalpris for " + antallReisende + " reisende er " + totalPris + "kr.";
+                    $("#totalPris").html(utStrengTotal);
+                }
+            });
            
             var utStrengTotal = "Totalpris for " + antallReisende + " reisende er " + totalPris + "kr.";
             $("#totalPris").html(utStrengTotal);
@@ -255,64 +264,64 @@
     }
 
     <h2>Når vil du reise fra  @Session["fraLokasjon"] til  @Session["tilLokasjon"]?</h2><br />
-                                                                                        <form action="/Bestilling/regBestilling3" method="post">
-                                                                                            <table style="width: 100%">
-                                                                                                <tr>
-                                                                                                    <td><b>Første Avgang</b></td>
-                                                                                                    <td><b>Siste Avgang</b></td>
-                                                                                                    <td><b>Reisetid</b></td>
-                                                                                                    <td><b>Utreise dato</b></td>
-                                                                                                    <td><b>Retur dato</b></td>
-                                                                                                    <td><b>Spor</b></td>
-                                                                                                    <td><b>Tognummer</b></td>
-                                                                                                    <td><b>Sone</b></td>
-                                                                                                    <td><b>Pris per billett</b></td>
-                                                                                                    <td><b>Avreisetid</b></td>
-                                                                                                </tr>
-                                                                                                <tbody id="tabellRad">
-                                                                                                    <tr>
-                                                                                                        <td name="fraLokasjon" id="forste"></td>
-                                                                                                        <td name="tilLokasjon" id="siste"></td>
-                                                                                                        <td id="tid"></td>
-                                                                                                        <td>@resultatUt</td>
-                                                                                                        <td></td>
-                                                                                                        <td id="spor"></td>
-                                                                                                        <td id="nr"></td>
-                                                                                                        <td id="sone"></td>
-                                                                                                        <td id="pris"></td>
-                                                                                                        <td>
-                                                                                                            <select name="avgangstid" id="drop" class="form-control">
-                                                                                                                <option value="" disabled selected>-- Velg avgangstid --</option>
-                                                                                                            </select>
-                                                                                                            <span id="avgangValidering"></span>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </tbody>
+<form action="/Bestilling/regBestilling3" method="post">
+    <table style="width: 100%">
+        <tr>
+            <td><b>Første Avgang</b></td>
+            <td><b>Siste Avgang</b></td>
+            <td><b>Reisetid</b></td>
+            <td><b>Utreise dato</b></td>
+            <td><b>Retur dato</b></td>
+            <td><b>Spor</b></td>
+            <td><b>Tognummer</b></td>
+            <td><b>Sone</b></td>
+            <td><b>Pris per billett</b></td>
+            <td><b>Avreisetid</b></td>
+        </tr>
+        <tbody id="tabellRad">
+            <tr>
+                <td name="fraLokasjon" id="forste"></td>
+                <td name="tilLokasjon" id="siste"></td>
+                <td id="tid"></td>
+                <td>@resultatUt</td>
+                <td></td>
+                <td id="spor"></td>
+                <td id="nr"></td>
+                <td id="sone"></td>
+                <td id="pris"></td>
+                <td>
+                    <select name="avgangstid" id="drop" class="form-control">
+                        <option value="" disabled selected>-- Velg avgangstid --</option>
+                    </select>
+                    <span id="avgangValidering"></span>
+                </td>
+            </tr>
+        </tbody>
 
-                                                                                                <tbody id="tabellRadRetur">
-                                                                                                    <tr>
-                                                                                                        <td name="tilLokasjon" id="retursiste"></td>
-                                                                                                        <td name="fraLokasjon" id="returforste"></td>
-                                                                                                        <td id="returtid"></td>
-                                                                                                        <td></td>
-                                                                                                        <td id="returDato">@resultatRetur</td>
-                                                                                                        <td id="returspor"></td>
-                                                                                                        <td id="returnr"></td>
-                                                                                                        <td id="retursone"></td>
-                                                                                                        <td id="returpris"></td>
-                                                                                                        <td id="dropDownR">
-                                                                                                            <select name="avgangstidRetur" id="dropRetur" class="form-control">
-                                                                                                                <option value="" disabled selected>-- Velg retur avgangstid --</option>
-                                                                                                            </select>
-                                                                                                            <span id="avgangValideringRetur"></span>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </tbody>
-                                                                                            </table>
+        <tbody id="tabellRadRetur">
+            <tr>
+                <td name="tilLokasjon" id="retursiste"></td>
+                <td name="fraLokasjon" id="returforste"></td>
+                <td id="returtid"></td>
+                <td></td>
+                <td id="returDato">@resultatRetur</td>
+                <td id="returspor"></td>
+                <td id="returnr"></td>
+                <td id="retursone"></td>
+                <td id="returpris"></td>
+                <td id="dropDownR">
+                    <select name="avgangstidRetur" id="dropRetur" class="form-control">
+                        <option value="" disabled selected>-- Velg retur avgangstid --</option>
+                    </select>
+                    <span id="avgangValideringRetur"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-                                                                                            <span id="totalPris"></span> <br />
-                                                                                            <input type="submit" value="Bekreft og gå videre til betaling" name="regBestilling3" id="regBestilling3" class="btn btn-success" />
-                                                                                        </form>
+    <span id="totalPris"></span> <br />
+    <input type="submit" value="Bekreft og gå videre til betaling" name="regBestilling3" id="regBestilling3" class="btn btn-success" />
+</form>
 </body>
 
 <script>

@@ -192,13 +192,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AvgangController.cs" />
     <Compile Include="Controllers\BestillingController.cs" />
+    <Compile Include="Controllers\BrukerController.cs" />
     <Compile Include="DBContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\adminBruker.cs" />
     <Compile Include="Models\Avgang.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Models\Betaling.cs" />
+    <Compile Include="Models\BrukerContext.cs" />
     <Compile Include="Models\visAvgang.cs" />
     <Compile Include="Models\AvgangContext.cs" />
     <Compile Include="Models\Bestilling.cs" />
@@ -206,6 +209,7 @@
     <Compile Include="Models\Kunde.cs" />
     <Compile Include="Models\Priser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToDo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -219,11 +223,14 @@
     <Content Include="Views\Bestilling\listAvganger.cshtml" />
     <Content Include="Views\Bestilling\endreAvgang.cshtml" />
     <Content Include="Views\Bestilling\visAvganger.cshtml" />
-    <Content Include="Views\Bestilling\registrerVisAvgang.cshtml" />
     <Content Include="Views\Bestilling\listVisAvganger.cshtml" />
     <Content Include="Views\Bestilling\listBestillinger.cshtml" />
     <Content Include="Views\Bestilling\Betaling.cshtml" />
     <Content Include="Views\Bestilling\registreralleavgangstid.cshtml" />
+    <Content Include="Views\Bestilling\registrerVisAvgang.cshtml" />
+    <Content Include="Views\Bruker\RegistrerBruker.cshtml" />
+    <Content Include="Views\Bruker\Kontrollpanel.cshtml" />
+    <Content Include="Views\Bruker\loggInn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

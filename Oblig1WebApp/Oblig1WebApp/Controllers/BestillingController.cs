@@ -279,8 +279,7 @@ namespace Oblig1WebApp.Controllers
         {
             return View();
         }
-
-        [HttpPost]
+                [HttpPost]
         public ActionResult registrerVisAvgang(visAvgang innAvgangtid)
         {
             var db = new DBContext();

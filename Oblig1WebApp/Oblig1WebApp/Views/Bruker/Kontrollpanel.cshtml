@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Kontrollpanel";
+}
+    <form>
+        <h2>Kontrollpanel</h2>
+
+        <div>
+            @if (ViewBag.Innlogget)
+            {
+                <p class="alert alert-success">Suksessfult logget inn!</p>
+            }
+
+        </div>
+
+        <p>
+            Velkommen til kontrollpanelet. <br /> Her kan du velge hva du ønsker å gjøre videre:
+            registrere en ny bruker, logge inn som registrert bruker eller logge ut.
+        </p>
+        <br />
+
+        <input type="submit" value="Registrer en ny bruker" formaction="RegistrerBruker" class="btn btn-success" />
+        <input type="submit" value="Logg deg ut" formaction="LoggUt" class="btn btn-danger" />
+
+
+    </form>

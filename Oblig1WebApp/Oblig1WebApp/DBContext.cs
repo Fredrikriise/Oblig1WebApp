@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace Oblig1WebApp
 {
@@ -586,6 +587,66 @@ namespace Oblig1WebApp
                     return false;
                     throw new Exception(
                         "Feil ved sletting av data i databasen", innsettingsFeil);
+                }
+            }
+        }
+
+
+        //Metoder for bruker
+        public bool lagreBruker (adminBruker innBruker)
+        {
+            using (var db = new BrukerContext())
+            {
+                try
+                {
+                    var nyBruker = new AdminBruker();
+                    byte[] salt = lagSalt();
+                    byte[] hash = lagHash(innBruker.passord, salt);
+                    nyBruker.Brukernavn = innBruker.brukernavn;
+                    nyBruker.Passord = hash;
+                    nyBruker.Salt = salt;
+                    db.AdminBruker.Add(nyBruker);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved sletting av data i databasen", innsettingsFeil);
+                }
+            }
+        }
+
+        private static byte[] lagHash(string innPassord, byte[] innSalt)
+        {
+            const int keyLength = 24;
+            var pbkdf2 = new Rfc2898DeriveBytes(innPassord, innSalt, 1000); // 1000 angir hvor mange ganger hash funskjonen skal utføres for økt sikkerhet
+            return pbkdf2.GetBytes(keyLength);
+        }
+
+        private static byte[] lagSalt()
+        {
+            var csprng = new RNGCryptoServiceProvider();
+            var salt = new byte[24];
+            csprng.GetBytes(salt);
+            return salt;
+        }
+
+        public bool bruker_i_db(adminBruker innBruker)
+        {
+            using (var db = new BrukerContext())
+            {
+                AdminBruker funnetBruker = db.AdminBruker.FirstOrDefault(b => b.Brukernavn == innBruker.brukernavn);
+                if (funnetBruker != null)
+                {
+                    byte[] passordForTest = lagHash(innBruker.passord, funnetBruker.Salt);
+                    bool riktigBruker = funnetBruker.Passord.SequenceEqual(passordForTest);  // merk denne testen!
+                    return riktigBruker;
+                }
+                else
+                {
+                    return false;
                 }
             }
         }
