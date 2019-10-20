@@ -231,6 +231,10 @@
     <Content Include="Views\Bruker\RegistrerBruker.cshtml" />
     <Content Include="Views\Bruker\Kontrollpanel.cshtml" />
     <Content Include="Views\Bruker\loggInn.cshtml" />
+    <Content Include="Views\Bruker\listBrukere.cshtml" />
+    <Content Include="Views\Bestilling\endreVisAvgang.cshtml" />
+    <Content Include="Views\Bestilling\endreAlleavgangstider.cshtml" />
+    <Content Include="Views\Bestilling\listAlleavgangstider.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

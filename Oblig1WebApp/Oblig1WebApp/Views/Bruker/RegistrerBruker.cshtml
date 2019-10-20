@@ -10,6 +10,17 @@
 {
     @Html.AntiForgeryToken()
 
+    <div>
+        @if (ViewBag.RegistrertBruker == true)
+        {
+            <p class="alert alert-success">Ny bruker med brukernavn @Session["nybruker"] ble suksessfult registrert!</p>
+        }
+        else if (ViewBag.RegistrertBruker == false)
+        {
+            <p class="alert alert-danger">Registrering av ny bruker med brukernavn @Session["nybruker"] feilet, prøv igjen!</p>
+        }
+    </div>
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

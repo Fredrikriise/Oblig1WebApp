@@ -651,5 +651,37 @@ namespace Oblig1WebApp
             }
         }
 
+        public List<adminBruker> alleBrukere()
+        {
+            using (var db = new BrukerContext())
+            {
+                List<adminBruker> alleBrukere = db.AdminBruker.Select(b => new adminBruker
+                {
+                    brukernavn = b.Brukernavn
+                }).ToList();
+                return alleBrukere;
+            }
+        }
+
+        public bool slettBruker(int id)
+        {
+            using (var db = new BrukerContext())
+            {
+                try
+                {
+                    var slettBruker = db.AdminBruker.Find(id);
+                    db.AdminBruker.Remove(slettBruker);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    return false;
+                    throw new Exception(
+                        "Feil ved sletting av data i databasen", innsettingsFeil);
+                }
+            }
+        }
+
     }
 }

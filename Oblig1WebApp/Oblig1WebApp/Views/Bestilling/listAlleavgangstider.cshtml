@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Oblig1WebApp.Models.alleavgangstid>
+
+
+<h2>Alle avgangstider</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.avgangstid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.avgangstidRetur)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.avgangstid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.avgangstidRetur)
+        </td>
+        <td>
+            @Html.ActionLink("Endre", "endreAlleavgangstider", new { id=item.id }) |
+            @Html.ActionLink("Slett", "slettalleavgangstid", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

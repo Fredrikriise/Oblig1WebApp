@@ -1,5 +1,14 @@
 ﻿@model Oblig1WebApp.Models.adminBruker
 
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="icon" href="favicon.ico" type="image/ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
 @{
     ViewBag.Title = "loggInn";
 }
@@ -9,7 +18,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    <div id="ut"></div>
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -31,11 +40,31 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Logg inn" onsubmit="Bruker/Kontrollpanel" class="btn btn-success" />
+                <input type="submit" id="loggInn" value="Logg inn" onsubmit="Bruker/Kontrollpanel" class="btn btn-success" />
             </div>
         </div>
 
     </div>
 }
 
+<!--
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#loggInn").click(function (evt) {
 
+            var test = "@Session["LoggetInn"]";
+            alert(test);
+            if (test == "False") {
+                evt.preventDefault()
+                var ut = "";
+                ut += "<p class='alert alert-danger'>Innlogging feilet, feil brukernavn eller passord!</p>";
+                $("#ut").html(ut);
+            } else {
+                var ut = "";
+                $("#ut").html(ut);
+            }
+
+        });
+    });
+</script>
+-->

@@ -4,12 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Vy Bestilling</title>
-    <!--
-        <script src="~/Scripts/bootstrap.min.js"></script>
-        <link href="~/Content/Images/vylogo.ico" rel="shortcut icon" type="image/x-icon" />
-        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-        <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <script src="~/Scripts/modernizr-2.8.3.js"></script> -->
+
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
@@ -30,16 +25,41 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+
                     <li>@Html.ActionLink("Bestilling", "Bestilling", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Registrer avgang", "regAvgang", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("List alle avganger", "listAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Alle bestillinger", "listBestillinger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Registrer visAvgang", "registrerVisAvgang", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("List visAvgang", "listVisAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Vis avganger", "visAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Registrer avgangstider", "registreralleavgangstid", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <!--<li>@Html.ActionLink("Registrer ny bruker", "RegistrerBruker", "Bruker", new { area = "" }, new { @class = "navbar-brand" })</li>-->
-                    <li>@Html.ActionLink("Logg inn", "LoggInn", "Bruker", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    @{
+
+                        if (Session["LoggetInn"] != null)
+                        {
+                            bool loggetInn = (bool)Session["LoggetInn"];
+                            if (loggetInn)
+                            {
+                                <li>@Html.ActionLink("Kontrollpanel", "Kontrollpanel", "Bruker", new { area = "" }, new { @class = "navbar-brand" })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Logg inn", "LoggInn", "Bruker", new { area = "" }, new { @class = "navbar-brand" })</li>
+                            }
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Logg inn", "LoggInn", "Bruker", new { area = "" }, new { @class = "navbar-brand" })</li>
+
+                        }
+
+                        <!--
+            <li>@Html.ActionLink("Registrer avgang", "regAvgang", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li>@Html.ActionLink("List alle avganger", "listAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li>@Html.ActionLink("Alle bestillinger", "listBestillinger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li>@Html.ActionLink("Registrer visAvgang", "registrerVisAvgang", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li>@Html.ActionLink("List visAvgang", "listVisAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li>@Html.ActionLink("Vis avganger", "visAvganger", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li>@Html.ActionLink("Registrer avgangstider", "registreralleavgangstid", "Bestilling", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li>@Html.ActionLink("Registrer ny bruker", "RegistrerBruker", "Bruker", new { area = "" }, new { @class = "navbar-brand" })</li>
+        -->
+
+                    }
+                    }
                 </ul>
             </div>
         </div>

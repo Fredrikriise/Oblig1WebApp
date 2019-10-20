@@ -12,15 +12,15 @@ namespace Oblig1WebApp.Controllers
     {
         public ActionResult Kontrollpanel()
         {
-            if(Session["LoggetInn"] == null)
+            if (Session["LoggetInn"] != null)
             {
-                Session["LoggetInn"] = false;
-                ViewBag.Innlogget = false;
-            } else
-            {
-                ViewBag.Innlogget = (bool)Session["LoggetInn"];
+                bool loggetInn = (bool)Session["LoggetInn"];
+                if (loggetInn)
+                {
+                    return View();
+                }
             }
-            return View();
+            return RedirectToAction("LoggInn");
         }
 
         public ActionResult LoggInn()
@@ -38,6 +38,7 @@ namespace Oblig1WebApp.Controllers
             {
                 //Brukernavn og passord er godtkjent
                 Session["LoggetInn"] = true;
+                Session["brukernavn"] = innLogget.brukernavn;
                 ViewBag.Innlogget = true;
                 return View("Kontrollpanel");
             } else
@@ -45,7 +46,8 @@ namespace Oblig1WebApp.Controllers
                 //Brukernavn og passord ikke godkjent
                 Session["LoggetInn"] = false;
                 ViewBag.Innlogget = false;
-                return View("loggInn");
+                ModelState.AddModelError("", "Innlogging feilet, feil brukernavn eller passord!");
+                return View();
             }
         } 
 
@@ -60,20 +62,30 @@ namespace Oblig1WebApp.Controllers
         {
             var db = new DBContext();
             bool OK = db.lagreBruker(innBruker);
-            if(OK)
+            Session["nybruker"] = innBruker.brukernavn;
+            if (OK)
             {
-                return View("Kontrollpanel");
+                ViewBag.RegistrertBruker = true;
+                return View();
             } else
             {
+                ViewBag.RegistrertBruker = false;
                 return View();
             }
-           
         }
 
         public ActionResult LoggUt()
         {
             Session["LoggetInn"] = false;
             return RedirectToAction("LoggInn");
+        }
+
+
+        public ActionResult listBrukere()
+        {
+            var db = new DBContext();
+            List<adminBruker> alleBrukere = db.alleBrukere();
+            return View(alleBrukere);
         }
     }
 }

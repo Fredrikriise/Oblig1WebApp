@@ -7,9 +7,12 @@ namespace Oblig1WebApp
 {
     public class ToDo
     {
+
+       
         //Validering av dato må fikser
         //Validering av utløpsdato på bankkort
         //Ordne filter på nedtrekkslisten?
+
         //Fikse administrasjon av strekninger
         //Fikse administrasjon av avganger
         //Fikse administrasjon av priser

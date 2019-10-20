@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Oblig1WebApp.Models.adminBruker>
+
+@{
+    ViewBag.Title = "listBrukere";
+}
+
+<h2>listBrukere</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.brukernavn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.passord)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.brukernavn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.passord)
+        </td>
+        <td>
+            @Html.ActionLink("Endre", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Slett", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

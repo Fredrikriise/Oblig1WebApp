@@ -5,21 +5,22 @@
     <form>
         <h2>Kontrollpanel</h2>
 
-        <div>
-            @if (ViewBag.Innlogget)
-            {
-                <p class="alert alert-success">Suksessfult logget inn!</p>
-            }
-
-        </div>
-
         <p>
-            Velkommen til kontrollpanelet. <br /> Her kan du velge hva du ønsker å gjøre videre:
-            registrere en ny bruker, logge inn som registrert bruker eller logge ut.
+            Velkommen til kontrollpanelet <b>@Session["brukernavn"]</b>. <br /> Her kan du velge hva du ønsker å gjøre videre:
         </p>
         <br />
 
         <input type="submit" value="Registrer en ny bruker" formaction="RegistrerBruker" class="btn btn-success" />
+        <input type="submit" value="Se alle bestillinger" formaction="/Bestilling/listBestillinger" class="btn btn-success" />
+        <input type="submit" value="Registrer en ny avgang" formaction="/Bestilling/regAvgang" class="btn btn-success" /> <br /><br />
+        <input type="submit" value="Registrer en ny avgangstid" formaction="/Bestilling/registreralleavgangstid" class="btn btn-success" />
+        <input type="submit" value="Registrer en ny avgang + avgangsdetaljer" formaction="/Bestilling/registrerVisAvgang" class="btn btn-success" />
+        <input type="submit" value="Alle registrerte brukere" formaction="/Bruker/listBrukere" class="btn btn-success" /><br /><br />
+
+        <input type="submit" value="Se alle avganger" formaction="/Bestilling/listAvganger" class="btn btn-success" />
+        <input type="submit" value="Se alle avganger + detaljer" formaction="/Bestilling/listVisAvganger" class="btn btn-success" />
+        <input type="submit" value="Se alle avgangstider" formaction="/Bestilling/listAlleavgangstider" class="btn btn-success" />
+
         <input type="submit" value="Logg deg ut" formaction="LoggUt" class="btn btn-danger" />
 
 
