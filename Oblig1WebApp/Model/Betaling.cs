@@ -27,7 +27,6 @@ namespace Oblig1WebApp.Models
 
         [Display(Name = "Utløpsdato (Måned/år)")]
         [Required(ErrorMessage = "Utløpsdato må oppis")]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-yy}")]
         [RegularExpression(@"[0-9]{2}[/][0-9]{2}", ErrorMessage = "Utløpsdato må ha format mm/yy")]
         public string utløpsDato { get; set; }
 

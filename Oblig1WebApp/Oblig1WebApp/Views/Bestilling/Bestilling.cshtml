@@ -323,6 +323,18 @@
             <br />
 
             <input type="submit" value="Se avganger" name="regBestilling" id="regBestilling" class="btn btn-success" />
+
+            <!-- For tilbakeknapp om man er logget inn -->
+            @{
+                if (Session["LoggetInn"] != null)
+                {
+                    bool loggetInn = (bool)Session["LoggetInn"];
+                    if (loggetInn)
+                    {
+                        <input type="submit" value="Tilbake til kontrollpanel" formaction="/Bruker/Kontrollpanel" class="btn btn-primary" />
+                    }
+                }
+            }
         </form>
     </body>
 

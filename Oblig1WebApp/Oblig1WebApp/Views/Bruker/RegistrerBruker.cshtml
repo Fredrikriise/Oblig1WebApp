@@ -1,10 +1,10 @@
 ﻿@model Oblig1WebApp.Models.adminBruker
 
 @{
-    ViewBag.Title = "RegistrerBruker";
+    ViewBag.Title = "Registrering av ny admin-bruker";
 }
 
-<h2>Registrer bruker</h2>
+<h2>Registrering av ny admin-bruker</h2>
 
 @using (Html.BeginForm())
 {
@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.brukernavn, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.brukernavn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.brukernavn, new { htmlAttributes = new { @class = "form-control", placeholder = "Brukernavn" } })
                 @Html.ValidationMessageFor(model => model.brukernavn, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.passord, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.passord, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.PasswordFor(model => model.passord, new { @class = "form-control", placeholder = "Passord" })
                 @Html.ValidationMessageFor(model => model.passord, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -43,7 +43,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Registrer ny bruker" class="btn btn-success" />
-                <input type="submit" value="Tilbake til kontrollpanel" formaction="Kontrollpanel" class="btn btn-danger" />
+                <input type="submit" value="Tilbake til kontrollpanel" formaction="Kontrollpanel" class="btn btn-primary" />
             </div>
         </div>
     </div>

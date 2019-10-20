@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<Oblig1WebApp.Models.alleavgangstid>
 
+@{
+    ViewBag.Title = "Alle registrerte avgangstider";
+}
 
-<h2>Alle avgangstider</h2>
+<h2>Alle registrerte avgangstider</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Registrer ny avgangstid", "registreralleavgangstid")
 </p>
 <table class="table">
     <tr>
@@ -17,19 +20,22 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.avgangstid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.avgangstidRetur)
-        </td>
-        <td>
-            @Html.ActionLink("Endre", "endreAlleavgangstider", new { id=item.id }) |
-            @Html.ActionLink("Slett", "slettalleavgangstid", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.avgangstid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.avgangstidRetur)
+            </td>
+            <td>
+                @Html.ActionLink("Endre", "endreAlleavgangstider", new { id = item.id }) |
+                @Html.ActionLink("Slett", "slettalleavgangstid", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>

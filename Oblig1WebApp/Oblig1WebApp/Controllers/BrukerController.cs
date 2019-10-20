@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
+using Oblig1WebApp.DAL;
 using Oblig1WebApp.Models;
 
 namespace Oblig1WebApp.Controllers
@@ -32,7 +33,7 @@ namespace Oblig1WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LoggInn(adminBruker innLogget)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             //Sjekker om brukeren ble suksessfult innlogget
             if (db.bruker_i_db(innLogget))
             {
@@ -60,7 +61,7 @@ namespace Oblig1WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RegistrerBruker(adminBruker innBruker)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.lagreBruker(innBruker);
             Session["nybruker"] = innBruker.brukernavn;
             if (OK)
@@ -83,7 +84,7 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult listBrukere()
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             List<adminBruker> alleBrukere = db.alleBrukere();
             return View(alleBrukere);
         }

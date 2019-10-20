@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace Oblig1WebApp.Models
+namespace Oblig1WebApp.DAL
 {
   
     public class AdminBruker

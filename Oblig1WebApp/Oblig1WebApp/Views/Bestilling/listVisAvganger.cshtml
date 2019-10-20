@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Oblig1WebApp.Models.visAvgang>
 
 @{
-    ViewBag.Title = "listVisAvganger";
+    ViewBag.Title = "Alle registrerte avganger + detaljer";
 }
 
     <h2>Alle registrerte avganger + detaljer</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Registrer ny avgang + detaljer", "registrerVisAvgang")
 </p>
 <table class="table">
     <tr>
@@ -54,3 +54,5 @@
 }
 
 </table>
+
+<a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>

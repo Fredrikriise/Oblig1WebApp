@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace Oblig1WebApp.Models
+namespace Oblig1WebApp.DAL
 {
     public class Avganger
     {
@@ -28,9 +28,7 @@ namespace Oblig1WebApp.Models
         public string Avgangstid { get; set; }
         public string AvgangstidRetur { get; set; }
     }
-
-
-
+    
     public class AvgangContext : DbContext
     {
         public AvgangContext() : base("name=Avganger")
@@ -39,7 +37,6 @@ namespace Oblig1WebApp.Models
         }
 
         public DbSet<Avganger> Avganger { get; set; }
-
         public DbSet<visAvganger> visAvganger { get; set; }
         public DbSet<alleavgangstider> alleavgangstider { get; set; }
 

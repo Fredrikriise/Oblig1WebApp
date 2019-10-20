@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace Oblig1WebApp.Models
+namespace Oblig1WebApp.DAL
 {
     public class Bestillinger
     {
@@ -37,26 +37,6 @@ namespace Oblig1WebApp.Models
         public string CvC { get; set; }
     }
 
-/*
-    public class Kunder
-    {
-        public int Id { get; set; }
-        public string Fornavn { get; set; }
-        public string Etternavn { get; set; }
-        public string Adresse { get; set; }
-        public virtual Poststeder Poststeder { get; set; }
-        public virtual Bestillinger Bestillinger { get; set; }
-    }
-
-    public class Poststeder
-    {
-        [Key]
-        public string Postnr { get; set; }
-        public string Poststed { get; set; }
-        public virtual List<Kunder> Kunder { get; set; }
-    }
- */
-
     public class BestillingContext : DbContext
     {
         public BestillingContext() : base("name=Bestillinger")
@@ -66,10 +46,6 @@ namespace Oblig1WebApp.Models
 
         public DbSet<Bestillinger> Bestillinger { get; set; }
         public DbSet<Betalinger> Betalinger { get; set; }
-        /*
-        public DbSet<Kunder> Kunder { get; set; }
-        public DbSet<Poststeder> Poststeder { get; set; }
-        */
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

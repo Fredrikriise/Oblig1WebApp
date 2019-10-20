@@ -1,5 +1,7 @@
 ﻿using Oblig1WebApp.Models;
+using Oblig1WebApp.DAL;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -10,7 +12,7 @@ namespace Oblig1WebApp.Controllers
         // Metoder for Avganger
         public string hentAlleAvganger()
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             List<Avgang> alleAvganger = db.alleAvganger();
 
             var alleStrekninger = new List<jsAvgang>();
@@ -29,7 +31,7 @@ namespace Oblig1WebApp.Controllers
 
         public string hentAvgangInfo(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             Avgang enAvgang = db.hentAvgang(id);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(enAvgang);
@@ -38,7 +40,7 @@ namespace Oblig1WebApp.Controllers
 
         public string registerAvgang(Avgang innAvgang)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             db.lagreAvgang(innAvgang);
             var jsonSerializer = new JavaScriptSerializer();
             return jsonSerializer.Serialize("OK");
@@ -47,7 +49,7 @@ namespace Oblig1WebApp.Controllers
         // Metoder for visAvganger
         public string hentAlleVisAvganger()
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             List<visAvgang> alleAvganger = db.alleVisAvganger();
 
             var alleStrekninger = new List<jsVisAvgang>();
@@ -75,7 +77,7 @@ namespace Oblig1WebApp.Controllers
 
         public string hentVisAvgangInfo(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             visAvgang enAvgang = db.hentVisAvgang(id);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(enAvgang);
@@ -84,7 +86,7 @@ namespace Oblig1WebApp.Controllers
 
         public string registerVisAvgang(visAvgang innAvgang)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             db.lagreVisAvgang(innAvgang);
             var jsonSerializer = new JavaScriptSerializer();
             return jsonSerializer.Serialize("OK");
@@ -94,7 +96,7 @@ namespace Oblig1WebApp.Controllers
         //Metoder for alleavgangstid
         public string hentAlleavgangstider()
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             List<alleavgangstid> alleAvganger = db.alleAlleavgangstid();
 
             var alleStrekninger = new List<jsAlleavgangstid>();
@@ -114,7 +116,7 @@ namespace Oblig1WebApp.Controllers
 
         public string hentAlleavgangstid(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             alleavgangstid enAvgang = db.hentAlleavgangstider(id);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(enAvgang);
@@ -123,7 +125,7 @@ namespace Oblig1WebApp.Controllers
 
         public string registrerAlleavgangstid(alleavgangstid innAvgang)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             db.lagrealleavgangstid(innAvgang);
             var jsonSerializer = new JavaScriptSerializer();
             return jsonSerializer.Serialize("OK");

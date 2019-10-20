@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Oblig1WebApp.Models.Bestilling>
 
 @{
-    ViewBag.Title = "listBestillinger";
+    ViewBag.Title = "List alle bestillinger";
 }
 
-<h2>listBestillinger</h2>
+<h2>Alle registrerte bestillinger</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Lag en ny bestilling", "Bestilling")
 </p>
 <table class="table">
     <tr>
@@ -65,7 +65,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.fraLokasjon)
@@ -119,10 +120,12 @@
             @Html.DisplayFor(modelItem => item.kjaeledyrunder_40cm)
         </td>
         <td>
-            @Html.ActionLink("Endre bestilling", "endreBestilling", new { id=item.id }) |
-            @Html.ActionLink("Slett bestilling", "slettBestilling", new { id=item.id })
+            @Html.ActionLink("Endre bestilling", "endreBestilling", new { id = item.id }) |
+            @Html.ActionLink("Slett bestilling", "slettBestilling", new { id = item.id })
         </td>
     </tr>
 }
 
 </table>
+
+<a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>

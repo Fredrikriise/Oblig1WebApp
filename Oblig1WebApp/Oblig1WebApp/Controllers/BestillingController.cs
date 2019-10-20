@@ -1,4 +1,5 @@
-﻿using Oblig1WebApp.Models;
+﻿using Oblig1WebApp.DAL;
+using Oblig1WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -15,7 +16,7 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult listBestillinger()
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             List<Bestilling> alleBestillinger = db.alleBestillinger();
             return View(alleBestillinger);
         }
@@ -23,7 +24,7 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult regBestilling(Bestilling innBestilling)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
 
             if(innBestilling.fraLokasjon == null)
             {
@@ -102,7 +103,7 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult regBestilling3(Bestilling innBestilling)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
 
             if (innBestilling.avgangstid != null)
             {
@@ -126,7 +127,7 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult hentBestilling(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             Bestilling enBestilling = db.hentBestilling(id);
             return View(enBestilling);
         }
@@ -134,7 +135,7 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult regBestilling2(Bestilling innBestilling, Betaling innBetaling)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
 
             innBestilling.fraLokasjon = (Session["fraLokasjon"]).ToString();
             innBestilling.tilLokasjon = (Session["tilLokasjon"]).ToString();
@@ -180,14 +181,14 @@ namespace Oblig1WebApp.Controllers
         // Metoder for Avgang
         public ActionResult listAvganger()
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             List<Avgang> alleAvganger = db.alleAvganger();
             return View(alleAvganger);
         }
 
         public ActionResult endreAvgang(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             Avgang enAvgang = db.hentAvgang(id);
             return View(enAvgang);
         }
@@ -195,7 +196,7 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult endreAvgang(Avgang innAvgang)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.endreAvgang(innAvgang);
             if (OK)
             {
@@ -206,7 +207,7 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult slettAvgang(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.slettAvgang(id);
             if (OK)
             {
@@ -223,7 +224,7 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult regAvgang(Avgang innAvgang)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.lagreAvgang(innAvgang);
             if (OK)
             {
@@ -240,14 +241,14 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult listVisAvganger()
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             List<visAvgang> alleAvganger = db.alleVisAvganger();
             return View(alleAvganger);
         }
 
         public ActionResult endreVisAvgang(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             visAvgang enAvgang = db.hentVisAvgang(id);
             return View(enAvgang);
         }
@@ -255,7 +256,7 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult endreVisAvgang(visAvgang innAvgangtid)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.endreVisAvgang(innAvgangtid);
             if (OK)
             {
@@ -266,7 +267,7 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult slettVisAvgang(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.slettVisAvgang(id);
             if (OK)
             {
@@ -282,7 +283,7 @@ namespace Oblig1WebApp.Controllers
                 [HttpPost]
         public ActionResult registrerVisAvgang(visAvgang innAvgangtid)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.lagreVisAvgang(innAvgangtid);
             if (OK)
             {
@@ -299,14 +300,14 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult listAlleavgangstider()
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             List<alleavgangstid> alleAvgangTider = db.alleAlleavgangstid();
             return View(alleAvgangTider);
         }
 
         public ActionResult endreAlleavgangstider(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             alleavgangstid enAvgangTid = db.hentAlleavgangstider(id);
             return View(enAvgangTid);
         }
@@ -314,7 +315,7 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult endreAlleavgangstider(alleavgangstid innAvgangtid)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.endreAlleavgangstider(innAvgangtid);
             if (OK)
             {
@@ -325,7 +326,7 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult slettalleavgangstid(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.slettalleavgangstid(id);
             if (OK)
             {
@@ -342,7 +343,7 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult registreralleavgangstid(alleavgangstid innAvgangtid)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.lagrealleavgangstid(innAvgangtid);
             if (OK)
             {
@@ -360,14 +361,14 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult listBetaling()
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             List<Betaling> alleBetalinger = db.alleBetalinger();
             return View(alleBetalinger);
         }
 
         public ActionResult endreBetaling(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             Betaling enBetaling = db.hentBetaling(id);
             return View(enBetaling);
         }
@@ -375,7 +376,7 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult endreBetaling(Betaling innBetaling)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.endreBetaling(innBetaling);
             if (OK)
             {
@@ -386,7 +387,7 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult slettBetaling(int id)
         {
-            var db = new DBContext();
+            var db = new DBDAL();
             bool OK = db.slettBetaling(id);
             if (OK)
             {
