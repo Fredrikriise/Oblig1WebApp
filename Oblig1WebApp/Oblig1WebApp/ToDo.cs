@@ -1,28 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Oblig1WebApp
+﻿namespace Oblig1WebApp
 {
     public class ToDo
-    {
-        //Spørsmål
-        // - Skal vi kunne endre brukernavn/slette brukere? Legge til mere funksjonalitet som å liste alle brukere, slette bruker, endre bruker (?)
-        // - Sikkerhet ved innlogging? SQL-injection?
-        // - Validering av passord og brukernavn, evt server og klient?
+    {                                                                                               /*
+    ------ Spørsmål ------
+    * VIKTIG * 
+    * Enhetstesting - fikse BrukerControllerTest og gjøre AvgangsControllerTest
+    * Fikse navbaren (tror kanskje det må lages et nytt prosjekt)
 
-        // - Fikse administrasjon av strekninger, priser og avganger
-        // - Fikse administrasjon av annet som trengs
-        // ^ Dette er vel ferdig
+    - Kanskje sette på noen ikoner på kontrollpanel
+    - Er det forskjell på å bruke:
+     "<input type="submit" value="Tilbake til kontrollpanel" formaction="/Bruker/Kontrollpanel" class="btn btn-primary" />"
+     og 
+     "<a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>
+    - Fiks listBestilling-viewet.
+    - Hva skal vi gjøre med betalingsinformasjon? Blir det ikke feil at brukere skal se slik sensitiv informasjon?
+    - Vi har ikke satt på required på avgangklassene, og man kan derfor registrere uten å skrive noe. 
+    ^ .. Går dette greit siden det er på bruker delen? Litt kjedelig å måtte slette viewsene, generere de på nytt og så endre igjen
+    - Loggføring til fil, må skrive egen path
 
-        // - Logging av endringer til database
-        // - Logging av feilsituasjoner til fil, bla feil som oppstår når databasen aksesseres
-
-        // - Validering av innlogging, registrering etc
-        // - Skrive ut til bruker at registrering av ny bruker var suksessfult (Bruke session?)
-        // - Når bruker logger seg ut, skrive ut at utlogging har blitt gjort (Sjekke session med javascript)
-
-        // https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/preventing-cross-site-request-forgery-csrf-attacks
+    ----- NOTATER Felix -----
+    * Fikse enhetstesting for regBestilling-metodene og AvgangController
+    * Fikse BrukerControllerTest på registrerBruker
+    
+    * Får man testet ViewData med RedirectToRouteResult?
+    * Trengs denne kodelinjen? var resultat = (alleavgangstid)actionResult.Model;
+    * Er hentBestilling_Feilet riktig testet?
+    * Skal "endretAvgang ikke funnet ved view"-test være med?
+    * hentBetaling og lagreBetaling, nødvendig?
+    */
     }
 }

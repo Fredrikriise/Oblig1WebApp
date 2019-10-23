@@ -4,7 +4,36 @@
     ViewBag.Title = "Alle registrerte avganger + detaljer";
 }
 
-    <h2>Alle registrerte avganger + detaljer</h2>
+<h2>Alle registrerte avganger + detaljer</h2>
+
+<div>
+    @if (TempData["Slettet"] != null)
+    {
+        var value = ((TempData["Slettet"] != null).ToString().ToLower());
+        if (value == "true")
+        {
+            <p class="alert alert-success">Avganger data ble suksessfult <b>slettet</b>!</p>
+        }
+    }
+
+    @if (TempData["Endret"] != null)
+    {
+        var value = ((TempData["Endret"] != null).ToString().ToLower());
+        if (value == "true")
+        {
+            <p class="alert alert-success">Avganger + detaljer data ble suksessfult <b>endret</b>!</p>
+        }
+    }
+
+    @if (TempData["Registrert"] != null)
+    {
+        var value = ((TempData["Registrert"] != null).ToString().ToLower());
+        if (value == "true")
+        {
+            <p class="alert alert-success">Avganger + detaljer data ble suksessfult <b>registrert</b>!</p>
+        }
+    }
+</div>
 
 <p>
     @Html.ActionLink("Registrer ny avgang + detaljer", "registrerVisAvgang")
@@ -26,33 +55,47 @@
         <th>
             @Html.DisplayNameFor(model => model.togNummer)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pris)
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.forsteAvgang)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sisteAvgang)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.reiseTid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.spor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.togNummer)
-        </td>
-        <td>
-            @Html.ActionLink("Endre", "endreVisAvgang", new { id=item.id }) |
-            @Html.ActionLink("Slett", "slettVisAvgang", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.forsteAvgang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sisteAvgang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reiseTid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.spor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.togNummer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pris)
+            </td>
+            <td>
+                @Html.ActionLink("Endre", "endreVisAvgang", new { id = item.id }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Slett", "slettVisAvgang", new { id = item.id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>
 
+<a href="registrerVisAvgang"><input type="button" value="Gå til registrering av ny avgang" class="btn btn-dark" /></a> |
 <a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>

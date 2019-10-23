@@ -1,4 +1,4 @@
-﻿using Oblig1WebApp.DAL;
+﻿using Oblig1WebApp.BLL;
 using Oblig1WebApp.Models;
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,17 @@ namespace Oblig1WebApp.Controllers
 {
     public class BestillingController : Controller
     {
+        private ILogikk _bestillingBBL;
+
+        public BestillingController()
+        {
+            _bestillingBBL = new DBBLL();
+        }
+
+        public BestillingController(ILogikk stub)
+        {
+            _bestillingBBL = stub;
+        }
         // Metoder for Bestilling
         public ActionResult Bestilling()
         {
@@ -16,55 +27,54 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult listBestillinger()
         {
-            var db = new DBDAL();
-            List<Bestilling> alleBestillinger = db.alleBestillinger();
+            List<Bestilling> alleBestillinger = _bestillingBBL.alleBestillinger();
             return View(alleBestillinger);
         }
 
         [HttpPost]
         public ActionResult regBestilling(Bestilling innBestilling)
         {
-            var db = new DBDAL();
-
-            if(innBestilling.fraLokasjon == null)
+            if (innBestilling.fraLokasjon == null)
             {
-                ModelState.AddModelError("", "Du er nødt til å velge hvor du ønsker å reise fra");
-            } else {
+                ModelState.AddModelError("fraLokasjon", "Du er nødt til å velge hvor du ønsker å reise fra");
+            }
+            else
+            {
                 var idFra = Int32.Parse(innBestilling.fraLokasjon);
-                visAvgang enAvgangFra = db.hentVisAvgang(idFra);
+                visAvgang enAvgangFra = _bestillingBBL.hentVisAvgang(idFra);
                 Session["fraLokasjon"] = enAvgangFra.forsteAvgang;
             }
 
-
             if (innBestilling.fraLokasjon == null)
             {
-                ModelState.AddModelError("", "Du er nødt til å velge hvor du ønsker å reise til");
-            } else {
+                ModelState.AddModelError("tilLokasjon", "Du er nødt til å velge hvor du ønsker å reise til");
+            }
+            else
+            {
                 var idTil = Int32.Parse(innBestilling.tilLokasjon);
-                visAvgang enAvgangTil = db.hentVisAvgang(idTil);
+                visAvgang enAvgangTil = _bestillingBBL.hentVisAvgang(idTil);
                 Session["tilLokasjon"] = enAvgangTil.sisteAvgang;
             }
 
             Session["billettType"] = innBestilling.billettType;
 
-            if(innBestilling.utreiseDato == null)
+            if (innBestilling.utreiseDato == null)
             {
-                ModelState.AddModelError("", "Du er nødt til å velge hvilke dato du ønsker å reise");
-                
-            } else
+                ModelState.AddModelError("utreisedato", "Du er nødt til å velge hvilke dato du ønsker å reise");
+
+            }
+            else
             {
                 Session["utreiseDato"] = innBestilling.utreiseDato;
             }
-            
-            //Session["utreiseTid"] = innBestilling.utreiseTid;
 
-            
             if (innBestilling.billettType == "Tur retur")
             {
-                if(innBestilling.returDato == null)
+                if (innBestilling.returDato == null)
                 {
-                    ModelState.AddModelError("", "Du er nødt til å velge hvilken dato du ønsker å returnere");
-                } else
+                    ModelState.AddModelError("returdato", "Du er nødt til å velge hvilken dato du ønsker å returnere");
+                }
+                else
                 {
                     Session["returDato"] = innBestilling.returDato;
                 }
@@ -73,11 +83,10 @@ namespace Oblig1WebApp.Controllers
             {
                 Session["returDato"] = null;
             }
-            //Session["returTid"] = innBestilling.returTid;
 
             if (innBestilling.voksen < 0 && innBestilling.barn0_5 < 0 && innBestilling.student < 0 && innBestilling.honnoer < 0 && innBestilling.vernepliktig < 0 && innBestilling.barn6_17 < 0)
             {
-                ModelState.AddModelError("", "Du er nødt til å velge hvor du ønsker å reise fra");
+                ModelState.AddModelError("reisende", "Du er nødt til å velge reisende");
             }
             else
             {
@@ -103,23 +112,13 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult regBestilling3(Bestilling innBestilling)
         {
-            var db = new DBDAL();
-
             if (innBestilling.avgangstid != null)
             {
-               // var avgangstid = Int32.Parse(innBestilling.avgangstid);
-                //visAvgang enAvgangFra = db.hentVisAvgang(avgangstid);
-                //Session["avgangstid"] = enAvgangFra.avgangstid;
-                //alleavgangstid enAvgangFra = db.hentAlleavgangstider(avgangstid);
                 Session["avgangstid"] = innBestilling.avgangstid;
             }
 
             if (innBestilling.avgangstidRetur != null)
             {
-                //var avgangstidRetur = Int32.Parse(innBestilling.avgangstidRetur);
-                //visAvgang enAvgangRetur = db.hentVisAvgang(avgangstidRetur);
-                //Session["avgangstidRetur"] = enAvgangRetur.avgangstidRetur;
-                //alleavgangstid enAvgangRetur = db.hentAlleavgangstider(avgangstidRetur);
                 Session["avgangstidRetur"] = innBestilling.avgangstidRetur;
             }
             return RedirectToAction("Betaling");
@@ -127,20 +126,17 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult hentBestilling(int id)
         {
-            var db = new DBDAL();
-            Bestilling enBestilling = db.hentBestilling(id);
+            Bestilling enBestilling = _bestillingBBL.hentBestilling(id);
             return View(enBestilling);
         }
 
         [HttpPost]
         public ActionResult regBestilling2(Bestilling innBestilling, Betaling innBetaling)
         {
-            var db = new DBDAL();
-
             innBestilling.fraLokasjon = (Session["fraLokasjon"]).ToString();
             innBestilling.tilLokasjon = (Session["tilLokasjon"]).ToString();
             innBestilling.billettType = (Session["billettType"]).ToString();
-            var inputUt = Session["utreiseDato"].ToString(); // dd-MM-yyyy   
+            var inputUt = Session["utreiseDato"].ToString(); // dd-MM-yyyy
             DateTime? dtTur = string.IsNullOrEmpty(inputUt) ? (DateTime?)null : DateTime.Parse(inputUt);
             innBestilling.utreiseDato = dtTur;
             innBestilling.avgangstid = Session["avgangstid"].ToString();
@@ -168,12 +164,15 @@ namespace Oblig1WebApp.Controllers
             innBestilling.hundover_40cm = (int?)Session["hundover_40cm"];
             innBestilling.kjaeledyrunder_40cm = (int?)Session["kjaeledyrunder_40cm"];
 
-            bool OK = db.lagreBestilling(innBestilling);
-            bool OKBetaling = db.lagreBetaling(innBetaling);
+            bool OK = _bestillingBBL.lagreBestilling(innBestilling);
+            bool OKBetaling = _bestillingBBL.lagreBetaling(innBetaling);
 
-            if (OK && OKBetaling) {
+            if (OK && OKBetaling)
+            {
                 return RedirectToAction("Bestilling");
-            } else {
+            }
+            else
+            {
                 return View();
             }
         }
@@ -181,37 +180,42 @@ namespace Oblig1WebApp.Controllers
         // Metoder for Avgang
         public ActionResult listAvganger()
         {
-            var db = new DBDAL();
-            List<Avgang> alleAvganger = db.alleAvganger();
+            List<Avgang> alleAvganger = _bestillingBBL.alleAvganger();
             return View(alleAvganger);
         }
 
         public ActionResult endreAvgang(int id)
         {
-            var db = new DBDAL();
-            Avgang enAvgang = db.hentAvgang(id);
+            Avgang enAvgang = _bestillingBBL.hentAvgang(id);
             return View(enAvgang);
         }
 
         [HttpPost]
         public ActionResult endreAvgang(Avgang innAvgang)
         {
-            var db = new DBDAL();
-            bool OK = db.endreAvgang(innAvgang);
+            bool OK = _bestillingBBL.endreAvgang(innAvgang);
             if (OK)
             {
-                RedirectToAction("listAvganger");
+                TempData["Endret"] = true;
+                return RedirectToAction("listAvganger");
             }
             return View();
         }
 
         public ActionResult slettAvgang(int id)
         {
-            var db = new DBDAL();
-            bool OK = db.slettAvgang(id);
+            Avgang enAvgang = _bestillingBBL.hentAvgang(id);
+            return View(enAvgang);
+        }
+
+        [HttpPost]
+        public ActionResult slettAvgang(int id, Avgang innAvgang)
+        {
+            bool OK = _bestillingBBL.slettAvgang(id);
             if (OK)
             {
-                RedirectToAction("listAvganger");
+                TempData["Slettet"] = true;
+                return RedirectToAction("listAvganger");
             }
             return View();
         }
@@ -224,10 +228,10 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult regAvgang(Avgang innAvgang)
         {
-            var db = new DBDAL();
-            bool OK = db.lagreAvgang(innAvgang);
+            bool OK = _bestillingBBL.lagreAvgang(innAvgang);
             if (OK)
             {
+                TempData["Registrert"] = true;
                 return RedirectToAction("listAvganger");
             }
             return View();
@@ -241,37 +245,43 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult listVisAvganger()
         {
-            var db = new DBDAL();
-            List<visAvgang> alleAvganger = db.alleVisAvganger();
+            List<visAvgang> alleAvganger = _bestillingBBL.alleVisAvganger();
             return View(alleAvganger);
         }
 
         public ActionResult endreVisAvgang(int id)
         {
-            var db = new DBDAL();
-            visAvgang enAvgang = db.hentVisAvgang(id);
+            visAvgang enAvgang = _bestillingBBL.hentVisAvgang(id);
             return View(enAvgang);
         }
 
         [HttpPost]
         public ActionResult endreVisAvgang(visAvgang innAvgangtid)
         {
-            var db = new DBDAL();
-            bool OK = db.endreVisAvgang(innAvgangtid);
+            bool OK = _bestillingBBL.endreVisAvgang(innAvgangtid);
             if (OK)
             {
-                RedirectToAction("listVisAvganger");
+                TempData["Endret"] = true;
+                return RedirectToAction("listVisAvganger");
             }
             return View();
         }
 
+
         public ActionResult slettVisAvgang(int id)
         {
-            var db = new DBDAL();
-            bool OK = db.slettVisAvgang(id);
+            visAvgang enAvgang = _bestillingBBL.hentVisAvgang(id);
+            return View(enAvgang);
+        }
+
+        [HttpPost]
+        public ActionResult slettVisAvgang(int id, visAvgang innAvgang)
+        {
+            bool OK = _bestillingBBL.slettVisAvgang(id);
             if (OK)
             {
-                RedirectToAction("listVisAvganger");
+                TempData["Slettet"] = true;
+                return RedirectToAction("listVisAvganger");
             }
             return View();
         }
@@ -280,14 +290,15 @@ namespace Oblig1WebApp.Controllers
         {
             return View();
         }
-                [HttpPost]
+
+        [HttpPost]
         public ActionResult registrerVisAvgang(visAvgang innAvgangtid)
         {
-            var db = new DBDAL();
-            bool OK = db.lagreVisAvgang(innAvgangtid);
+            bool OK = _bestillingBBL.lagreVisAvgang(innAvgangtid);
             if (OK)
             {
-                return RedirectToAction("listAvganger");
+                TempData["Registrert"] = true;
+                return RedirectToAction("listVisAvganger");
             }
             return View();
         }
@@ -300,37 +311,42 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult listAlleavgangstider()
         {
-            var db = new DBDAL();
-            List<alleavgangstid> alleAvgangTider = db.alleAlleavgangstid();
+            List<alleavgangstid> alleAvgangTider = _bestillingBBL.alleAlleavgangstid();
             return View(alleAvgangTider);
         }
 
         public ActionResult endreAlleavgangstider(int id)
         {
-            var db = new DBDAL();
-            alleavgangstid enAvgangTid = db.hentAlleavgangstider(id);
+            alleavgangstid enAvgangTid = _bestillingBBL.hentAlleavgangstider(id);
             return View(enAvgangTid);
         }
 
         [HttpPost]
         public ActionResult endreAlleavgangstider(alleavgangstid innAvgangtid)
         {
-            var db = new DBDAL();
-            bool OK = db.endreAlleavgangstider(innAvgangtid);
+            bool OK = _bestillingBBL.endreAlleavgangstider(innAvgangtid);
             if (OK)
             {
-                RedirectToAction("listVisAvganger");
+                TempData["Endret"] = true;
+                return RedirectToAction("listAlleavgangstider");
             }
             return View();
         }
 
         public ActionResult slettalleavgangstid(int id)
         {
-            var db = new DBDAL();
-            bool OK = db.slettalleavgangstid(id);
+            alleavgangstid enAvgangsTid = _bestillingBBL.hentAlleavgangstider(id);
+            return View(enAvgangsTid);
+        }
+
+        [HttpPost]
+        public ActionResult slettalleavgangstid(int id, alleavgangstid innAlleavgangstid)
+        {
+            bool OK = _bestillingBBL.slettalleavgangstid(id);
             if (OK)
             {
-                RedirectToAction("listVisAvganger");
+                TempData["Slettet"] = true;
+                return RedirectToAction("/Bestilling/listAlleavgangstider");
             }
             return View();
         }
@@ -343,11 +359,11 @@ namespace Oblig1WebApp.Controllers
         [HttpPost]
         public ActionResult registreralleavgangstid(alleavgangstid innAvgangtid)
         {
-            var db = new DBDAL();
-            bool OK = db.lagrealleavgangstid(innAvgangtid);
+            bool OK = _bestillingBBL.lagrealleavgangstid(innAvgangtid);
             if (OK)
             {
-                return RedirectToAction("listAvganger");
+                TempData["Registrert"] = true;
+                return RedirectToAction("listAlleavgangstider");
             }
             return View();
         }
@@ -361,39 +377,8 @@ namespace Oblig1WebApp.Controllers
 
         public ActionResult listBetaling()
         {
-            var db = new DBDAL();
-            List<Betaling> alleBetalinger = db.alleBetalinger();
+            List<Betaling> alleBetalinger = _bestillingBBL.alleBetalinger();
             return View(alleBetalinger);
-        }
-
-        public ActionResult endreBetaling(int id)
-        {
-            var db = new DBDAL();
-            Betaling enBetaling = db.hentBetaling(id);
-            return View(enBetaling);
-        }
-
-        [HttpPost]
-        public ActionResult endreBetaling(Betaling innBetaling)
-        {
-            var db = new DBDAL();
-            bool OK = db.endreBetaling(innBetaling);
-            if (OK)
-            {
-                RedirectToAction("listBetalinger");
-            }
-            return View();
-        }
-
-        public ActionResult slettBetaling(int id)
-        {
-            var db = new DBDAL();
-            bool OK = db.slettBetaling(id);
-            if (OK)
-            {
-                RedirectToAction("listBetaling");
-            }
-            return View();
         }
     }
 }

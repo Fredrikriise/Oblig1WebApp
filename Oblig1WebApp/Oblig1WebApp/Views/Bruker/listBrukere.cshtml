@@ -6,9 +6,6 @@
 
 <h2>Alle regisrterte brukere</h2>
 
-<p>
-    @Html.ActionLink("Lag en ny bruker", "/Bruker/RegistrerBruker")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -23,12 +20,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.brukernavn)
             </td>
-            <td>
-                @Html.ActionLink("Slett", "/Bruker/slettBruker", new { /* id=item.PrimaryKey */ })
-            </td>
         </tr>
     }
 
 </table>
 
+<a href="/Bruker/RegistrerBruker"><input type="button" value="Gå til registrering av ny bruker" class="btn btn-dark" /></a> |
 <a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>

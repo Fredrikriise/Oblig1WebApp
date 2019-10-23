@@ -13,8 +13,6 @@ namespace Oblig1WebApp.Models
                         "~/Scripts/jquery.validate.js",
                         "~/Scripts/jquery.validate.unobtrusive.js"));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're  
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.  
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -22,7 +20,6 @@ namespace Oblig1WebApp.Models
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            // JQuery validator.   
             bundles.Add(new ScriptBundle("~/bundles/custom-validator").Include(
                                   "~/Scripts/script-custom-validator.js"));
 

@@ -1,8 +1,11 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using TrackerEnabledDbContext;
 
 namespace Oblig1WebApp.DAL
 {
+    [TrackChanges]
     public class Avganger
     {
         public int Id { get; set; }
@@ -10,6 +13,7 @@ namespace Oblig1WebApp.DAL
         public string _SisteAvgang { get; set; }
     }
 
+    [TrackChanges]
     public class visAvganger
     {
         public int Id { get; set; }
@@ -22,14 +26,15 @@ namespace Oblig1WebApp.DAL
         public int Pris { get; set; }
     }
 
+    [TrackChanges]
     public class alleavgangstider
     {
         public int Id { get; set; }
         public string Avgangstid { get; set; }
         public string AvgangstidRetur { get; set; }
     }
-    
-    public class AvgangContext : DbContext
+
+    public class AvgangContext : TrackerContext
     {
         public AvgangContext() : base("name=Avganger")
         {

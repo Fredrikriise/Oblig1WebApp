@@ -16,7 +16,7 @@
        <div class="form-group">
            @Html.LabelFor(model => model.avgangstid, htmlAttributes: new { @class = "control-label col-md-2" })
            <div class="col-md-10">
-               @Html.EditorFor(model => model.avgangstid, new { htmlAttributes = new { @class = "form-control" } })
+               @Html.EditorFor(model => model.avgangstid, new { htmlAttributes = new { @class = "form-control", placeholder="avgangstid"} })
                @Html.ValidationMessageFor(model => model.avgangstid, "", new { @class = "text-danger" })
            </div>
        </div>
@@ -24,14 +24,15 @@
        <div class="form-group">
            @Html.LabelFor(model => model.avgangstidRetur, htmlAttributes: new { @class = "control-label col-md-2" })
            <div class="col-md-10">
-               @Html.EditorFor(model => model.avgangstidRetur, new { htmlAttributes = new { @class = "form-control" } })
+               @Html.EditorFor(model => model.avgangstidRetur, new { htmlAttributes = new { @class = "form-control",placeholder="avgangstid retur"} })
                @Html.ValidationMessageFor(model => model.avgangstidRetur, "", new { @class = "text-danger" })
            </div>
        </div>
 
        <div class="form-group">
            <div class="col-md-offset-2 col-md-10">
-               <input type="submit" value="Registrer ny avgangstid" class="btn btn-success" />
+               <input type="submit" value="Registrer ny avgangstid" class="btn btn-success" /> |
+               <input type="submit" value="Gå til listing av avgangstider" formaction="listAlleavgangstider" class="btn btn-dark" /> |
                <input type="submit" value="Tilbake til kontrollpanel" formaction="/Bruker/Kontrollpanel" class="btn btn-primary" />
            </div>
        </div>

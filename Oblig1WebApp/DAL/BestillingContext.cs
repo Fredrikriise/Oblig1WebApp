@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using TrackerEnabledDbContext;
 
 namespace Oblig1WebApp.DAL
 {
+    [TrackChanges]
     public class Bestillinger
     {
         public int Id { get; set; }
@@ -26,6 +29,7 @@ namespace Oblig1WebApp.DAL
         public int? Kjaeledyrunder_40cm { get; set; }
     }
 
+    [TrackChanges]
     public class Betalinger
     {
         public int Id { get; set; }
@@ -37,7 +41,7 @@ namespace Oblig1WebApp.DAL
         public string CvC { get; set; }
     }
 
-    public class BestillingContext : DbContext
+    public class BestillingContext : TrackerContext
     {
         public BestillingContext() : base("name=Bestillinger")
         {

@@ -1,7 +1,6 @@
-﻿using Oblig1WebApp.Models;
-using Oblig1WebApp.DAL;
+﻿using Oblig1WebApp.BLL;
+using Oblig1WebApp.Models;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -9,11 +8,22 @@ namespace Oblig1WebApp.Controllers
 {
     public class AvgangController : Controller
     {
+        private ILogikk _avgangBBL;
+
+        public AvgangController()
+        {
+            _avgangBBL = new DBBLL();
+        }
+
+        public AvgangController(ILogikk stub)
+        {
+            _avgangBBL = stub;
+        }
+
         // Metoder for Avganger
         public string hentAlleAvganger()
         {
-            var db = new DBDAL();
-            List<Avgang> alleAvganger = db.alleAvganger();
+            List<Avgang> alleAvganger = _avgangBBL.alleAvganger();
 
             var alleStrekninger = new List<jsAvgang>();
             foreach (Avgang a in alleAvganger)
@@ -31,8 +41,7 @@ namespace Oblig1WebApp.Controllers
 
         public string hentAvgangInfo(int id)
         {
-            var db = new DBDAL();
-            Avgang enAvgang = db.hentAvgang(id);
+            Avgang enAvgang = _avgangBBL.hentAvgang(id);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(enAvgang);
             return json;
@@ -40,8 +49,7 @@ namespace Oblig1WebApp.Controllers
 
         public string registerAvgang(Avgang innAvgang)
         {
-            var db = new DBDAL();
-            db.lagreAvgang(innAvgang);
+            _avgangBBL.lagreAvgang(innAvgang);
             var jsonSerializer = new JavaScriptSerializer();
             return jsonSerializer.Serialize("OK");
         }
@@ -49,8 +57,7 @@ namespace Oblig1WebApp.Controllers
         // Metoder for visAvganger
         public string hentAlleVisAvganger()
         {
-            var db = new DBDAL();
-            List<visAvgang> alleAvganger = db.alleVisAvganger();
+            List<visAvgang> alleAvganger = _avgangBBL.alleVisAvganger();
 
             var alleStrekninger = new List<jsVisAvgang>();
             foreach (visAvgang a in alleAvganger)
@@ -77,8 +84,7 @@ namespace Oblig1WebApp.Controllers
 
         public string hentVisAvgangInfo(int id)
         {
-            var db = new DBDAL();
-            visAvgang enAvgang = db.hentVisAvgang(id);
+            visAvgang enAvgang = _avgangBBL.hentVisAvgang(id);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(enAvgang);
             return json;
@@ -86,8 +92,7 @@ namespace Oblig1WebApp.Controllers
 
         public string registerVisAvgang(visAvgang innAvgang)
         {
-            var db = new DBDAL();
-            db.lagreVisAvgang(innAvgang);
+            _avgangBBL.lagreVisAvgang(innAvgang);
             var jsonSerializer = new JavaScriptSerializer();
             return jsonSerializer.Serialize("OK");
         }
@@ -96,8 +101,7 @@ namespace Oblig1WebApp.Controllers
         //Metoder for alleavgangstid
         public string hentAlleavgangstider()
         {
-            var db = new DBDAL();
-            List<alleavgangstid> alleAvganger = db.alleAlleavgangstid();
+            List<alleavgangstid> alleAvganger = _avgangBBL.alleAlleavgangstid();
 
             var alleStrekninger = new List<jsAlleavgangstid>();
             foreach (alleavgangstid a in alleAvganger)
@@ -116,8 +120,7 @@ namespace Oblig1WebApp.Controllers
 
         public string hentAlleavgangstid(int id)
         {
-            var db = new DBDAL();
-            alleavgangstid enAvgang = db.hentAlleavgangstider(id);
+            alleavgangstid enAvgang = _avgangBBL.hentAlleavgangstider(id);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(enAvgang);
             return json;
@@ -125,8 +128,7 @@ namespace Oblig1WebApp.Controllers
 
         public string registrerAlleavgangstid(alleavgangstid innAvgang)
         {
-            var db = new DBDAL();
-            db.lagrealleavgangstid(innAvgang);
+            _avgangBBL.lagrealleavgangstid(innAvgang);
             var jsonSerializer = new JavaScriptSerializer();
             return jsonSerializer.Serialize("OK");
         }

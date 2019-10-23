@@ -1,0 +1,92 @@
+﻿@model Oblig1WebApp.Models.visAvgang
+
+@{
+    ViewBag.Title = "slettVisAvgang";
+}
+
+<h1>Sletting av avgang + detaljer</h1>
+
+<div>
+    @if (ViewBag.Slettet == true)
+    {
+        <p class="alert alert-success">Avgang + detaljer suksessfult slettet!</p>
+    }
+    else if (ViewBag.Slettet == false)
+    {
+        <p class="alert alert-danger">Sletting av avgang + detaljer feilet, prøv igjen!</p>
+    }
+</div>
+
+<h3>Er du sikker på at du ønsker å slette denne avgangen?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.forsteAvgang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.forsteAvgang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sisteAvgang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sisteAvgang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reiseTid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reiseTid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.spor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.spor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.togNummer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.togNummer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pris)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pris)
+        </dd>
+
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Slett avgang" class="btn btn-danger" /> |
+            <a href="/Bestilling/listVisAvganger"><input type="button" value="Tilbake til listing av avganger" class="btn btn-dark" /></a> |
+            <a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>
+
+        </div>
+    }
+</div>

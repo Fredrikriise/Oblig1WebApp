@@ -1,0 +1,53 @@
+﻿@model Oblig1WebApp.Models.Avgang
+
+@{
+    ViewBag.Title = "Sletting av avgang";
+}
+
+<h1>Sletting av avgang</h1>
+
+<div>
+    @if (ViewBag.Slettet == true)
+    {
+        <p class="alert alert-success">Avgang suksessfult slettet!</p>
+    }
+    else if (ViewBag.Slettet == false)
+    {
+        <p class="alert alert-danger">Sletting av avgang feilet, prøv igjen!</p>
+    }
+</div>
+
+<h3>Er du sikker på at du ønsker å slette denne avgangen?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model._forsteAvgang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._forsteAvgang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._sisteAvgang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._sisteAvgang)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Slett avgang" class="btn btn-danger" /> |
+            <a href="/Bestilling/listAvganger"><input type="button" value="Tilbake til listing av avganger" class="btn btn-dark" /></a> |
+            <a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>
+
+        </div>
+    }
+</div>

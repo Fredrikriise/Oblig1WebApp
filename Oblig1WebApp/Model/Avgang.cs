@@ -6,8 +6,10 @@ namespace Oblig1WebApp.Models
     {
         public int id { get; set; }
         [Display(Name = "Første avgang")]
+        [Required(ErrorMessage = "Du er nødt til å skrive inn hvilke holdeplass toget vil reise fra!")]
         public string _forsteAvgang { get; set; }
         [Display(Name = "Siste avgang")]
+        [Required(ErrorMessage = "Du er nødt til å skrive inn siste avgang!")]
         public string _sisteAvgang { get; set; }
     }
 

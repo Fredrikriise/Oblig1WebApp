@@ -2,26 +2,23 @@
 @{
     ViewBag.Title = "Kontrollpanel";
 }
-    <form>
-        <h2>Kontrollpanel</h2>
+<form>
+    <h1>Kontrollpanel</h1>
 
-        <p>
-            Velkommen til kontrollpanelet <b>@Session["brukernavn"]</b>. <br /> Her kan du velge hva du ønsker å gjøre videre:
-        </p>
-        <br />
+    <p style="font-size:125%" ;>
+        Velkommen til kontrollpanelet <b>@Session["brukernavn"]</b>. <br /> Her kan du velge hva du ønsker å gjøre videre:
+    </p>
+    <br />
 
-        <input type="submit" value="Registrer en ny bruker" formaction="RegistrerBruker" class="btn btn-success" />
-        <input type="submit" value="Se alle bestillinger" formaction="/Bestilling/listBestillinger" class="btn btn-success" />
-        <input type="submit" value="Registrer en ny avgang" formaction="/Bestilling/regAvgang" class="btn btn-success" /> <br /><br />
-        <input type="submit" value="Registrer en ny avgangstid" formaction="/Bestilling/registreralleavgangstid" class="btn btn-success" />
-        <input type="submit" value="Registrer en ny avgang + avgangsdetaljer" formaction="/Bestilling/registrerVisAvgang" class="btn btn-success" />
-        <input type="submit" value="Alle registrerte brukere" formaction="/Bruker/listBrukere" class="btn btn-success" /><br /><br />
+    <input type="submit" value="Registrer en ny bruker" formaction="RegistrerBruker" class="btn btn-dark" /> |
+    <input type="submit" value="Alle registrerte brukere" formaction="/Bruker/listBrukere" class="btn btn-dark" /><br /><br />
+    <input type="submit" value="Registrer en ny avgang" formaction="/Bestilling/regAvgang" class="btn btn-dark" /> |
+    <input type="submit" value="Se alle avganger" formaction="/Bestilling/listAvganger" class="btn btn-dark" />  <br /><br />
+    <input type="submit" value="Registrer en ny avgangstid" formaction="/Bestilling/registreralleavgangstid" class="btn btn-dark" /> |
+    <input type="submit" value="Se alle avgangstider" formaction="/Bestilling/listAlleavgangstider" class="btn btn-dark" />  <br /><br />
+    <input type="submit" value="Registrer en ny avgang + detaljer" formaction="/Bestilling/registrerVisAvgang" class="btn btn-dark" /> |
+    <input type="submit" value="Se alle avganger + detaljer" formaction="/Bestilling/listVisAvganger" class="btn btn-dark" />  <br /><br />
+    <input type="submit" value="Se alle bestillinger" formaction="/Bestilling/listBestillinger" class="btn btn-dark" />  <br /><br />
+    <input type="submit" value="Logg deg ut" formaction="LoggUt" class="btn btn-danger" />
 
-        <input type="submit" value="Se alle avganger" formaction="/Bestilling/listAvganger" class="btn btn-success" />
-        <input type="submit" value="Se alle avganger + detaljer" formaction="/Bestilling/listVisAvganger" class="btn btn-success" />
-        <input type="submit" value="Se alle avgangstider" formaction="/Bestilling/listAlleavgangstider" class="btn btn-success" />
-
-        <input type="submit" value="Logg deg ut" formaction="LoggUt" class="btn btn-danger" />
-
-
-    </form>
+</form>

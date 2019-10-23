@@ -1,11 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using TrackerEnabledDbContext;
 
 namespace Oblig1WebApp.DAL
 {
-  
+    [TrackChanges]
     public class AdminBruker
     {
         [Key]
@@ -13,9 +13,9 @@ namespace Oblig1WebApp.DAL
         public byte[] Passord { get; set; }
         public byte[] Salt { get; set; }
     }
-    
 
-    public class BrukerContext : DbContext
+
+    public class BrukerContext : TrackerContext
     {
         public BrukerContext() : base("name=Brukere")
         {

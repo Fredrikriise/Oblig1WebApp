@@ -4,6 +4,7 @@
     ViewBag.Title = "Registrering av ny admin-bruker";
 }
 
+
 <h2>Registrering av ny admin-bruker</h2>
 
 @using (Html.BeginForm())
@@ -13,17 +14,22 @@
     <div>
         @if (ViewBag.RegistrertBruker == true)
         {
-            <p class="alert alert-success">Ny bruker med brukernavn @Session["nybruker"] ble suksessfult registrert!</p>
+            <p class="alert alert-success">Ny bruker med brukernavn <b>@Session["nybruker"]</b> ble suksessfult registrert!</p>
         }
         else if (ViewBag.RegistrertBruker == false)
         {
-            <p class="alert alert-danger">Registrering av ny bruker med brukernavn @Session["nybruker"] feilet, prøv igjen!</p>
+            <p class="alert alert-danger">Registrering av ny bruker med brukernavn <b>@Session["nybruker"]</b> feilet, prøv igjen!</p>
         }
+
+        @if (ViewBag.Brukernavntatt == true)
+        {
+            <p class="alert alert-danger">Det finnes allerede en bruker med brukernavn <b>@Session["nybruker"]</b>!</p>
+        }
+
     </div>
 
     <div class="form-horizontal">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.brukernavn, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -31,7 +37,6 @@
                 @Html.ValidationMessageFor(model => model.brukernavn, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.passord, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -42,7 +47,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Registrer ny bruker" class="btn btn-success" />
+                <input type="submit" value="Registrer ny bruker" id="regbruker" class="btn btn-success" /> |
+                <input type="submit" value="Gå til listing av brukere" formaction="listBrukere" class="btn btn-dark" /> |
                 <input type="submit" value="Tilbake til kontrollpanel" formaction="Kontrollpanel" class="btn btn-primary" />
             </div>
         </div>

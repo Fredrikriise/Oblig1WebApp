@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using Oblig1WebApp.Models;
+using System.Web.Mvc;
 using System.Web.Routing;
+using TrackerEnabledDbContext.Common.Configuration;
 
 namespace Oblig1WebApp
 {
@@ -14,6 +16,12 @@ namespace Oblig1WebApp
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Bestilling", action = "Bestilling", id = UrlParameter.Optional }
             );
+
+            EntityTracker.TrackAllProperties<Bestilling>();
+            EntityTracker.TrackAllProperties<Avgang>();
+            EntityTracker.TrackAllProperties<visAvgang>();
+            EntityTracker.TrackAllProperties<adminBruker>();
+            EntityTracker.TrackAllProperties<alleavgangstid>();
         }
     }
 }

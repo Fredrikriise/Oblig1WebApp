@@ -1,6 +1,17 @@
 ﻿@model Oblig1WebApp.Models.visAvgang
 
-<h2>Endra avgang + detaljer</h2>
+<h2>Endre avgang + detaljer</h2>
+
+<div>
+    @if (ViewBag.Endret == true)
+    {
+        <p class="alert alert-success">Endring av avgang + detaljer ble suksessfult endret!</p>
+    }
+    else if (ViewBag.Endret == false)
+    {
+        <p class="alert alert-danger">Endring av avgang + detaljer feilet, prøv igjen!</p>
+    }
+</div>
 
 @using (Html.BeginForm())
 {
@@ -14,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.forsteAvgang, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.forsteAvgang, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.forsteAvgang, new { htmlAttributes = new { @class = "form-control", placeholder="første avgang" } })
                 @Html.ValidationMessageFor(model => model.forsteAvgang, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -22,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.sisteAvgang, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.sisteAvgang, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.sisteAvgang, new { htmlAttributes = new { @class = "form-control",placeholder="siste avgang"} })
                 @Html.ValidationMessageFor(model => model.sisteAvgang, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -30,7 +41,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.reiseTid, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.reiseTid, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.reiseTid, new { htmlAttributes = new { @class = "form-control", placeholder="reisetid"} })
                 @Html.ValidationMessageFor(model => model.reiseTid, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -38,7 +49,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.spor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.spor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.spor, new { htmlAttributes = new { @class = "form-control", placeholder="spor"} })
                 @Html.ValidationMessageFor(model => model.spor, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -46,7 +57,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.togNummer, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.togNummer, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.togNummer, new { htmlAttributes = new { @class = "form-control", placeholder="tognummer"} })
                 @Html.ValidationMessageFor(model => model.togNummer, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -54,7 +65,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.sone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.sone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.sone, new { htmlAttributes = new { @class = "form-control", placeholder="sone"} })
                 @Html.ValidationMessageFor(model => model.sone, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -62,19 +73,17 @@
         <div class="form-group">
             @Html.LabelFor(model => model.pris, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.pris, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.pris, new { htmlAttributes = new { @class = "form-control", placeholder="pris"} })
                 @Html.ValidationMessageFor(model => model.pris, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Lagre endringer" formaction="listVisAvganger" class="btn btn-success" />
+                <input type="submit" value="Lagre endringer" formaction="endreVisAvgang" class="btn btn-success" /> |
+                <input type="submit" value="Tilbake til listing av alle avganger" formaction="/Bestilling/listVisAvganger" class="btn btn-dark" /> |
+                <input type="submit" value="Tilbake til kontrollpanel" formaction="Kontrollpanel" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Tilbake til listing av alle avganger + detaljer", "listVisAvganger")
-</div>

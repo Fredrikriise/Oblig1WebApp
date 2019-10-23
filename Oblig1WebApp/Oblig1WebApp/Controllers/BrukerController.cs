@@ -1,16 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Web;
-using System.Web.Mvc;
-using Oblig1WebApp.DAL;
+﻿using Oblig1WebApp.BLL;
 using Oblig1WebApp.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Oblig1WebApp.Controllers
 {
     public class BrukerController : Controller
     {
+        private ILogikk _brukerBBL;
+
+        public BrukerController()
+        {
+            _brukerBBL = new DBBLL();
+        }
+
+        public BrukerController(ILogikk stub)
+        {
+            _brukerBBL = stub;
+        }
+
         public ActionResult Kontrollpanel()
         {
             if (Session["LoggetInn"] != null)
@@ -33,59 +41,82 @@ namespace Oblig1WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LoggInn(adminBruker innLogget)
         {
-            var db = new DBDAL();
             //Sjekker om brukeren ble suksessfult innlogget
-            if (db.bruker_i_db(innLogget))
+            if (_brukerBBL.bruker_i_db(innLogget))
             {
                 //Brukernavn og passord er godtkjent
                 Session["LoggetInn"] = true;
                 Session["brukernavn"] = innLogget.brukernavn;
-                ViewBag.Innlogget = true;
+                ViewData["Innlogget"] = true;
                 return View("Kontrollpanel");
-            } else
+            }
+            else
             {
                 //Brukernavn og passord ikke godkjent
                 Session["LoggetInn"] = false;
-                ViewBag.Innlogget = false;
+                ViewData["Innlogget"] = false;
                 ModelState.AddModelError("", "Innlogging feilet, feil brukernavn eller passord!");
                 return View();
             }
-        } 
+        }
 
         public ActionResult RegistrerBruker()
         {
             return View();
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RegistrerBruker(adminBruker innBruker)
         {
-            var db = new DBDAL();
-            bool OK = db.lagreBruker(innBruker);
             Session["nybruker"] = innBruker.brukernavn;
-            if (OK)
+
+            if (innBruker.brukernavn.Length < 8)
             {
-                ViewBag.RegistrertBruker = true;
-                return View();
-            } else
-            {
-                ViewBag.RegistrertBruker = false;
-                return View();
+                ModelState.AddModelError("", "Brukernavn er nødt til å bestå av minst 8 tegn");
             }
+
+            if (innBruker.passord.Length < 8)
+            {
+                ModelState.AddModelError("", "Passordet er nødt til å bestå av minst 8 tegn");
+            }
+
+            else
+            {
+
+                bool OK = _brukerBBL.lagreBruker(innBruker);
+
+                if (OK)
+                {
+                    ViewData["RegistrertBruker"] = true;
+                    ViewData["Brukernavntatt"] = false;
+                    return View();
+                }
+                else
+                {
+                    if (_brukerBBL.bruker_i_db(innBruker))
+                    {
+                        ViewData["Brukernavntatt"] = true;
+                    }
+                    ViewData["RegistrertBruker"] = false;
+                    return View();
+                }
+            }
+            return View();
         }
 
         public ActionResult LoggUt()
         {
             Session["LoggetInn"] = false;
+            TempData["LoggetUt"] = true;
             return RedirectToAction("LoggInn");
         }
 
 
         public ActionResult listBrukere()
         {
-            var db = new DBDAL();
-            List<adminBruker> alleBrukere = db.alleBrukere();
+            List<adminBruker> alleBrukere = _brukerBBL.alleBrukere();
             return View(alleBrukere);
         }
     }

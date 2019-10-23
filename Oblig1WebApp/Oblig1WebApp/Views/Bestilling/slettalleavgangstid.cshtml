@@ -1,0 +1,53 @@
+﻿@model Oblig1WebApp.Models.alleavgangstid
+
+@{
+    ViewBag.Title = "Sletting av avgangstider";
+}
+
+<h1>Sletting av avgangstider</h1>
+
+<div>
+    @if (ViewBag.Slettet == true)
+    {
+        <p class="alert alert-success">Avgangstid suksessfult slettet!</p>
+    }
+    else if (ViewBag.Slettet == false)
+    {
+        <p class="alert alert-danger">Sletting av avgangstid feilet, prøv igjen!</p>
+    }
+</div>
+
+<h3>Er du sikker på at du ønsker å slette disse avgangstidene?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.avgangstid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.avgangstid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.avgangstidRetur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.avgangstidRetur)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Slett avgangstider" class="btn btn-danger" /> |
+            <a href="/Bestilling/listAlleavgangstider"><input type="button" value="Tilbake til listing av avgangstider" class="btn btn-dark" /></a> |
+            <a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>
+
+        </div>
+    }
+</div>

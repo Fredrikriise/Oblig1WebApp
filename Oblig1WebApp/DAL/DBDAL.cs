@@ -1,14 +1,15 @@
 ﻿using Oblig1WebApp.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 
 namespace Oblig1WebApp.DAL
 {
-    public class DBDAL
+    public class DBDAL : DAL.IRepository
     {
-        // Bestilling
+        // Metoder for Bestilling
         public List<Bestilling> alleBestillinger()
         {
             using (var db = new BestillingContext())
@@ -149,12 +150,12 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved insetting av data i databasen", innsettingsFeil);
                 }
             }
         }
+
         public bool slettBestilling(int id)
         {
             using (var db = new BestillingContext())
@@ -168,14 +169,13 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved sletting av data i databasen", innsettingsFeil);
                 }
             }
         }
 
-        // Avganger
+        // Metoder for Avganger
         public List<Avgang> alleAvganger()
         {
             using (var db = new AvgangContext())
@@ -220,9 +220,8 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved endring av data i databasen", innsettingsFeil);
                 }
                 return true;
             }
@@ -244,9 +243,8 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved insetting av data i databasen", innsettingsFeil);
                 }
             }
         }
@@ -264,14 +262,13 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved sletting av data i databasen", innsettingsFeil);
                 }
             }
         }
 
-        // visAvganger
+        // Metoder for visAvganger
         public List<visAvgang> alleVisAvganger()
         {
             using (var db = new AvgangContext())
@@ -330,9 +327,8 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved endring av data i databasen", innsettingsFeil);
                 }
                 return true;
             }
@@ -359,9 +355,8 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved insetting av data i databasen", innsettingsFeil);
                 }
             }
         }
@@ -379,14 +374,13 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved sletting av data i databasen", innsettingsFeil);
                 }
             }
         }
 
-        //Alleavgangstid
+        // Metoder for Alleavgangstid
         public List<alleavgangstid> alleAlleavgangstid()
         {
             using (var db = new AvgangContext())
@@ -415,7 +409,7 @@ namespace Oblig1WebApp.DAL
                 return hentetAvgang;
             }
         }
-        
+
         public bool endreAlleavgangstider(alleavgangstid innAvgang)
         {
             using (var db = new AvgangContext())
@@ -430,9 +424,8 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved endring av data i databasen", innsettingsFeil);
                 }
                 return true;
             }
@@ -454,9 +447,8 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved insetting av data i databasen", innsettingsFeil);
                 }
             }
         }
@@ -474,14 +466,13 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved sletting av data i databasen", innsettingsFeil);
                 }
             }
         }
 
-        // Betaling
+        // Metoder for Betaling
         public List<Betaling> alleBetalinger()
         {
             using (var db = new BestillingContext())
@@ -519,31 +510,6 @@ namespace Oblig1WebApp.DAL
             }
         }
 
-        public bool endreBetaling(Betaling innBetaling)
-        {
-            using (var db = new BestillingContext())
-            {
-                try
-                {
-                    var endreObjekt = db.Betalinger.Find(innBetaling.id);
-                    endreObjekt.Id = innBetaling.id;
-                    endreObjekt.Fornavn = innBetaling.fornavn;
-                    endreObjekt.Etternavn = innBetaling.etternavn;
-                    endreObjekt.Email = innBetaling.email;
-                    endreObjekt.Kortnummer = innBetaling.kortnummer;
-                    endreObjekt.UtløpsDato = innBetaling.utløpsDato;
-                    db.SaveChanges();
-                }
-                catch (Exception innsettingsFeil)
-                {
-                    return false;
-                    throw new Exception(
-                        "Feil ved endring av data i databasen", innsettingsFeil);
-                }
-                return true;
-            }
-        }
-
         public bool lagreBetaling(Betaling innBetaling)
         {
             using (var db = new BestillingContext())
@@ -564,36 +530,26 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved insetting av data i databasen", innsettingsFeil);
                 }
             }
         }
 
-        public bool slettBetaling(int id)
+        // Metoder for Bruker
+        public List<adminBruker> alleBrukere()
         {
-            using (var db = new BestillingContext())
+            using (var db = new BrukerContext())
             {
-                try
+                List<adminBruker> alleBrukere = db.AdminBruker.Select(b => new adminBruker
                 {
-                    var slettObjekt = db.Betalinger.Find(id);
-                    db.Betalinger.Remove(slettObjekt);
-                    db.SaveChanges();
-                    return true;
-                }
-                catch (Exception innsettingsFeil)
-                {
-                    return false;
-                    throw new Exception(
-                        "Feil ved sletting av data i databasen", innsettingsFeil);
-                }
+                    brukernavn = b.Brukernavn
+                }).ToList();
+                return alleBrukere;
             }
         }
 
-
-        //Metoder for bruker
-        public bool lagreBruker (adminBruker innBruker)
+        public bool lagreBruker(adminBruker innBruker)
         {
             using (var db = new BrukerContext())
             {
@@ -611,9 +567,8 @@ namespace Oblig1WebApp.DAL
                 }
                 catch (Exception innsettingsFeil)
                 {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
                     return false;
-                    throw new Exception(
-                        "Feil ved sletting av data i databasen", innsettingsFeil);
                 }
             }
         }
@@ -641,7 +596,7 @@ namespace Oblig1WebApp.DAL
                 if (funnetBruker != null)
                 {
                     byte[] passordForTest = lagHash(innBruker.passord, funnetBruker.Salt);
-                    bool riktigBruker = funnetBruker.Passord.SequenceEqual(passordForTest);  // merk denne testen!
+                    bool riktigBruker = funnetBruker.Passord.SequenceEqual(passordForTest);
                     return riktigBruker;
                 }
                 else
@@ -651,36 +606,16 @@ namespace Oblig1WebApp.DAL
             }
         }
 
-        public List<adminBruker> alleBrukere()
+        //Metode for filskriving
+        public void LogDbErrors(string feilMelding)
         {
-            using (var db = new BrukerContext())
-            {
-                List<adminBruker> alleBrukere = db.AdminBruker.Select(b => new adminBruker
-                {
-                    brukernavn = b.Brukernavn
-                }).ToList();
-                return alleBrukere;
-            }
-        }
+            FileStream outputFileStream = new FileStream(@"C:\Users\Fredrik\source\repos\Oblig1WebApp\Oblig1WebApp\Oblig1WebApp\Error.txt", FileMode.Append, FileAccess.Write);
 
-        public bool slettBruker(int id)
-        {
-            using (var db = new BrukerContext())
-            {
-                try
-                {
-                    var slettBruker = db.AdminBruker.Find(id);
-                    db.AdminBruker.Remove(slettBruker);
-                    db.SaveChanges();
-                    return true;
-                }
-                catch (Exception innsettingsFeil)
-                {
-                    return false;
-                    throw new Exception(
-                        "Feil ved sletting av data i databasen", innsettingsFeil);
-                }
-            }
+            StreamWriter error = new StreamWriter(outputFileStream);
+            string innSetting = "";
+            innSetting += feilMelding + " " + DateTime.Now;
+            error.WriteLine(innSetting);
+            error.Close();
         }
 
     }

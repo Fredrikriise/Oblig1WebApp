@@ -6,6 +6,35 @@
 
 <h2>Alle registrerte avgangstider</h2>
 
+<div>
+    @if (TempData["Slettet"] != null)
+    {
+        var value = ((TempData["Slettet"] != null).ToString().ToLower());
+        if (value == "true")
+        {
+            <p class="alert alert-success">Avgangstider data ble suksessfult <b>slettet</b>!</p>
+        }
+    }
+
+    @if (TempData["Endret"] != null)
+    {
+        var value = ((TempData["Endret"] != null).ToString().ToLower());
+        if (value == "true")
+        {
+            <p class="alert alert-success">Avgangstider data ble suksessfult <b>endret</b>!</p>
+        }
+    }
+
+    @if (TempData["Registrert"] != null)
+    {
+        var value = ((TempData["Registrert"] != null).ToString().ToLower());
+        if (value == "true")
+        {
+            <p class="alert alert-success">Avgangstider data ble suksessfult <b>registrert</b>!</p>
+        }
+    }
+</div>
+
 <p>
     @Html.ActionLink("Registrer ny avgangstid", "registreralleavgangstid")
 </p>
@@ -30,12 +59,13 @@
                 @Html.DisplayFor(modelItem => item.avgangstidRetur)
             </td>
             <td>
-                @Html.ActionLink("Endre", "endreAlleavgangstider", new { id = item.id }) |
-                @Html.ActionLink("Slett", "slettalleavgangstid", new { id = item.id })
+                @Html.ActionLink("Endre", "endreAlleavgangstider", new { id = item.id }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Slett", "slettalleavgangstid", new { id = item.id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
     }
 
 </table>
 
+<a href="/Bestilling/registreralleavgangstid"><input type="button" value="Gå til registrering av ny avgangstid" class="btn btn-dark" /></a> |
 <a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>

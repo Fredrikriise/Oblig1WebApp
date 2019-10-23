@@ -9,12 +9,22 @@
 
 <h2>Endring av avganger</h2>
 
+<div>
+    @if (ViewBag.Endret == true)
+    {
+        <p class="alert alert-success">Avgang suksessfult endret!</p>
+    }
+    else if (ViewBag.Endret == false)
+    {
+        <p class="alert alert-danger">Endring av avgang feilet, prøv igjen!</p>
+    }
+</div>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Avgang</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
@@ -37,12 +47,10 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Lagre endringer" class="btn btn-default" />
+                <input type="submit" value="Lagre endringer" class="btn btn-success" /> |
+                <a href="/Bestilling/listAvganger"><input type="button" value="Tilbake til listing av avganger" class="btn btn-dark" /></a> |
+                <a href="/Bruker/kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Tilbake til avganger", "listAvganger")
-</div>

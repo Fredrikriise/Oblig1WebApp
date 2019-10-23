@@ -14,6 +14,15 @@
 
 <h2>Vennligst fyll inn informasjonen under for å logge inn</h2>
 
+@if (TempData["LoggetUt"] != null)
+{
+    var value = ((TempData["LoggetUt"] != null).ToString().ToLower());
+    if (value == "true")
+    {
+        <p class="alert alert-success">Du har suksessfult <b>logget ut</b>!</p>
+    }
+}
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
