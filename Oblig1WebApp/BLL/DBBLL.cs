@@ -1,8 +1,8 @@
-﻿using Oblig1WebApp.DAL;
-using Oblig1WebApp.Models;
+﻿using DAL;
+using Model;
 using System.Collections.Generic;
 
-namespace Oblig1WebApp.BLL
+namespace BLL
 {
     public class DBBLL : BLL.ILogikk
     {

@@ -1,131 +1,39 @@
-﻿@model IEnumerable<Oblig1WebApp.Models.Bestilling>
+﻿@model Model.Hjelpeklasse
 
 @{
-    ViewBag.Title = "List alle bestillinger";
+    ViewBag.Title = "listBestillinger";
 }
 
-<h2>Alle registrerte bestillinger</h2>
+<h2>listBestillinger</h2>
 
 <p>
-    @Html.ActionLink("Lag en ny bestilling", "Bestilling")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.fraLokasjon)
+            @Html.DisplayNameFor(model => model.bestilling)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tilLokasjon)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.billettType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.utreiseDato)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.avgangstid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.returDato)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.avgangstidRetur)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.voksen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.barn0_5)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.student)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.honnoer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.vernepliktig)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.barn6_17)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.barnevogn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sykkel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.hundover_40cm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.kjaeledyrunder_40cm)
+            @Html.DisplayNameFor(model => model._sisteAvgang)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.fraLokasjon)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tilLokasjon)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.billettType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.utreiseDato)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.avgangstid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.returDato)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.avgangstidRetur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.voksen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.barn0_5)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.student)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.honnoer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.vernepliktig)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.barn6_17)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.barnevogn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sykkel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hundover_40cm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.kjaeledyrunder_40cm)
-        </td>
-        <td>
-            @Html.ActionLink("Endre bestilling", "endreBestilling", new { id = item.id }) |
-            @Html.ActionLink("Slett bestilling", "slettBestilling", new { id = item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item._forsteAvgang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._sisteAvgang)
+            </td>
+            <td>
+                @Html.ActionLink("Endre avganger", "endreAvgang", new { id = item.id }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Slett avganger", "slettAvgang", new { id = item.id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>
-
-<a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>

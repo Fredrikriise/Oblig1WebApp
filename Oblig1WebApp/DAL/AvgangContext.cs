@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using TrackerEnabledDbContext;
 
-namespace Oblig1WebApp.DAL
+namespace DAL
 {
     [TrackChanges]
     public class Avganger

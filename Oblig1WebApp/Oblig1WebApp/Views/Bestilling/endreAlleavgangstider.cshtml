@@ -1,4 +1,4 @@
-﻿@model Oblig1WebApp.Models.alleavgangstid
+﻿@model Model.alleavgangstid
 
 <h2>Endring av avgangstider</h2>
 
@@ -41,8 +41,8 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Lagre endringer" class="btn btn-success" /> |
-                <input type="submit" value="Tilbake til avgangstider" formaction="/Bestilling/listAlleavgangstider" class="btn btn-dark" /> |
-                <input type="submit" value="Tilbake til kontrollpanel" formaction="/Bruker/Kontrollpanel" class="btn btn-primary" />
+                <a href="/Bestilling/listAlleavgangstider"></a><input type="button" value="Tilbake til avgangstider" class="btn btn-dark" /> |
+                <a href="/Bruker/Kontrollpanel"></a><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" />
             </div>
         </div>
     </div>

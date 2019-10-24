@@ -82,6 +82,7 @@
     <Compile Include="Avgang.cs" />
     <Compile Include="Bestilling.cs" />
     <Compile Include="Betaling.cs" />
+    <Compile Include="Hjelpeklasse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="visAvgang.cs" />
   </ItemGroup>

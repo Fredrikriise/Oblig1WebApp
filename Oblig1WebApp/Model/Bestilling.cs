@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-namespace Oblig1WebApp.Models
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Model
 {
     public class Bestilling
     {
@@ -41,3 +46,4 @@ namespace Oblig1WebApp.Models
         public int? kjaeledyrunder_40cm { get; set; }
     }
 }
+

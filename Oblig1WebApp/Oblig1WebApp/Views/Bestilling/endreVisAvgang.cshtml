@@ -1,4 +1,4 @@
-﻿@model Oblig1WebApp.Models.visAvgang
+﻿@model Model.visAvgang
 
 <h2>Endre avgang + detaljer</h2>
 
@@ -81,8 +81,8 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Lagre endringer" formaction="endreVisAvgang" class="btn btn-success" /> |
-                <input type="submit" value="Tilbake til listing av alle avganger" formaction="/Bestilling/listVisAvganger" class="btn btn-dark" /> |
-                <input type="submit" value="Tilbake til kontrollpanel" formaction="Kontrollpanel" class="btn btn-primary" />
+                <a href="/Bestilling/listVisAvganger"></a><input type="button" value="Tilbake til listing av alle avganger" class="btn btn-dark" /> |
+                <a href="Kontrollpanel"></a><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" />
             </div>
         </div>
     </div>

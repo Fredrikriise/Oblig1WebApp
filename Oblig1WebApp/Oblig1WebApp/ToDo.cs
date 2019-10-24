@@ -8,14 +8,9 @@
     * Fikse navbaren (tror kanskje det må lages et nytt prosjekt)
 
     - Kanskje sette på noen ikoner på kontrollpanel
-    - Er det forskjell på å bruke:
-     "<input type="submit" value="Tilbake til kontrollpanel" formaction="/Bruker/Kontrollpanel" class="btn btn-primary" />"
-     og 
-     "<a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>
     - Fiks listBestilling-viewet.
-    - Hva skal vi gjøre med betalingsinformasjon? Blir det ikke feil at brukere skal se slik sensitiv informasjon?
-    - Vi har ikke satt på required på avgangklassene, og man kan derfor registrere uten å skrive noe. 
-    ^ .. Går dette greit siden det er på bruker delen? Litt kjedelig å måtte slette viewsene, generere de på nytt og så endre igjen
+    - Fikse listing av betaling
+    - Fikse navbar
     - Loggføring til fil, må skrive egen path
 
     ----- NOTATER Felix -----

@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Oblig1WebApp.BLL;
+using BLL;
 using Oblig1WebApp.Controllers;
-using Oblig1WebApp.DAL;
+using DAL;
 
 namespace Enhetstest
 {

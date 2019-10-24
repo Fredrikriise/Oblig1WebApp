@@ -1,7 +1,7 @@
-﻿using Oblig1WebApp.Models;
+﻿using Model;
 using System.Collections.Generic;
 
-namespace Oblig1WebApp.DAL
+namespace DAL
 {
     public class RepositoryStub : DAL.IRepository
     {

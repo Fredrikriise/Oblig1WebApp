@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Oblig1WebApp.Models
+namespace Model
 {
 
     public class adminBruker

@@ -1,4 +1,4 @@
-﻿using Oblig1WebApp.Models;
+﻿using Model;
 using System.Web.Mvc;
 using System.Web.Routing;
 using TrackerEnabledDbContext.Common.Configuration;

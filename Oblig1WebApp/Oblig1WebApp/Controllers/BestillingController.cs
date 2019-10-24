@@ -1,5 +1,5 @@
-﻿using Oblig1WebApp.BLL;
-using Oblig1WebApp.Models;
+﻿using BLL;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -28,7 +28,15 @@ namespace Oblig1WebApp.Controllers
         public ActionResult listBestillinger()
         {
             List<Bestilling> alleBestillinger = _bestillingBBL.alleBestillinger();
-            return View(alleBestillinger);
+            List<Betaling> alleBetalinger = _bestillingBBL.alleBetalinger();
+
+            Hjelpeklasse test = new Hjelpeklasse
+            {
+                bestilling = alleBestillinger,
+                betaling = alleBetalinger
+            };
+            
+            return View(test);
         }
 
         [HttpPost]

@@ -1,4 +1,4 @@
-﻿@model Oblig1WebApp.Models.visAvgang
+﻿@model Model.visAvgang
 
 @{
     ViewBag.Title = "Registrer ny avgang + detaljer";
@@ -72,8 +72,8 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Registrer ny avgang + detaljer" class="btn btn-success" /> |
-                <input type="submit" value="Gå til listing av avganger + detaljer" formaction="listVisAvganger" class="btn btn-dark" /> |
-                <input type="submit" value="Tilbake til kontrollpanel" formaction="/Bruker/Kontrollpanel" class="btn btn-primary" />
+                <a href="listVisAvganger"></a><input type="button" value="Gå til listing av avganger + detaljer" class="btn btn-dark" /> |
+                <a href="/Bruker/Kontrollpanel"></a><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" />
             </div>
         </div>
     </div>

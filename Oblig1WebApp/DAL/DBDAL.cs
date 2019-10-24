@@ -1,11 +1,11 @@
-﻿using Oblig1WebApp.Models;
+﻿using Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace Oblig1WebApp.DAL
+namespace DAL
 {
     public class DBDAL : DAL.IRepository
     {
@@ -35,6 +35,7 @@ namespace Oblig1WebApp.DAL
                     hundover_40cm = b.Hundover_40cm,
                     kjaeledyrunder_40cm = b.Kjaeledyrunder_40cm
                 }).ToList();
+
                 return alleBestillinger;
             }
         }

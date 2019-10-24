@@ -1,5 +1,5 @@
-﻿using Oblig1WebApp.BLL;
-using Oblig1WebApp.Models;
+﻿using BLL;
+using Model;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;

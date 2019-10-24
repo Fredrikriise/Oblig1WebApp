@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Oblig1WebApp.BLL;
+using BLL;
 using Oblig1WebApp.Controllers;
-using Oblig1WebApp.DAL;
-using Oblig1WebApp.Models;
+using DAL;
+using Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;

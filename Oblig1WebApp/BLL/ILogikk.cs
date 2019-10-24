@@ -1,7 +1,6 @@
-﻿using Oblig1WebApp.Models;
+﻿using Model;
 using System.Collections.Generic;
-
-namespace Oblig1WebApp.BLL
+namespace BLL
 {
     public interface ILogikk
     {

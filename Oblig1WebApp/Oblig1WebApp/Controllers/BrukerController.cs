@@ -1,5 +1,5 @@
-﻿using Oblig1WebApp.BLL;
-using Oblig1WebApp.Models;
+﻿using BLL;
+using Model;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -76,12 +76,10 @@ namespace Oblig1WebApp.Controllers
             {
                 ModelState.AddModelError("", "Brukernavn er nødt til å bestå av minst 8 tegn");
             }
-
-            if (innBruker.passord.Length < 8)
+            else if (innBruker.passord.Length < 8)
             {
                 ModelState.AddModelError("", "Passordet er nødt til å bestå av minst 8 tegn");
             }
-
             else
             {
 
