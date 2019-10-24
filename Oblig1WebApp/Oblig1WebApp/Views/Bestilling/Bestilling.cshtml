@@ -240,6 +240,17 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <br />
 
+        <div>
+        @if (TempData["Bestilt"] != null)
+        {
+            var value = ((TempData["Bestilt"] != null).ToString().ToLower());
+            if (value == "true")
+            {
+                <p class="alert alert-success">Din reise ble suksessfult <b>bestilt</b>!</p>
+            }
+        }
+        </div>
+
         <form id="bestillingsSkjema" action="/Bestilling/regBestilling" method="post" onsubmit="return validering()">
             <table class="borderless">
                 <tr>

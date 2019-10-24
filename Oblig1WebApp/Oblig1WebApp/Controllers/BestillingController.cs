@@ -169,6 +169,7 @@ namespace Oblig1WebApp.Controllers
 
             if (OK && OKBetaling)
             {
+                TempData["Bestilt"] = true;
                 return RedirectToAction("Bestilling");
             }
             else
