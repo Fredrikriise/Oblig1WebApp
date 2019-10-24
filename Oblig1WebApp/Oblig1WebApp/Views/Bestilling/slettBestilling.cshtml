@@ -152,9 +152,10 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Slett bestilling" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+<div class="form-actions no-color">
+    <input type="submit" value="Slett bestilling" class="btn btn-danger" /> |
+    <a href="/Bestilling/listBestillinger"><input type="button" value="Tilbake til listing av bestilling" class="btn btn-dark" /></a> |
+    <a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>
+</div>
     }
 </div>

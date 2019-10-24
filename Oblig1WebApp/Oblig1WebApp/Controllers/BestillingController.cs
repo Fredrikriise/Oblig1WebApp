@@ -114,12 +114,12 @@ namespace Oblig1WebApp.Controllers
         {
             if (innBestilling.avgangstid != null)
             {
-                Session["avgangstid"] = innBestilling.avgangstid;
+                Session["avgangstid"] = innBestilling.avgangstid.ToString();
             }
 
             if (innBestilling.avgangstidRetur != null)
             {
-                Session["avgangstidRetur"] = innBestilling.avgangstidRetur;
+                Session["avgangstidRetur"] = innBestilling.avgangstidRetur.ToString();
             }
             return RedirectToAction("Betaling");
         }
