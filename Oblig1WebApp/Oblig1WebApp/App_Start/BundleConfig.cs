@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace Oblig1WebApp.Models
+namespace Model
 {
     public class BundleConfig
     {

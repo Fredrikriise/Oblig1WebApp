@@ -275,6 +275,7 @@
     <Content Include="Views\Bestilling\slettVisAvgang.cshtml" />
     <Content Include="Views\Bestilling\slettAvgang.cshtml" />
     <Content Include="Views\Bestilling\listBestillinger.cshtml" />
+    <Content Include="Views\Bestilling\betalingDetaljer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -4,12 +4,14 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
         <link rel="icon" href="favicon.ico" type="image/ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        
         <script type="text/javascript">
             // Ajax for første avgang
             $(function () {
@@ -143,7 +145,7 @@
                             var ok = "";
                             $("#forsteAvgangValidering").html(ok);
                         });
-                    } 
+                    }
 
                     if (dropSiste.length == 0) {
                         evt.preventDefault()
@@ -186,7 +188,7 @@
                             }
                         });
                     }
-                   
+
                     //Sjekker om en billett er valgt
                     if (voksenValidering == 0 && studentValidering == 0 && barn0_5Validering == 00 && honnoerValidering == 0 && vernepliktigValidering == 00 && barn6_17Validering == 00) {
                         document.getElementById("billettValidering").innerHTML = "*Ingen billett valgt! Du er nødt til å velge en type billett*";
@@ -227,7 +229,7 @@
                                 }
                             });
                         }
-                    } 
+                    }
                 });
             });
         </script>

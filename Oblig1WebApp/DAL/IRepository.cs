@@ -9,6 +9,7 @@ namespace DAL
         List<Bestilling> alleBestillinger();
         Bestilling hentBestilling(int id);
         bool lagreBestilling(Bestilling innBestilling);
+        bool slettBestilling(int id);
         // Avgang
         List<Avgang> alleAvganger();
         Avgang hentAvgang(int id);
@@ -31,6 +32,7 @@ namespace DAL
         List<Betaling> alleBetalinger();
         Betaling hentBetaling(int id);
         bool lagreBetaling(Betaling innBetaling);
+        bool slettBetaling(int id);
         // Bruker
         List<adminBruker> alleBrukere();
         bool lagreBruker(adminBruker innBruker);

@@ -19,10 +19,12 @@ namespace Model
         [Display(Name = "Dato utreise")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? utreiseDato { get; set; }
+        [Display(Name = "Avgangstid")]
         public string avgangstid { get; set; }
         [Display(Name = "Dato retur")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? returDato { get; set; }
+        [Display(Name = "Avgangstid retur")]
         public string avgangstidRetur { get; set; }
         [Display(Name = "Antall voksenbilletter")]
         public int? voksen { get; set; }

@@ -28,15 +28,7 @@ namespace Oblig1WebApp.Controllers
         public ActionResult listBestillinger()
         {
             List<Bestilling> alleBestillinger = _bestillingBBL.alleBestillinger();
-            List<Betaling> alleBetalinger = _bestillingBBL.alleBetalinger();
-
-            Hjelpeklasse test = new Hjelpeklasse
-            {
-                bestilling = alleBestillinger,
-                betaling = alleBetalinger
-            };
-            
-            return View(test);
+            return View(alleBestillinger);
         }
 
         [HttpPost]
@@ -183,6 +175,24 @@ namespace Oblig1WebApp.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult slettBestilling(int id)
+        {
+            Bestilling enBestilling = _bestillingBBL.hentBestilling(id);
+            return View(enBestilling);
+        }
+
+        [HttpPost]
+        public ActionResult slettBestilling(int id, Bestilling innBestilling)
+        {
+            bool OK = _bestillingBBL.slettBestilling(id) && _bestillingBBL.slettBetaling(id);
+            if (OK)
+            {
+                TempData["Slettet"] = true;
+                return RedirectToAction("listBestillinger");
+            }
+            return View();
         }
 
         // Metoder for Avgang
@@ -387,6 +397,12 @@ namespace Oblig1WebApp.Controllers
         {
             List<Betaling> alleBetalinger = _bestillingBBL.alleBetalinger();
             return View(alleBetalinger);
+        }
+
+        public ActionResult betalingDetaljer (int id)
+        {
+            Betaling enBetaling = _bestillingBBL.hentBetaling(id);
+            return View(enBetaling);
         }
     }
 }

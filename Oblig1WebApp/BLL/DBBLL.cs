@@ -36,6 +36,11 @@ namespace BLL
             return _repository.lagreBestilling(innBestilling);
         }
 
+        public bool slettBestilling(int id)
+        {
+            return _repository.slettBestilling(id);
+        }
+
         // Avganger
         public List<Avgang> alleAvganger()
         {
@@ -133,6 +138,12 @@ namespace BLL
         {
             return _repository.lagreBetaling(innBetaling);
         }
+
+        public bool slettBetaling(int id)
+        {
+            return _repository.slettBetaling(id);
+        }
+
 
         // Bruker
         public List<adminBruker> alleBrukere()

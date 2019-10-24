@@ -83,6 +83,18 @@ namespace DAL
             }
         }
 
+        public bool slettBestilling(int id)
+        {
+            if (id == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         // Avganger
         public List<Avgang> alleAvganger()
         {
@@ -356,6 +368,18 @@ namespace DAL
         public bool lagreBetaling(Betaling innBetaling)
         {
             if (innBetaling.id == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool slettBetaling(int id)
+        {
+            if (id == 0)
             {
                 return false;
             }

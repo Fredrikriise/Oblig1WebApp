@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace DAL
 {
-    public class DBDAL : DAL.IRepository
+    public class DBDAL : IRepository
     {
         // Metoder for Bestilling
         public List<Bestilling> alleBestillinger()
@@ -526,6 +526,25 @@ namespace DAL
                     nyBetaling.CvC = innBetaling.CVC;
 
                     db.Betalinger.Add(nyBetaling);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception innsettingsFeil)
+                {
+                    LogDbErrors(innsettingsFeil.GetBaseException().Message.ToString());
+                    return false;
+                }
+            }
+        }
+
+        public bool slettBetaling(int id)
+        {
+            using (var db = new BestillingContext())
+            {
+                try
+                {
+                    var slettObjekt = db.Betalinger.Find(id);
+                    db.Betalinger.Remove(slettObjekt);
                     db.SaveChanges();
                     return true;
                 }
