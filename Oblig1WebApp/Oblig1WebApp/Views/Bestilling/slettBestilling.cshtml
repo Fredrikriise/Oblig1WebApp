@@ -1,0 +1,160 @@
+﻿@model Model.Bestilling
+
+@{
+    ViewBag.Title = "Sletting av bestilling";
+}
+
+<h2>Sletting av bestilling</h2>
+
+<h3>Er du sikker på at du ønsker å slette denne bestillingen?</h3>
+<div>
+    <h4>Bestilling</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fraLokasjon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fraLokasjon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tilLokasjon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tilLokasjon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.billettType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.billettType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.utreiseDato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.utreiseDato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.avgangstid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.avgangstid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.returDato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.returDato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.avgangstidRetur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.avgangstidRetur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.voksen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.voksen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.barn0_5)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.barn0_5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.student)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.student)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.honnoer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.honnoer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vernepliktig)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vernepliktig)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.barn6_17)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.barn6_17)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.barnevogn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.barnevogn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sykkel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sykkel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hundover_40cm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hundover_40cm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kjaeledyrunder_40cm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kjaeledyrunder_40cm)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Slett bestilling" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

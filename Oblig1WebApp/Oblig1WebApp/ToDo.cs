@@ -8,10 +8,9 @@
     * Fikse navbaren (tror kanskje det må lages et nytt prosjekt)
 
     - Kanskje sette på noen ikoner på kontrollpanel
-    - Fiks listBestilling-viewet.
-    - Fikse listing av betaling
-    - Fikse navbar
     - Loggføring til fil, må skrive egen path
+    - Verdien til avgangstid og returtid returnerer id'en og ikke verdien
+    - Betaling fullført view?
 
     ----- NOTATER Felix -----
     * Fikse enhetstesting for regBestilling-metodene og AvgangController
