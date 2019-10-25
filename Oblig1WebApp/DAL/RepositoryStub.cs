@@ -106,8 +106,6 @@ namespace DAL
                 _sisteAvgang = "Holmlia"
             };
             avgangListe.Add(avgang);
-            avgangListe.Add(avgang);
-            avgangListe.Add(avgang);
             return avgangListe;
         }
 
@@ -183,8 +181,6 @@ namespace DAL
                 pris = 35
             };
             visAvgangListe.Add(visAvgang);
-            visAvgangListe.Add(visAvgang);
-            visAvgangListe.Add(visAvgang);
             return visAvgangListe;
         }
 
@@ -259,8 +255,6 @@ namespace DAL
                 avgangstid = "14:00",
                 avgangstidRetur = "15:15"
             };
-            alleavgangstidListe.Add(alleavgangstid);
-            alleavgangstidListe.Add(alleavgangstid);
             alleavgangstidListe.Add(alleavgangstid);
             return alleavgangstidListe;
         }
@@ -408,6 +402,10 @@ namespace DAL
         public bool lagreBruker(adminBruker innBruker)
         {
             if (innBruker.brukernavn == "")
+            {
+                return false;
+            } 
+            else if(innBruker.passord == "")
             {
                 return false;
             }

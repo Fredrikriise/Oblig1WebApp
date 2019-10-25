@@ -13,7 +13,6 @@ namespace Enhetstest
     [TestClass]
     public class BrukerControllerTest
     {
-        // Fikse denne metoden med Session
         [TestMethod]
         public void Kontrollpanel_Test_OK()
         {
@@ -132,12 +131,10 @@ namespace Enhetstest
             var controller = new BrukerController(new DBBLL(new RepositoryStub()));
             SessionMock.InitializeController(controller);
 
-            controller.Session["RegistrertBruker"] = true;
-
             var bruker = new adminBruker()
             {
-                brukernavn = "Frank",
-                passord = "hdfshfud"
+                brukernavn = "Frankerino",
+                passord = "hdfshfuger"
             };
 
             // Act
@@ -146,18 +143,21 @@ namespace Enhetstest
             // Assert
             Assert.AreEqual(resultat.ViewName, "");
             Assert.AreEqual(true, resultat.ViewData["RegistrertBruker"]);
+            Assert.AreEqual(false, resultat.ViewData["Brukernavntatt"]);
         }
-        /*
+
         [TestMethod]
-        public void RegistrerBruker_Test_Feilet()
+        public void RegistrerBruker_Test_Feilet_brukernavn()
         {
             // Arrange
+            var SessionMock = new TestControllerBuilder();
             var controller = new BrukerController(new DBBLL(new RepositoryStub()));
+            SessionMock.InitializeController(controller);
 
             var bruker = new adminBruker()
             {
                 brukernavn = "",
-                passord = "fhfhfhf"
+                passord = "huhuhuhuhu"
             };
 
             // Act
@@ -165,9 +165,29 @@ namespace Enhetstest
 
             // Assert
             Assert.AreEqual(resultat.ViewName, "");
-            Assert.AreEqual(false, resultat.ViewData["RegistrertBruker"]);
         }
-        */
+
+        [TestMethod]
+        public void RegistrerBruker_Test_Feilet_passord()
+        {
+            // Arrange
+            var SessionMock = new TestControllerBuilder();
+            var controller = new BrukerController(new DBBLL(new RepositoryStub()));
+            SessionMock.InitializeController(controller);
+
+            var bruker = new adminBruker()
+            {
+                brukernavn = "huhuhuhuhu",
+                passord = ""
+            };
+
+            // Act
+            var resultat = (ViewResult)controller.RegistrerBruker(bruker);
+
+            // Assert
+            Assert.AreEqual(resultat.ViewName, "");
+        }
+
         [TestMethod]
         public void LoggUt_Test()
         {

@@ -74,11 +74,11 @@ namespace Oblig1WebApp.Controllers
 
             if (innBruker.brukernavn.Length < 8)
             {
-                ModelState.AddModelError("", "Brukernavn er nødt til å bestå av minst 8 tegn");
+                ModelState.AddModelError("brukernavn", "Brukernavn er nødt til å bestå av minst 8 tegn");
             }
             else if (innBruker.passord.Length < 8)
             {
-                ModelState.AddModelError("", "Passordet er nødt til å bestå av minst 8 tegn");
+                ModelState.AddModelError("passord", "Passordet er nødt til å bestå av minst 8 tegn");
             }
             else
             {

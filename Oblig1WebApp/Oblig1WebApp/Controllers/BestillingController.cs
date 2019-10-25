@@ -19,6 +19,7 @@ namespace Oblig1WebApp.Controllers
         {
             _bestillingBBL = stub;
         }
+
         // Metoder for Bestilling
         public ActionResult Bestilling()
         {
@@ -177,7 +178,7 @@ namespace Oblig1WebApp.Controllers
                 return View();
             }
         }
-
+        
         public ActionResult slettBestilling(int id)
         {
             Bestilling enBestilling = _bestillingBBL.hentBestilling(id);
@@ -386,7 +387,6 @@ namespace Oblig1WebApp.Controllers
             }
             return View();
         }
-
 
         //Metoder for betaling
         public ActionResult Betaling()

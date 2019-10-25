@@ -13,14 +13,33 @@
     - Betaling fullført view?
 
     ----- NOTATER Felix -----
-    * Fikse enhetstesting for regBestilling-metodene og AvgangController
-    * Fikse BrukerControllerTest på registrerBruker
-    
-    * Får man testet ViewData med RedirectToRouteResult?
-    * Trengs denne kodelinjen? var resultat = (alleavgangstid)actionResult.Model;
-    * Er hentBestilling_Feilet riktig testet?
-    * Skal "endretAvgang ikke funnet ved view"-test være med?
-    * hentBetaling og lagreBetaling, nødvendig?
+    * Fikse enhetstesting
+    * Fikse BrukerControllerTest på registrerBruker (Prøve å teste siste else { })
+    * hentAvgang er ikke ordentlig testet
+        - slettBetaling vil ikke returne false i stub'en
+
+
+    ----- Til README-fil ------
+    // Enhetstest av BrukerController
+    * For testing av BrukerController -> Jeg tester brukernavn og passord i BrukerControllerTest, 
+    * .. men i RepositoryStub står det at brukernavn og passord ikke er testet. Så på dette med Anton på torsdag, 
+    * .. og han skjønte heller ikke hvorfor det ikke står at det blir testet.
+
+
+    // Enhetstest for BestillingController
+    * Her har jeg testet noen unødvendige ting - trodde jeg skulle teste absolutt alt,
+    * .. men Anton fortalte meg på torsdag at vi ikke skulle teste noe fra Oblig1. 
+    * .. Dvs. det jeg har testet som er unødvendig er blandt annet hentBestilling og BetalingDetaljer 
+    * .. siden dette brukes ved bestilling av togtur.
+    * Eneste vi ikke har fått testet her, er om slettBetaling returnerer false. Jeg vet ikke helt hvordan jeg skal teste dette,
+    * .. i og med at betaling slettes sammen med bestillingen.
+    * Har heller ikke testet regBestilling-metodene, siden dette er en del av oblig1. 
+     
+    // Enhetstest for AvgangController
+    * Her har jeg testet hent-metodene, noe som også er en del av oblig1, dvs. jeg har testet de unødvendig.
+    * .. Anton sa det gikk fint å bare la den unødvendige testing være. 
+
+
     */
     }
 }

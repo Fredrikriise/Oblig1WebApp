@@ -6,6 +6,7 @@ using Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using MvcContrib.TestHelper;
 
 namespace Enhetstest
 {
@@ -90,74 +91,6 @@ namespace Enhetstest
         }
 
         [TestMethod]
-        public void regBestilling_Test_OK()
-        {
-            // Arrange
-            var controller = new BestillingController(new DBBLL(new RepositoryStub()));
-
-            var innBestilling = new Bestilling()
-            {
-                id = 1,
-                fraLokasjon = "Langhus",
-                tilLokasjon = "Holmlia",
-                billettType = "En vei",
-                utreiseDato = null,
-                avgangstid = "14:00",
-                returDato = null,
-                avgangstidRetur = "15:15",
-                voksen = 1,
-                barn0_5 = 0,
-                student = 0,
-                honnoer = 0,
-                vernepliktig = 0,
-                barn6_17 = 0,
-                barnevogn = 0,
-                sykkel = 0,
-                hundover_40cm = 0,
-                kjaeledyrunder_40cm = 0
-            };
-
-            // Act
-            var resultat = (RedirectToRouteResult)controller.regBestilling(innBestilling);
-
-            // Assert
-            Assert.AreEqual(resultat.RouteName, "");
-            Assert.AreEqual(resultat.RouteValues.Values.First(), "visAvganger");
-        }
-
-        [TestMethod]
-        public void regBestilling_Test_Feilet()
-        {
-            // Arrange
-            var controller = new BestillingController(new DBBLL(new RepositoryStub()));
-            var innBestilling = new Bestilling();
-            controller.ViewData.ModelState.AddModelError("fraLokasjon", "Du er nødt til å velge hvor du ønsker å reise fra");
-            controller.ViewData.ModelState.AddModelError("tilLokasjon", "Du er nødt til å velge hvor du ønsker å reise til");
-            controller.ViewData.ModelState.AddModelError("utreisedato", "Du er nødt til å velge hvilke dato du ønsker å reise");
-            controller.ViewData.ModelState.AddModelError("returdato", "Du er nødt til å velge hvilken dato du ønsker å returnere");
-            controller.ViewData.ModelState.AddModelError("reisende", "Du er nødt til å velge reisende");
-
-            // Act
-            var resultat = (ViewResult)controller.regBestilling(innBestilling);
-
-            // Assert
-            Assert.IsTrue(resultat.ViewData.ModelState.Count == 5);
-            Assert.AreEqual(resultat.ViewName, "");
-        }
-
-        [TestMethod]
-        public void regBestilling3_Test_OK()
-        {
-
-        }
-
-        [TestMethod]
-        public void regBestilling3_Test_Feilet()
-        {
-
-        }
-
-        [TestMethod]
         public void hentBestilling_Test_OK()
         {
             // Arrange
@@ -212,35 +145,83 @@ namespace Enhetstest
         }
 
         [TestMethod]
-        public void hentBestilling_Test_Feilet()
+        public void slettBestilling_Test()
         {
             // Arrange
             var controller = new BestillingController(new DBBLL(new RepositoryStub()));
 
-            var forventetResultat = new Bestilling()
+            // Act
+            var actionResult = (ViewResult)controller.slettBestilling(1);
+
+            // Assert
+            Assert.AreEqual(actionResult.ViewName, "");
+        }
+
+        [TestMethod]
+        public void slettBestilling_Test_Funnet_Post()
+        {
+            // Arrange
+            var controller = new BestillingController(new DBBLL(new RepositoryStub()));
+            var innBestilling = new Bestilling()
             {
-                id = 0
+                fraLokasjon = "Langhus",
+                tilLokasjon = "Holmlia",
+                billettType = "En vei",
+                utreiseDato = null,
+                avgangstid = "14:00",
+                returDato = null,
+                avgangstidRetur = "15:15",
+                voksen = 1,
+                barn0_5 = 0,
+                student = 0,
+                honnoer = 0,
+                vernepliktig = 0,
+                barn6_17 = 0,
+                barnevogn = 0,
+                sykkel = 0,
+                hundover_40cm = 0,
+                kjaeledyrunder_40cm = 0
             };
 
             // Act
-            var resultat = (ViewResult)controller.hentBestilling(0);
-            var resultatListe = (Bestilling)resultat.Model;
+            var resultat = (RedirectToRouteResult)controller.slettBestilling(1, innBestilling);
+
+            // Assert
+            Assert.AreEqual(resultat.RouteName, "");
+            Assert.AreEqual(resultat.RouteValues.Values.First(), "listBestillinger");
+        }
+
+        [TestMethod]
+        public void slettBestilling_Test_Ikke_Funnet_Post()
+        {
+            // Arrange
+            var controller = new BestillingController(new DBBLL(new RepositoryStub()));
+            var innBestilling = new Bestilling()
+            {
+                fraLokasjon = "Langhus",
+                tilLokasjon = "Holmlia",
+                billettType = "En vei",
+                utreiseDato = null,
+                avgangstid = "14:00",
+                returDato = null,
+                avgangstidRetur = "15:15",
+                voksen = 1,
+                barn0_5 = 0,
+                student = 0,
+                honnoer = 0,
+                vernepliktig = 0,
+                barn6_17 = 0,
+                barnevogn = 0,
+                sykkel = 0,
+                hundover_40cm = 0,
+                kjaeledyrunder_40cm = 0
+            };
+
+            // Act
+            var resultat = (ViewResult)controller.slettBestilling(0, innBestilling);
 
             // Assert
             Assert.AreEqual(resultat.ViewName, "");
-            Assert.AreEqual(forventetResultat.id, resultatListe.id);
-        }
-
-        [TestMethod]
-        public void regBestilling2_test_OK()
-        {
-
-        }
-
-        [TestMethod]
-        public void regBestilling2_test_Feilet()
-        {
-
         }
 
         // Avgang
@@ -291,21 +272,6 @@ namespace Enhetstest
         }
 
         [TestMethod]
-        public void endreAvgang_Test_Ikke_Funnet_Ved_View()
-        {
-            // Arrange
-            var controller = new BestillingController(new DBBLL(new RepositoryStub()));
-
-            // Act
-            var resultat = (ViewResult)controller.endreAvgang(0);
-            var endreResultat = (Avgang)resultat.Model;
-
-            // Assert
-            Assert.AreEqual(resultat.ViewName, "");
-            Assert.AreEqual(endreResultat.id, 0);
-        }
-
-        [TestMethod]
         public void endreAvgang_Test_Ikke_Funnet_Post()
         {
             // Arrange
@@ -352,7 +318,6 @@ namespace Enhetstest
 
             // Act
             var actionResult = (ViewResult)controller.slettAvgang(1);
-            var resultat = (Avgang)actionResult.Model;
 
             // Assert
             Assert.AreEqual(actionResult.ViewName, "");
@@ -521,21 +486,6 @@ namespace Enhetstest
         }
 
         [TestMethod]
-        public void endreVisAvgang_Test_Ikke_Funnet_Ved_View()
-        {
-            // Arrange
-            var controller = new BestillingController(new DBBLL(new RepositoryStub()));
-
-            // Act
-            var resultat = (ViewResult)controller.endreVisAvgang(0);
-            var endreResultat = (visAvgang)resultat.Model;
-
-            // Assert
-            Assert.AreEqual(resultat.ViewName, "");
-            Assert.AreEqual(endreResultat.id, 0);
-        }
-
-        [TestMethod]
         public void endreVisAvgang_Test_Ikke_Funnet_Post()
         {
             // Arrange
@@ -560,7 +510,7 @@ namespace Enhetstest
         }
 
         [TestMethod]
-        public void endreVisAvgang_Funnet()
+        public void endreVisAvgang_Test_Funnet()
         {
             // Arrange
             var controller = new BestillingController(new DBBLL(new RepositoryStub()));
@@ -592,7 +542,6 @@ namespace Enhetstest
 
             // Act
             var actionResult = (ViewResult)controller.slettVisAvgang(1);
-            var resultat = (visAvgang)actionResult.Model;
 
             // Assert
             Assert.AreEqual(actionResult.ViewName, "");
@@ -772,21 +721,6 @@ namespace Enhetstest
         }
 
         [TestMethod]
-        public void endreAlleavgangstider_Test_Ikke_Funnet_Ved_View()
-        {
-            // Arrange
-            var controller = new BestillingController(new DBBLL(new RepositoryStub()));
-
-            // Act
-            var resultat = (ViewResult)controller.endreAlleavgangstider(0);
-            var endreResultat = (alleavgangstid)resultat.Model;
-
-            // Assert
-            Assert.AreEqual(resultat.ViewName, "");
-            Assert.AreEqual(endreResultat.id, 0);
-        }
-
-        [TestMethod]
         public void endreAlleavgangstider_Test_Ikke_Funnet_Post()
         {
             // Arrange
@@ -806,7 +740,7 @@ namespace Enhetstest
         }
 
         [TestMethod]
-        public void endreAllevisavganger_Funnet()
+        public void endreAllevisavganger_Test_Funnet()
         {
             // Arrange
             var controller = new BestillingController(new DBBLL(new RepositoryStub()));
@@ -833,7 +767,6 @@ namespace Enhetstest
 
             // Act
             var actionResult = (ViewResult)controller.slettalleavgangstid(1);
-            var resultat = (alleavgangstid)actionResult.Model;
 
             // Assert
             Assert.AreEqual(actionResult.ViewName, "");
@@ -985,5 +918,57 @@ namespace Enhetstest
             }
         }
 
+        [TestMethod]
+        public void betalingDetaljer_Test_OK()
+        {
+            // Arrange
+            var controller = new BestillingController(new DBBLL(new RepositoryStub()));
+
+            var forventetResultat = new Betaling()
+            {
+                id = 1,
+                fornavn = "Frank",
+                etternavn = "Loke",
+                email = "floke@hotmail.com",
+                kortnummer = "764637872354",
+                utløpsDato = "05/33",
+                CVC = "654"
+            };
+
+            // Act
+            var resultat = (ViewResult)controller.betalingDetaljer(1);
+            var resultatListe = (Betaling)resultat.Model;
+
+            // Assert
+            Assert.AreEqual(resultat.ViewName, "");
+            Assert.AreEqual(forventetResultat.id, resultatListe.id);
+            Assert.AreEqual(forventetResultat.fornavn, resultatListe.fornavn);
+            Assert.AreEqual(forventetResultat.etternavn, resultatListe.etternavn);
+            Assert.AreEqual(forventetResultat.email, resultatListe.email);
+            Assert.AreEqual(forventetResultat.kortnummer, resultatListe.kortnummer);
+            Assert.AreEqual(forventetResultat.utløpsDato, resultatListe.utløpsDato);
+            Assert.AreEqual(forventetResultat.CVC, resultatListe.CVC);
+            
+        }
+
+        [TestMethod]
+        public void betalingDetaljer_Test_Feilet()
+        {
+            // Arrange
+            var controller = new BestillingController(new DBBLL(new RepositoryStub()));
+
+            var forventetResultat = new Betaling()
+            {
+                id = 0
+            };
+
+            // Act
+            var resultat = (ViewResult)controller.betalingDetaljer(0);
+            var resultatListe = (Betaling)resultat.Model;
+
+            // Assert
+            Assert.AreEqual(resultat.ViewName, "");
+            Assert.AreEqual(forventetResultat.id, resultatListe.id);
+        }
     }
 }
