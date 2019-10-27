@@ -1,1 +1,2 @@
-﻿
+﻿Violation of PRIMARY KEY constraint 'PK_dbo.AdminBruker'. Cannot insert duplicate key in object 'dbo.AdminBruker'. The duplicate key value is (s3261800).
+The statement has been terminated. 10/27/2019 6:36:27 PM

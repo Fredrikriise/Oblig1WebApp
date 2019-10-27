@@ -1,4 +1,5 @@
-﻿
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 @{
     ViewBag.Title = "Kontrollpanel";
 }
@@ -10,15 +11,15 @@
     </p>
     <br />
 
-    <input type="submit" value="Registrer en ny bruker" formaction="RegistrerBruker" class="btn btn-dark" /> |
-    <input type="submit" value="Alle registrerte brukere" formaction="/Bruker/listBrukere" class="btn btn-dark" /><br /><br />
-    <input type="submit" value="Registrer en ny avgang" formaction="/Bestilling/regAvgang" class="btn btn-dark" /> |
-    <input type="submit" value="Se alle avganger" formaction="/Bestilling/listAvganger" class="btn btn-dark" />  <br /><br />
-    <input type="submit" value="Registrer en ny avgangstid" formaction="/Bestilling/registreralleavgangstid" class="btn btn-dark" /> |
-    <input type="submit" value="Se alle avgangstider" formaction="/Bestilling/listAlleavgangstider" class="btn btn-dark" />  <br /><br />
-    <input type="submit" value="Registrer en ny avgang + detaljer" formaction="/Bestilling/registrerVisAvgang" class="btn btn-dark" /> |
-    <input type="submit" value="Se alle avganger + detaljer" formaction="/Bestilling/listVisAvganger" class="btn btn-dark" />  <br /><br />
-    <input type="submit" value="Se alle bestillinger" formaction="/Bestilling/listBestillinger" class="btn btn-dark" />  <br /><br />
+    <a href="RegistrerBruker"><input type="button" value="Registrer en ny bruker" class="btn btn-info" ></a> |
+    <a href="/Bruker/listBrukere"><input type="button" value="Se alle registrerte brukere" class="btn btn-info" /></a><br /><br />
+    <a href="/Bestilling/regAvgang"><input type="button" value="Registrer en ny avgang" class="btn btn-info" /></a> |
+    <a href="/Bestilling/listAvganger"><input type="button" value="Se alle avganger" class="btn btn-info" /></a>  <br /><br />
+    <a href="/Bestilling/registreralleavgangstid"><input type="button" value="Registrer en ny avgangstid" class="btn btn-info" /></a> |
+    <a href="/Bestilling/listAlleavgangstider"><input type="button" value="Se alle avgangstider" class="btn btn-info" /></a>  <br /><br />
+    <a href="/Bestilling/registrerVisAvgang"><input type="button" value="Registrer en ny avgang + detaljer" class="btn btn-info" /></a> |
+    <a href="/Bestilling/listVisAvganger"><input type="button" value="Se alle avganger + detaljer" class="btn btn-info" /></a>  <br /><br />
+    <a href="/Bestilling/listBestillinger"><input type="button" value="Se alle bestillinger" class="btn btn-info" /></a>  <br /><br />
     <input type="submit" value="Logg deg ut" formaction="LoggUt" class="btn btn-danger" />
 
 </form>

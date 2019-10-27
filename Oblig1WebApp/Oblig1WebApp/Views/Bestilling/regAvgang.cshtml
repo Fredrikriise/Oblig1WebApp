@@ -6,6 +6,7 @@
 
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="icon" href="favicon.ico" type="image/ico" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <h2>Registrering av avganger</h2>
 
@@ -17,9 +18,9 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model._forsteAvgang, htmlAttributes: new { @class = "control-label col-md-2", @id = "forsteAvgang", placeholder="Første avgang"})
+            @Html.LabelFor(model => model._forsteAvgang, htmlAttributes: new { @class = "control-label col-md-2", @id = "forsteAvgang" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model._forsteAvgang, new { htmlAttributes = new { @class = "form-control", @id = "forsteAvgang" } })
+                @Html.EditorFor(model => model._forsteAvgang, new { htmlAttributes = new { @class = "form-control", @id = "forsteAvgang", placeholder = "Siste avgang" } })
                 @Html.ValidationMessageFor(model => model._forsteAvgang, "", new { @class = "text-danger", @id = "forsteAvgang" })
             </div>
         </div>
@@ -27,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model._sisteAvgang, htmlAttributes: new { @class = "control-label col-md-2", @id = "sisteAvgang" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model._sisteAvgang, new { htmlAttributes = new { @class = "form-control", @id = "sisteAvgang", placeholder="Siste avgang"} })
+                @Html.EditorFor(model => model._sisteAvgang, new { htmlAttributes = new { @class = "form-control", @id = "sisteAvgang", placeholder = "Siste avgang" } })
                 @Html.ValidationMessageFor(model => model._sisteAvgang, "", new { @class = "text-danger", @id = "sisteAvgang" })
             </div>
         </div>
@@ -35,9 +36,10 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Registrer nye avganger" class="btn btn-success" /> |
-                <a href="listAvganger"><input type="button" value="Gå til listing av avganger" class="btn btn-dark" /> </a>|
+                <a href="listAvganger"><input type="button" value="Gå til listing av avganger" class="btn btn-info" /> </a>|
                 <a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>
             </div>
         </div>
     </div>
 }
+

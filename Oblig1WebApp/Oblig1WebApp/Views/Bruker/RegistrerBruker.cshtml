@@ -1,5 +1,7 @@
 ﻿@model Model.adminBruker
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 @{
     ViewBag.Title = "Registrering av ny admin-bruker";
 }
@@ -48,8 +50,8 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Registrer ny bruker" id="regbruker" class="btn btn-success" /> |
-                <input type="submit" value="Gå til listing av brukere" formaction="listBrukere" class="btn btn-dark" /> |
-                <input type="submit" value="Tilbake til kontrollpanel" formaction="Kontrollpanel" class="btn btn-primary" />
+                <a href="listBrukere"><input type="button" value="Gå til listing av brukere" class="btn btn-info" /> </a>|
+                <a href="Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>
             </div>
         </div>
     </div>

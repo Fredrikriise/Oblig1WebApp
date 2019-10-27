@@ -1,128 +1,130 @@
 ﻿@using Model
 @model IEnumerable<Model.Bestilling>
 
-<head>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="favicon.ico" type="image/ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <head>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="favicon.ico" type="image/ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 
-    <script type="text/javascript">
-        // Ajax
-        $(function () {
-            // Kaller på hentAlleVisAvganger og bygger opp tabellRad når siden lastes
-            $.ajax({
-                url: '/Avgang/hentAlleVisAvganger',
-                type: 'GET',
-                dataType: 'json',
-                success: function (jsVisAvgang) {
-                    VisTabellRad(jsVisAvgang);
-                    Pris(jsVisAvgang);
-                }
-            });
 
-            // Oppretter en hendelse på tabellraden når siden lastes
-            $("#tabellRad").change(function () {
-                var id = $(this).val();
+        <script type="text/javascript">
+            // Ajax
+            $(function () {
+                // Kaller på hentAlleVisAvganger og bygger opp tabellRad når siden lastes
                 $.ajax({
-                    url: '/Avgang/hentVisAvgangInfo/' + id,
+                    url: '/Avgang/hentAlleVisAvganger',
                     type: 'GET',
                     dataType: 'json',
-                    success: function (visAvgang) {
-                        VisInfoAvgang(visAvgang);
+                    success: function (jsVisAvgang) {
+                        VisTabellRad(jsVisAvgang);
+                        Pris(jsVisAvgang);
                     }
                 });
-            });
-        })
 
-        // Setter forsteAvgang inn i span
-        function VisTabellRad(jsVisAvgang) {
-            var utStrengForste = "";
-            var utStrengSiste = "";
-            var utStrengTid = "";
-            var utStrengSpor = "";
-            var utStrengTogNr = "";
-            var utStrengSone = "";
-            var utStrengPris = "";
+                // Oppretter en hendelse på tabellraden når siden lastes
+                $("#tabellRad").change(function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        url: '/Avgang/hentVisAvgangInfo/' + id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (visAvgang) {
+                            VisInfoAvgang(visAvgang);
+                        }
+                    });
+                });
+            })
 
-            for (var i in jsVisAvgang) {
-                utStrengForste += jsVisAvgang[i].forsteAvgang + "<br/>";
-                utStrengSiste += jsVisAvgang[i].sisteAvgang + "<br/>";
-                utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
-                utStrengSpor += jsVisAvgang[i].spor + "<br/>";
-                utStrengTogNr += jsVisAvgang[i].togNummer + "<br/>";
-                utStrengSone += jsVisAvgang[i].sone + "<br/>";
-                utStrengPris += jsVisAvgang[i].pris + "<br/>";
+            // Setter forsteAvgang inn i span
+            function VisTabellRad(jsVisAvgang) {
+                var utStrengForste = "";
+                var utStrengSiste = "";
+                var utStrengTid = "";
+                var utStrengSpor = "";
+                var utStrengTogNr = "";
+                var utStrengSone = "";
+                var utStrengPris = "";
+
+                for (var i in jsVisAvgang) {
+                    utStrengForste += jsVisAvgang[i].forsteAvgang + "<br/>";
+                    utStrengSiste += jsVisAvgang[i].sisteAvgang + "<br/>";
+                    utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
+                    utStrengSpor += jsVisAvgang[i].spor + "<br/>";
+                    utStrengTogNr += jsVisAvgang[i].togNummer + "<br/>";
+                    utStrengSone += jsVisAvgang[i].sone + "<br/>";
+                    utStrengPris += jsVisAvgang[i].pris + "<br/>";
+                }
+
+                $("#forste").append(utStrengForste);
+                $("#siste").append(utStrengSiste);
+                $("#tid").append(utStrengTid);
+                $("#spor").append(utStrengSpor);
+                $("#nr").append(utStrengTogNr);
+                $("#sone").append(utStrengSone);
+                $("#pris").append(utStrengPris);
             }
 
-            $("#forste").append(utStrengForste);
-            $("#siste").append(utStrengSiste);
-            $("#tid").append(utStrengTid);
-            $("#spor").append(utStrengSpor);
-            $("#nr").append(utStrengTogNr);
-            $("#sone").append(utStrengSone);
-            $("#pris").append(utStrengPris);
-        }
-
-        $(function () {
-            // Kaller på hentAlleVisAvganger og bygger opp tabellRad når siden lastes
-            $.ajax({
-                url: '/Avgang/hentAlleVisAvganger',
-                type: 'GET',
-                dataType: 'json',
-                success: function (jsVisAvgang) {
-                    VisTabellRadRetur(jsVisAvgang);
-                }
-            });
-
-            // Oppretter en hendelse på tabellraden når siden lastes
-            $("#tabellRadRetur").change(function () {
-                var id = $(this).val();
+            $(function () {
+                // Kaller på hentAlleVisAvganger og bygger opp tabellRad når siden lastes
                 $.ajax({
-                    url: '/Avgang/hentVisAvgangInfo/' + id,
+                    url: '/Avgang/hentAlleVisAvganger',
                     type: 'GET',
                     dataType: 'json',
-                    success: function (visAvgang) {
-                        VisInfoAvgang(visAvgang);
+                    success: function (jsVisAvgang) {
+                        VisTabellRadRetur(jsVisAvgang);
                     }
                 });
-            });
-        })
 
-        // Setter forsteAvgang inn i span
-        function VisTabellRadRetur(jsVisAvgang) {
-            var utStrengSiste = "";
-            var utStrengForste = "";
-            var utStrengTid = "";
-            var utStrengSpor = "";
-            var utStrengTogNr = "";
-            var utStrengSone = "";
-            var utStrengPris = "";
+                // Oppretter en hendelse på tabellraden når siden lastes
+                $("#tabellRadRetur").change(function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        url: '/Avgang/hentVisAvgangInfo/' + id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (visAvgang) {
+                            VisInfoAvgang(visAvgang);
+                        }
+                    });
+                });
+            })
 
-            for (var i in jsVisAvgang) {
-                utStrengSiste += jsVisAvgang[i].sisteAvgang + "<br/>";
-                utStrengForste += jsVisAvgang[i].forsteAvgang + "<br/>";
-                utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
-                utStrengSpor += jsVisAvgang[i].spor + "<br/>";
-                utStrengTogNr += jsVisAvgang[i].togNummer + "<br/>";
-                utStrengSone += jsVisAvgang[i].sone + "<br/>";
-                utStrengPris += jsVisAvgang[i].pris + "<br/>";
+            // Setter forsteAvgang inn i span
+            function VisTabellRadRetur(jsVisAvgang) {
+                var utStrengSiste = "";
+                var utStrengForste = "";
+                var utStrengTid = "";
+                var utStrengSpor = "";
+                var utStrengTogNr = "";
+                var utStrengSone = "";
+                var utStrengPris = "";
+
+                for (var i in jsVisAvgang) {
+                    utStrengSiste += jsVisAvgang[i].sisteAvgang + "<br/>";
+                    utStrengForste += jsVisAvgang[i].forsteAvgang + "<br/>";
+                    utStrengTid += jsVisAvgang[i].reiseTid + "<br/>";
+                    utStrengSpor += jsVisAvgang[i].spor + "<br/>";
+                    utStrengTogNr += jsVisAvgang[i].togNummer + "<br/>";
+                    utStrengSone += jsVisAvgang[i].sone + "<br/>";
+                    utStrengPris += jsVisAvgang[i].pris + "<br/>";
+                }
+
+                $("#returforste").append(utStrengForste);
+                $("#retursiste").append(utStrengSiste);
+                $("#returtid").append(utStrengTid);
+                $("#returspor").append(utStrengSpor);
+                $("#returnr").append(utStrengTogNr);
+                $("#retursone").append(utStrengSone);
+                $("#returpris").append(utStrengPris);
             }
+        </script>
 
-            $("#returforste").append(utStrengForste);
-            $("#retursiste").append(utStrengSiste);
-            $("#returtid").append(utStrengTid);
-            $("#returspor").append(utStrengSpor);
-            $("#returnr").append(utStrengTogNr);
-            $("#retursone").append(utStrengSone);
-            $("#returpris").append(utStrengPris);
-        }
-    </script>
-
-    <script type="text/javascript">
+        <script type="text/javascript">
         //Henting av avgangsdato
         $(function () {
             // Kaller på hentAlleVisAvganger og bygger opp tabellRad når siden lastes
@@ -180,11 +182,11 @@
         // For totalpris
         function Pris(jsVisAvgang) {
             var utPris = 0;
- 
+
             for (var i in jsVisAvgang) {
                 utPris += jsVisAvgang[i].pris;
             }
- 
+
             var antallReisende = (parseInt(@Session["voksen"]) + parseInt(@Session["barn0_5"]) + parseInt(@Session["student"]) + parseInt(@Session["honnoer"]) + parseInt(@Session["vernepliktig"]) + parseInt(@Session["barn6_17"]));
             var totalPris = antallReisende * (parseInt(utPris));
             $(document).ready(function () {
@@ -196,14 +198,14 @@
                     $("#totalPris").html(utStrengTotal);
                 }
             });
-           
+
             var utStrengTotal = "Totalpris for " + antallReisende + " reisende er " + totalPris + "kr.";
             $("#totalPris").html(utStrengTotal);
         }
-    </script>
+        </script>
 
 
-    <script>
+        <script>
         //Validering av valg avgangstid
         $(document).ready(function () {
             $("#regBestilling3").click(function (evt) {
@@ -236,9 +238,9 @@
                 }
             });
         });
-    </script>
+        </script>
 
-</head>
+    </head>
 <body>
     @{
         var utreiseDato = Session["utreiseDato"] == null ? "" : Session["utreiseDato"].ToString();

@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Model.Bestilling>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 @{
     ViewBag.Title = "Alle registrerte bestillinger";
 }
@@ -128,13 +130,13 @@
                         @Html.DisplayFor(modelItem => item.kjaeledyrunder_40cm)
                     </td>
                     <td>
-                        @Html.ActionLink("Betalingsdetaljer", "betalingDetaljer", new { id = item.id }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Betalingsdetaljer", "betalingDetaljer", new { id = item.id }, new { @class = "btn btn-primary" }) 
                         @Html.ActionLink("Slett bestilling", "slettBestilling", new { id = item.id }, new { @class = "btn btn-danger" })
                     </td>
                 </tr>
             }
         </table>
 
-        <a href="Bestilling"><input type="button" value="Gå til bestillingsside" class="btn btn-dark" /></a> |
+        <a href="Bestilling"><input type="button" value="Gå til bestillingsside" class="btn btn-info" /></a> |
         <a href="/Bruker/Kontrollpanel"><input type="button" value="Tilbake til kontrollpanel" class="btn btn-primary" /></a>
 
